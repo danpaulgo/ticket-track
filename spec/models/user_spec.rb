@@ -15,4 +15,24 @@ RSpec.describe User, :type => :model do
     expect(user).to be_valid
   end
 
+  it "is invalid without a name" do
+
+  end
+
+  it "is invalid without a password_digest" do 
+
+  end
+
+  it "is invalid without an email" do
+
+  end
+
+  it "is invalid with an e-mail that has already been taken" do
+
+  end
+
+  it "is invalid with a password fewer than 6 characters" do
+
+  end
+
 end
