@@ -58,4 +58,12 @@ RSpec.describe User, :type => :model do
     expect(user_two).not_to be_valid
   end
 
+  it "has many transactions" do
+
+  end
+
+  it "has many events through transactions" do
+
+  end
+
 end
