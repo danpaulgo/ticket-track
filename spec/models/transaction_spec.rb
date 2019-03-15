@@ -13,11 +13,12 @@ RSpec.describe Transaction, type: :model do
 	end
 
 	it "is valid with an event_id, user_id, amount, type, and quantity" do
-
+		expect(purchase).to be_valid
 	end
 
 	it "is invalid without an event_id" do
-
+		purchase.event_id = nil
+		expect(purchase).not_to be_valid
 	end
 
 	it "is invalid without a user_id" do
