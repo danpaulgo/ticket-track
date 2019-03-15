@@ -47,7 +47,12 @@ RSpec.describe User, :type => :model do
   end
 
   it "is invalid with an e-mail that has already been taken" do
-    user_two = user
+    user_two = User.new(
+      name: "Johnny Doe",
+      email: "johndoe2000@gmail.com",
+      birthdate: "2000-01-01",
+      password: "password"
+    )
     expect(user_two).not_to be_valid
   end
 
