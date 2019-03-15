@@ -106,6 +106,7 @@ RSpec.shared_context "fixtures", :shared_context => :metadata do
       birthdate: "2000-12-31"
     )
   }
+  
 end
 
 RSpec.configure do |rspec|
