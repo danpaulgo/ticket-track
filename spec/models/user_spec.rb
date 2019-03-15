@@ -56,7 +56,6 @@ RSpec.describe User, :type => :model do
 
   it "is invalid with an e-mail that has already been taken" do
     user_two = user
-    user.save
     expect(user_two).not_to be_valid
   end
 

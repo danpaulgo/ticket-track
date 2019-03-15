@@ -4,7 +4,7 @@ RSpec.describe Transaction, type: :model do
   
 	include_context "fixtures"
 	let(:valid_user){user.save}
-	let(:valid_event){event.save}
+	# let(:valid_event){event.save}
 
 	it "has all necessary fields" do
 		expect(Transaction.new).to respond_to(:event_id)

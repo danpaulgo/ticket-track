@@ -98,7 +98,7 @@ end
 
 RSpec.shared_context "fixtures", :shared_context => :metadata do
   let(:user) {
-    User.new(
+    User.create(
       name: "John Doe",
       email: "johndoe2000@gmail.com",
       password: "password",
@@ -106,7 +106,39 @@ RSpec.shared_context "fixtures", :shared_context => :metadata do
       birthdate: "2000-12-31"
     )
   }
-  
+  let(:performer){Performer.create(name: "Drake")}
+  let(:venue){
+    Venue.create(
+      name: "Madison Square Garden",
+      city: "New York",
+      state: "NY"
+    )
+  }
+  let(:event){
+    Event.create(
+      performer_id: performer.id
+      venue_id: venue.id
+      date: Date.today + 1.year
+    )
+  }
+  let(:purchase){
+    Transaction.create(
+      event_id: event.id,
+      user_id: user.id,
+      type: "purchase",
+      amount: 99.99,
+      quantity: 2
+    )
+  }
+  let(:sale){
+    Transaction.create(
+      event_id: event.id,
+      user_id:, user.id,
+      type: "sale",
+      amount: 69.99,
+      quantity: 1
+    )
+  }
 end
 
 RSpec.configure do |rspec|
