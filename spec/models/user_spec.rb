@@ -50,11 +50,16 @@ RSpec.describe User, :type => :model do
   end
 
   it "has many transactions" do
-
+    expect(user.transactions).to include(transaction)
   end
 
   it "has many events through transactions" do
+    expect(user.events).to include(event)
+  end
 
+  it "deletes all associated transactions upon being deleted" do
+    user.delete
+    expect(Transaction.find_by(transaction.id)).to be_nil
   end
 
 end
