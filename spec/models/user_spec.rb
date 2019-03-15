@@ -2,15 +2,17 @@ require 'rails_helper'
 
 RSpec.describe User, :type => :model do
   
-  let(:user) {
-    User.new(
-      name: "John Doe",
-      email: "johndoe2000@gmail.com",
-      password: "password",
-      password_confirmation: "password",
-      birthdate: "2000-12-31"
-    )
-  }
+  # let(:user) {
+  #   User.new(
+  #     name: "John Doe",
+  #     email: "johndoe2000@gmail.com",
+  #     password: "password",
+  #     password_confirmation: "password",
+  #     birthdate: "2000-12-31"
+  #   )
+  # }
+
+  include_context "fixtures"
 
   it 'has all necessary fields' do
     expect(User.new).to respond_to(:name)

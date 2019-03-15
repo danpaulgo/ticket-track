@@ -93,4 +93,21 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
+  # config.include_context "fixtures", :include_shared => true
+end
+
+RSpec.shared_context "fixtures", :shared_context => :metadata do
+  let(:user) {
+    User.new(
+      name: "John Doe",
+      email: "johndoe2000@gmail.com",
+      password: "password",
+      password_confirmation: "password",
+      birthdate: "2000-12-31"
+    )
+  }
+end
+
+RSpec.configure do |rspec|
+  rspec.include_context "fixtures", :include_shared => true
 end
