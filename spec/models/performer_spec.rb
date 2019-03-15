@@ -27,8 +27,8 @@ RSpec.describe Performer, type: :model do
 
   it "deletes all associated events and transactions upon being deleted" do
   	performer.delete
-  	expect(Transaction.find_by(sale.id)).to be_nil
-  	expect(Transaction.find_by(purchase.id)).to be_nil
+  	expect(Transaction.find_by(id: sale.id)).to be_nil
+  	expect(Transaction.find_by(id: purchase.id)).to be_nil
   end
 
 end
