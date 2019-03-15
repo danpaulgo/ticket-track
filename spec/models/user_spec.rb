@@ -29,6 +29,8 @@ RSpec.describe User, :type => :model do
   it "is invalid without a name" do
     user.name = nil
     expect(user).not_to be_valid
+    user.name = ""
+    expect(user).not_to be_valid
   end
 
   it "is invalid with a password fewer than 6 characters" do 
