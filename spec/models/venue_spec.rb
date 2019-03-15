@@ -35,7 +35,6 @@ RSpec.describe Venue, type: :model do
   	expect(venue).not_to be_valid
   end
 
-
   it "is invalid with the same name exact attributes as another venue" do
   	venue_two = Venue.new(
   		name: venue.name,
@@ -43,6 +42,13 @@ RSpec.describe Venue, type: :model do
   		state: venue.state
   	)
   	expect(venue_two).not_to be_valid
+  end
+
+  it "deletes all associated events and transactions upon being deleted" do
+  	venue.delete
+  	expect(Event.find_by(id: event.id)).to be_nil
+  	expect(Transaction.find_by(id: sale.id)).to be_nil
+  	expect(Transaction.find_by(id: purchase.id)).to be_nil
   end
 
 end
