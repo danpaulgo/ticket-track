@@ -125,7 +125,7 @@ RSpec.shared_context "fixtures", :shared_context => :metadata do
     Transaction.create(
       event_id: event.id,
       user_id: user.id,
-      type: "purchase",
+      direction: "purchase",
       amount: 99.99,
       quantity: 2
     )
@@ -134,7 +134,7 @@ RSpec.shared_context "fixtures", :shared_context => :metadata do
     Transaction.create(
       event_id: event.id,
       user_id: user.id,
-      type: "sale",
+      direction: "sale",
       amount: 69.99,
       quantity: 1
     )
