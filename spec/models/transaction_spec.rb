@@ -10,10 +10,13 @@ RSpec.describe Transaction, type: :model do
 		expect(Transaction.new).to respond_to(:amount)
 		expect(Transaction.new).to respond_to(:direction)
 		expect(Transaction.new).to respond_to(:quantity)
+		expect(Transaction.new).to respond_to(:order_number)
+		expect(Transaction.new).to respond_to(:source)
 	end
 
 	it "is valid with an event_id, user_id, amount, direction, and quantity" do
 		expect(purchase).to be_valid
+		expect(sale).to be_valid
 	end
 
 	it "is invalid without an event_id" do
@@ -39,6 +42,33 @@ RSpec.describe Transaction, type: :model do
 	it "is invalid without a quantity" do
 		purchase.quantity = nil
 		expect(purchase).not_to be_valid
+	end
+
+	it "is invalid without an order number" do
+		purchase.order_number = nil
+		expect(purchase).not_to be_valid
+		purchase.order_number = ""
+		expect(purchase).not_to be_valid
+	end
+
+	it "is invalid without a source" do
+		purchase.source = nil
+		expect(purchase).not_to be_valid
+		purchase.source = ""
+		expect(purchase).not_to be_valid
+	end
+
+	it "is invalid with the same order number and source as another transaction" do
+		purchase_two = Transaction.new(
+			event_id: event.id,
+      user_id: user.id,
+      direction: "purchase",
+      amount: 49.99,
+      quantity: 1,
+      order_number: "1234567",
+      source: "Ticketmaster"
+		)
+		expect(purchase_two).not_to be_valid
 	end
 
 	it "is invalid with a negative amount" do

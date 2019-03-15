@@ -127,7 +127,9 @@ RSpec.shared_context "fixtures", :shared_context => :metadata do
       user_id: user.id,
       direction: "purchase",
       amount: 99.99,
-      quantity: 2
+      quantity: 2,
+      order_number: "1234567",
+      source: "Ticketmaster"
     )
   }
   let(:sale){
@@ -136,7 +138,9 @@ RSpec.shared_context "fixtures", :shared_context => :metadata do
       user_id: user.id,
       direction: "sale",
       amount: 69.99,
-      quantity: 1
+      quantity: 1,
+      order_number: "1234567",
+      source: "Stubhub"
     )
   }
 end
