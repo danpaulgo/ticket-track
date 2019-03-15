@@ -21,6 +21,21 @@ RSpec.describe Venue, type: :model do
   	expect(venue).not_to be_valid
   end
 
+  it "is invalid without a city" do 
+  	venue.city = nil
+  	expect(venue).not_to be_valid
+  	venue.name = ""
+  	expect(venue).not_to be_valid
+  end
+
+  it "is invalid without a state" do 
+  	venue.state = nil
+  	expect(venue).not_to be_valid
+  	venue.state = ""
+  	expect(venue).not_to be_valid
+  end
+
+
   it "is invalid with the same name exact attributes as another venue" do
   	venue_two = Venue.new(
   		name: venue.name,
@@ -29,7 +44,5 @@ RSpec.describe Venue, type: :model do
   	)
   	expect(venue_two).not_to be_valid
   end
-
-
 
 end
