@@ -17,4 +17,18 @@ RSpec.describe Performer, type: :model do
   	expect(performer).not_to be_valid
   end
 
+  it "has many events" do
+  	expect(performer.events).to include(event)
+  end
+
+  it "has many venues through events" do
+  	expect(performer.venut).to include(venue)
+  end
+
+  it "deletes all associated events and transactions upon being deleted" do
+  	performer.delete
+  	expect(Transaction.find_by(sale.id)).to be_nil
+  	expect(Transaction.find_by(purchase.id)).to be_nil
+  end
+
 end
