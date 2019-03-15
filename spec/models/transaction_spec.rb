@@ -57,4 +57,14 @@ RSpec.describe Transaction, type: :model do
 		expect(sale).not_to be_valid
 	end
 
+	it "belongs to an event" do
+		expect(purchase.event).to eq(event)
+		expect(sale.event).to eq(event)
+	end
+
+	it "belongs to a user" do
+		expect(purchase.user).to eq(user)
+		expect(sale.user).to eq(user)
+	end
+
 end
