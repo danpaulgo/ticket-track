@@ -116,8 +116,8 @@ RSpec.shared_context "fixtures", :shared_context => :metadata do
   }
   let(:event){
     Event.create(
-      performer_id: performer.id
-      venue_id: venue.id
+      performer_id: performer.id,
+      venue_id: venue.id,
       date: Date.today + 1.year
     )
   }
@@ -133,7 +133,7 @@ RSpec.shared_context "fixtures", :shared_context => :metadata do
   let(:sale){
     Transaction.create(
       event_id: event.id,
-      user_id:, user.id,
+      user_id: user.id,
       type: "sale",
       amount: 69.99,
       quantity: 1
