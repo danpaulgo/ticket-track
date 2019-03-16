@@ -56,12 +56,9 @@ RSpec.describe User, :type => :model do
     expect(user_two).not_to be_valid
   end
 
-  it "has many transactions" do
+  it "has many transactions and many events through transactions" do
     expect(user.transactions).to include(purchase)
     expect(user.transactions).to include(sale)
-  end
-
-  it "has many events through transactions" do
     expect(user.events).to include(event)
   end
 
