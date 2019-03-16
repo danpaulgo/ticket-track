@@ -42,6 +42,8 @@ RSpec.describe UsersController, type: :controller do
   let(:valid_session) { {user_id: nil} }
   include_context "fixtures"
 
+  # Returns success response for admin
+  # Redirects non-admins back to their own show page
   describe "GET #index" do
     it "returns a success response" do
       get :index, params: {}, session: valid_session
@@ -49,6 +51,9 @@ RSpec.describe UsersController, type: :controller do
     end
   end
 
+  # Returns success response for admin
+  # Returns success response for user viewing their own page
+  # Redirects user attempting to view other user back to their own show page
   describe "GET #show" do
     it "returns a success response" do
       get :show, params: {id: user.to_param}, session: valid_session
