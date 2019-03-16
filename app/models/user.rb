@@ -5,4 +5,7 @@ class User < ApplicationRecord
 	has_many :transactions
 	has_many :events, through: :transactions
 
+	validates :name, :email, presence: true
+	validates :email, uniqueness: true
+
 end
