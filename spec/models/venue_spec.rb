@@ -50,10 +50,8 @@ RSpec.describe Venue, type: :model do
   end
 
   it "deletes all associated events and transactions upon being deleted" do
-  	venue.delete
-  	expect(Event.find_by(id: event.id)).to be_nil
-  	expect(Transaction.find_by(id: sale.id)).to be_nil
-  	expect(Transaction.find_by(id: purchase.id)).to be_nil
+  	expect{venue.destroy}.to change{Event.count}.by(-1)
+    .and change{Transaction.count}.by(-2)
   end
 
 end

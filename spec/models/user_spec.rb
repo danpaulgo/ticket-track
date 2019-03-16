@@ -63,9 +63,7 @@ RSpec.describe User, :type => :model do
   end
 
   it "deletes all associated transactions upon being deleted" do
-    user.delete
-    expect(Transaction.find_by(id: sale.id)).to be_nil
-    expect(Transaction.find_by(id: purchase.id)).to be_nil
+    expect{user.destroy}.to change{Transaction.count}.by(-2)
   end
 
 end
