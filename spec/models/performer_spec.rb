@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Performer, type: :model do
 
+	include_context "fixtures"
+
 	it 'has all necessary fields' do
     expect(Performer.new).to respond_to(:name)
   end
@@ -22,7 +24,7 @@ RSpec.describe Performer, type: :model do
   end
 
   it "has many venues through events" do
-  	expect(performer.venut).to include(venue)
+  	expect(performer.venues).to include(venue)
   end
 
   it "deletes all associated events and transactions upon being deleted" do
