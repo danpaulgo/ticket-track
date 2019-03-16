@@ -30,7 +30,7 @@ RSpec.describe Event, type: :model do
   end
 
   it "belongs to an artist" do
-  	expect(event.artist).to eq(artist)
+  	expect(event.performer).to eq(performer)
   end
 
   it "belongs to a venue" do
