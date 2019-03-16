@@ -19,11 +19,8 @@ RSpec.describe Performer, type: :model do
   	expect(performer).not_to be_valid
   end
 
-  it "has many events" do
+  it "has many events and many venues through events" do
   	expect(performer.events).to include(event)
-  end
-
-  it "has many venues through events" do
   	expect(performer.venues).to include(venue)
   end
 

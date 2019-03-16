@@ -19,6 +19,8 @@ gem 'uglifier', '>= 1.3.0'
 # Rspec for testing
 gem 'rspec-rails', '~> 3.8' 
 
+gem 'pry', '~> 0.12.2'
+
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
