@@ -44,6 +44,11 @@ RSpec.describe Venue, type: :model do
   	expect(venue_two).not_to be_valid
   end
 
+  it "has many events and many performers through events" do
+  	expect(venue.events).to include(event)
+  	expect(venue.performers).to include(performer)
+  end
+
   it "deletes all associated events and transactions upon being deleted" do
   	venue.delete
   	expect(Event.find_by(id: event.id)).to be_nil
