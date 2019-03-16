@@ -65,8 +65,8 @@ RSpec.describe Transaction, type: :model do
       direction: "purchase",
       amount: 49.99,
       quantity: 1,
-      order_number: "1234567",
-      source: "Ticketmaster"
+      order_number: purchase.order_number,
+      source: purchase.source
 		)
 		expect(purchase_two).not_to be_valid
 	end
@@ -98,10 +98,10 @@ RSpec.describe Transaction, type: :model do
 		expect(sale.user).to eq(user)
 	end
 
-	it "capitalizes every word in source name before saving" do
+	it "titleizes source name before saving" do
 		sale.source = "vivid seats"
 		sale.save
-		expect(sale.source).to eq("Vivid Seats")
+		expect(Transaction.find_by(id: sale.id).source).to eq("Vivid Seats")
 	end
 
 end
