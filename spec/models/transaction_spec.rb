@@ -76,8 +76,9 @@ RSpec.describe Transaction, type: :model do
 		expect(purchase).not_to be_valid
 	end
 
-	it "is invalid with a type not equal to 'sale' or 'purchase'" do
+	it "is invalid with a direction not equal to 'Sale' or 'Purchase'" do
 		purchase.direction = "foo"
+		expect(purchase).not_to be_valid
 	end
 
 	it "is invalid with a quantity of less than 1" do
