@@ -56,6 +56,7 @@ RSpec.describe UsersController, type: :controller do
     end
   end
 
+  # Redirects logged in user to thier own show page
   describe "GET #new" do
     it "returns a success response" do
       get :new, params: {}, session: valid_session
@@ -63,6 +64,10 @@ RSpec.describe UsersController, type: :controller do
     end
   end
 
+  # Returns success response for admin
+  # Returns success response for user editing themself
+  # Redirects user attempting to edit another users page to their own edit page
+  # Redirects logged out users to login page
   describe "GET #edit" do
     it "returns a success response" do
       get :edit, params: {id: user.to_param}, session: valid_session
@@ -70,6 +75,7 @@ RSpec.describe UsersController, type: :controller do
     end
   end
 
+  # Redirects logged in user to thier own show page
   describe "POST #create" do
     context "with valid params" do
       it "creates a new User" do
@@ -92,6 +98,9 @@ RSpec.describe UsersController, type: :controller do
     end
   end
 
+  # Allows user to edit themself
+  # Allows admin to edit any user
+  # Does not allow non-admin to edit users other than themself
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) { 
@@ -118,6 +127,9 @@ RSpec.describe UsersController, type: :controller do
     end
   end
 
+  # Allows user to delete themself
+  # Allows admin to delete any user
+  # Does not allow non-admin to delete users other than themself
   describe "DELETE #destroy" do
     it "destroys the requested user" do
       user.reload
