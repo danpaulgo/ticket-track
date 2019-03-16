@@ -98,4 +98,10 @@ RSpec.describe Transaction, type: :model do
 		expect(sale.user).to eq(user)
 	end
 
+	it "capitalizes every word in source name before saving" do
+		sale.source = "vivid seats"
+		sale.save
+		expect(sale.source).to eq("Vivid Seats")
+	end
+
 end
