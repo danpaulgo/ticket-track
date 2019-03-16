@@ -12,7 +12,7 @@ RSpec.describe ApplicationController, type: :controller do
 
     it "redirects to user show page for logged in user" do
     	get :home, session: {user_id: user.id}
-    	response.should redirect_to user
+    	expect(response).to redirect_to user
     end
   end
 end
