@@ -25,14 +25,9 @@ RSpec.describe Performer, type: :model do
   end
 
   it "deletes all associated events and transactions upon being deleted" do
-    # event_id = event.id
-    # performer.destroy
-    # binding.pry
-    expect{performer.destroy}.to change{Event.count}.by(-1)
-    .and change{Transaction.count}.by(-2)
-  	# expect(Event.find_by(id: event_id)).to be_nil
-  	# expect(Transaction.find_by(id: sale.id)).to be_nil
-  	# expect(Transaction.find_by(id: purchase.id)).to be_nil
+    performer.destroy
+    expect(Event.all).not_to include(event)
+    expect(Transaction.all).not_to include(purchase, sale)
   end
 
   it "titleizes name before validating" do
