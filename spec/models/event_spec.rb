@@ -38,7 +38,8 @@ RSpec.describe Event, type: :model do
 	end
 
 	it "has many transactions" do
-		expect(event.transactions).to include(transaction)
+		expect(event.transactions).to include(purchase)
+		expect(event.transactions).to include(sale)
 	end
 
 	it "deletes all associated transactions upon being deleted" do

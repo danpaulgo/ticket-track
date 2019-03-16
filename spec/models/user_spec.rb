@@ -49,7 +49,7 @@ RSpec.describe User, :type => :model do
   it "is invalid with an e-mail that has already been taken" do
     user_two = User.new(
       name: "Johnny Doe",
-      email: "johndoe2000@gmail.com",
+      email: user.email,
       birthdate: "2000-01-01",
       password: "password"
     )
@@ -57,7 +57,8 @@ RSpec.describe User, :type => :model do
   end
 
   it "has many transactions" do
-    expect(user.transactions).to include(transaction)
+    expect(user.transactions).to include(purchase)
+    expect(user.transactions).to include(sale)
   end
 
   it "has many events through transactions" do
