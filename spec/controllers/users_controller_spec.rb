@@ -121,8 +121,14 @@ RSpec.describe UsersController, type: :controller do
     end
   end
 
-  # Redirects logged in user to thier own show page
   describe "POST #create" do
+    context "with logged in user" do
+      it "redirects to user's show page" do
+        post :create, params: {user: valid_attributes}, session: logged_in_session
+        expect(response).to redirect_to(user)
+      end
+    end
+
     context "with valid params" do
       it "creates a new User" do
         expect {
@@ -144,30 +150,41 @@ RSpec.describe UsersController, type: :controller do
     end
   end
 
-  # Allows user to edit themself
   # Allows admin to edit any user
   # Does not allow non-admin to edit users other than themself
-  describe "PUT #update" do
+  describe "PATCH #update" do
     context "with valid params" do
       let(:new_attributes) { 
-        {name: "New Name", birthdate: "2010-01-01"}
+        {name: "New Name", birthdate: "2010-01-01", password: "password"}
       }
 
-      it "updates the requested user" do
-        put :update, params: {id: user.to_param, user: new_attributes}, session: logged_out_session
+      it "allows user to update themself" do
+        patch :update, params: {id: user.to_param, user: new_attributes}, session: logged_in_session
         user.reload
-        expect(response).to be_successful
+        expect(response).to redirect_to(user)
+        expect(user.name).to eq("New Name")
+        expect(user.birthdate).to eq("20100101".to_date)
       end
 
-      it "redirects to the user" do
-        put :update, params: {id: user.to_param, user: valid_attributes}, session: logged_out_session
+      it "allows admin to update any user" do
+        patch :update, params: {id: user.to_param, user: new_attributes}, session: admin_session
+        user.reload
         expect(response).to redirect_to(user)
+        expect(user.name).to eq("New Name")
+        expect(user.birthdate).to eq("20100101".to_date)
+      end
+
+      it "does not allow non-admin to update users other than themself" do
+        patch :update, params: {id: admin.to_param, user: new_attributes}, session: admin_session
+        user.reload
+        expect(response).to render_template(:edit)
+        expect(user.name).to eq("John Doe")
       end
     end
 
     context "with invalid params" do
       it "returns a success response (i.e. to display the 'edit' template)" do
-        put :update, params: {id: user.to_param, user: invalid_attributes}, session: logged_out_session
+        patch :update, params: {id: user.to_param, user: invalid_attributes}, session: logged_out_session
         expect(response).to be_successful
       end
     end
@@ -177,6 +194,33 @@ RSpec.describe UsersController, type: :controller do
   # Allows admin to delete any user
   # Does not allow non-admin to delete users other than themself
   describe "DELETE #destroy" do
+    it "allows user to delete themself" do
+      delete :destroy, params: {id: user.to_param}, session: logged_in_session
+      expect(session[:user_id]).to be_nil
+      expect(User.all).not_to include(user)
+      expect(response).to redirect_to(root_path)
+    end
+
+    it "allows admin to delete any user" do
+      delete :destroy, params: {id: user.to_param}, session: admin_session
+      expect(session[:user_id]).to eq(admin.id)
+      expect(User.all).not_to include(user)
+      expect(response).to redirect_to(users_path)
+    end
+
+    it "does not allow non-admin to delete another users account" do
+      delete :destroy, params: {id: admin.to_param}, session: logged_in_session
+      expect(session[:user_id]).to eq(user.id)
+      expect(User.all).to include(admin)
+      expect(response).to redirect_to(user)
+    end
+
+    it "does not allow logged out user to delete any user" do 
+      delete :destroy, params: {id: user.to_param}, session: logged_out_session
+      expect(User.all).to include(user)
+      expect(response).to redirect_to(root_path)
+    end
+
     it "destroys the requested user" do
       user.reload
       expect {
