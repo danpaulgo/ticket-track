@@ -45,8 +45,6 @@ RSpec.describe UsersController, type: :controller do
   let(:admin_session) { {user_id: admin.id}}
   
 
-  # Returns success response for admin
-  # Redirects non-admins back to their own show page
   describe "GET #index" do
     it "returns a success response for admin" do
       get :index, params: {}, session: admin_session
@@ -64,9 +62,6 @@ RSpec.describe UsersController, type: :controller do
     end
   end
 
-  # Returns success response for admin
-  # Returns success response for user viewing their own page
-  # Redirects user attempting to view other user back to their own show page
   describe "GET #show" do
     it "returns a success response for admin" do
       get :show, params: {id: user.to_param}, session: admin_session
@@ -91,20 +86,41 @@ RSpec.describe UsersController, type: :controller do
 
   # Redirects logged in user to thier own show page
   describe "GET #new" do
-    it "returns a success response" do
+    it "returns a success response for logged out user" do
       get :new, params: {}, session: logged_out_session
       expect(response).to be_successful
     end
+
+    it "redirects logged in user to their own show page" do
+      get :new, params: {}, session: logged_in_session
+      expect(response).to redirect_to(user)
+      get :new, params: {}, session: admin_session
+      expect(response).to redirect_to(admin)
+    end
+
   end
 
-  # Returns success response for admin
-  # Returns success response for user editing themself
   # Redirects user attempting to edit another users page to their own edit page
   # Redirects logged out users to login page
   describe "GET #edit" do
-    it "returns a success response" do
-      get :edit, params: {id: user.to_param}, session: logged_out_session
+    it "returns a success response for admin" do
+      get :edit, params: {id: user.to_param}, session: admin_session
       expect(response).to be_successful
+    end
+
+    it "returns a success response for user editing themself" do
+      get :edit, params: {id: user.to_param}, session: logged_in_session
+      expect(response).to be_successful
+    end
+
+    it "redirects user attempting to edit another user back to their own edit page" do
+      get :edit, params: {id: admin.to_param}, session: logged_in_session
+      expect(response).to redirect_to(edit_user_path(user))
+    end
+
+    it "redirects logged out user to home page" do
+      get :edit, params: {id: user.to_param}, session: logged_out_session
+      expect(response).to redirect_to(root_path)
     end
   end
 
