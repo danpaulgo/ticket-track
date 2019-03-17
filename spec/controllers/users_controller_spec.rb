@@ -84,7 +84,6 @@ RSpec.describe UsersController, type: :controller do
     end
   end
 
-  # Redirects logged in user to thier own show page
   describe "GET #new" do
     it "returns a success response for logged out user" do
       get :new, params: {}, session: logged_out_session
@@ -100,8 +99,6 @@ RSpec.describe UsersController, type: :controller do
 
   end
 
-  # Redirects user attempting to edit another users page to their own edit page
-  # Redirects logged out users to login page
   describe "GET #edit" do
     it "returns a success response for admin" do
       get :edit, params: {id: user.to_param}, session: admin_session
