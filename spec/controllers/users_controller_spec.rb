@@ -68,9 +68,24 @@ RSpec.describe UsersController, type: :controller do
   # Returns success response for user viewing their own page
   # Redirects user attempting to view other user back to their own show page
   describe "GET #show" do
-    it "returns a success response" do
-      get :show, params: {id: user.to_param}, session: logged_out_session
+    it "returns a success response for admin" do
+      get :show, params: {id: user.to_param}, session: admin_session
       expect(response).to be_successful
+    end
+
+    it "returns a success response for user viewing their own page" do
+      get :show, params: {id: user.to_param}, session: logged_in_session
+      expect(response).to be_successful
+    end
+
+    it "redirects user attempting to view other user back to their own show page" do
+      get :show, params: {id: admin.to_param}, session: logged_in_session
+      expect(response).to redirect_to(user)
+    end
+
+    it "redirects logged out user to home page" do
+      get :show, params: {id: user.to_param}, session: logged_out_session
+      expect(response).to redirect_to(root_path)
     end
   end
 
