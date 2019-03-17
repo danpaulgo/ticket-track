@@ -150,8 +150,6 @@ RSpec.describe UsersController, type: :controller do
     end
   end
 
-  # Allows admin to edit any user
-  # Does not allow non-admin to edit users other than themself
   describe "PATCH #update" do
     context "with valid params" do
       let(:new_attributes) { 
@@ -190,9 +188,6 @@ RSpec.describe UsersController, type: :controller do
     end
   end
 
-  # Allows user to delete themself
-  # Allows admin to delete any user
-  # Does not allow non-admin to delete users other than themself
   describe "DELETE #destroy" do
     it "allows user to delete themself" do
       delete :destroy, params: {id: user.to_param}, session: logged_in_session
