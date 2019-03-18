@@ -112,7 +112,7 @@ RSpec.describe UsersController, type: :controller do
 
     it "redirects user attempting to edit another user back to their own edit page" do
       get :edit, params: {id: admin.to_param}, session: logged_in_session
-      expect(response).to redirect_to(edit_user_path(user))
+      expect(response).to redirect_to(user)
     end
 
     it "redirects logged out user to home page" do
@@ -156,6 +156,7 @@ RSpec.describe UsersController, type: :controller do
   end
 
   describe "PATCH #update" do
+    
     context "with valid params" do
       let(:new_attributes) { 
         {name: "New Name", birthdate: "2010-01-01", password: "password"}
@@ -178,17 +179,23 @@ RSpec.describe UsersController, type: :controller do
       end
 
       it "does not allow non-admin to update users other than themself" do
-        patch :update, params: {id: admin.to_param, user: new_attributes}, session: admin_session
+        patch :update, params: {id: admin.to_param, user: new_attributes}, session: logged_in_session
         user.reload
-        expect(response).to render_template(:edit)
+        expect(response).to redirect_to(user)
+        expect(user.name).to eq("John Doe")
+      end
+
+      it "redirects logged out user to home page" do
+        patch :update, params: {id: user.to_param, user: new_attributes}, session: logged_out_session
+        expect(response).to redirect_to(root_path)
         expect(user.name).to eq("John Doe")
       end
     end
 
     context "with invalid params" do
       it "returns a success response (i.e. to display the 'edit' template)" do
-        patch :update, params: {id: user.to_param, user: invalid_attributes}, session: logged_out_session
-        expect(response).to be_successful
+        patch :update, params: {id: user.to_param, user: invalid_attributes}, session: logged_in_session
+        expect(response).to render_template(:edit)
       end
     end
   end
@@ -221,17 +228,6 @@ RSpec.describe UsersController, type: :controller do
       expect(response).to redirect_to(root_path)
     end
 
-    it "destroys the requested user" do
-      user.reload
-      expect {
-        delete :destroy, params: {id: user.to_param}, session: logged_out_session
-      }.to change(User, :count).by(-1)
-    end
-
-    it "redirects to the users list" do
-      delete :destroy, params: {id: user.to_param}, session: logged_out_session
-      expect(response).to redirect_to(users_url)
-    end
   end
 
 end
