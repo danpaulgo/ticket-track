@@ -150,7 +150,7 @@ RSpec.describe UsersController, type: :controller do
     context "with invalid params" do
       it "returns a success response (i.e. to display the 'new' template)" do
         post :create, params: {user: invalid_attributes}, session: logged_out_session
-        expect(response).to be_successful
+        expect(response).to render_template(:new)
       end
     end
   end
