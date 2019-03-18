@@ -19,7 +19,11 @@ gem 'uglifier', '>= 1.3.0'
 # Rspec for testing
 gem 'rspec-rails', '~> 3.8' 
 
+# Pry for real time testing
 gem 'pry', '~> 0.12.2'
+
+# Rails controller testing for additional Rspec methods
+gem 'rails-controller-testing'
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
