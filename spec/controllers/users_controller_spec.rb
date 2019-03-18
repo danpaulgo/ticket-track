@@ -136,6 +136,11 @@ RSpec.describe UsersController, type: :controller do
         }.to change(User, :count).by(1)
       end
 
+      it "automatically sets admin to false" do
+        post :create, params: {user: valid_attributes}, session: logged_out_session
+        expect(User.last.admin).to be(false)
+      end
+
       it "redirects to the created user" do
         post :create, params: {user: valid_attributes}, session: logged_out_session
         expect(response).to redirect_to(User.last)
