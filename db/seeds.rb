@@ -14,6 +14,14 @@ user = User.create(
 	      birthdate: "2000-12-31"
 	     )
 
+admin = User.create(
+					name: "Daniel Goldberg",
+		      email: "danpaulgo@aol.com",
+		      password: "password",
+		      birthdate: "1993-06-18",
+		      admin: true
+				)
+
 performer = Performer.create(name: "Drake")
 
 venue = Venue.create(

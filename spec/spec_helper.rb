@@ -106,6 +106,15 @@ RSpec.shared_context "fixtures", :shared_context => :metadata do
       birthdate: "2000-12-31"
     )
   }
+  let(:admin) {
+    User.create(
+      name: "Daniel Goldberg",
+      email: "danpaulgo@aol.com",
+      password: "password",
+      birthdate: "1993-06-18",
+      admin: true
+    )
+  }
   let(:performer){Performer.create(name: "Drake")}
   let(:venue){
     Venue.create(
