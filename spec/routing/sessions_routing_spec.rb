@@ -4,15 +4,15 @@ RSpec.describe SessionsController, type: :routing do
   describe "routing" do
 
     it "routes to #new" do
-      expect(:get => "/users/new").to route_to("users#new")
+      expect(:get => "/login").to route_to("sessions#new")
     end
 
     it "routes to #create" do
-      expect(:post => "/users").to route_to("users#create")
+      expect(:post => "/login").to route_to("sessions#create")
     end
 
     it "routes to #destroy" do
-      expect(:delete => "/users/1").to route_to("users#destroy", :id => "1")
+      expect(:delete => "/logout").to route_to("sessions#destroy")
     end
   end
 end
