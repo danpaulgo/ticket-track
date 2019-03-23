@@ -22,9 +22,43 @@ RSpec.describe SessionsController, type: :controller do
     end
 
     it "redirects logged in user to their own show page" do
-    	 get :new, session: logged_in_session
+    	get :new, session: logged_in_session
       expect(response).to redirect_to(user)
     end
+  end
+
+  describe "POST #create" do
+  	context "with logged in user" do
+	  	it "redirects user to their own show page" do
+	  		post :create, params: {session: valid_login}, session: logged_in_session
+	      expect(response).to redirect_to(user)
+	      post :create, params: {session: invalid_user}, session: logged_in_session
+	      expect(response).to redirect_to(user)
+	      post :create, params: {session: invalid_password}, session: logged_in_session
+	      expect(response).to redirect_to(user)
+	  	end
+	  end
+	  context "with logged out user" do
+  		it "returns success response with valid credentials" do
+  			post :create, params: {session: valid_login}, session: logged_out_session
+	      expect(response).to redirect_to(admin)
+  		end
+
+  		it "re-renders login page with invalid credentials" do
+  			post :create, params: {session: invalid_user}, session: logged_out_session
+	      expect(response).to render_template(:new)
+	      post :create, params: {session: invalid_password}, session: logged_out_session
+	      expect(response).to render_template(:new)
+  		end
+  	end
+
+  	describe "DELETE #destroy" do
+  		it "clears all session data" do
+  			delete :destroy, session: logged_in_session
+  			expect(response).to redirect_to(root_path)
+  			expect(session).to be_nil
+  		end
+  	end
   end
 
 end
