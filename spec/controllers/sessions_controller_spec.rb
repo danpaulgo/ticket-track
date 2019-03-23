@@ -3,8 +3,9 @@ require 'rails_helper'
 RSpec.describe SessionsController, type: :controller do
 
   include_context "fixtures"
+  # binding.pry
   let(:valid_login) {
-  	{email: "danpaulgo@aol.com", password: "password"}
+  	{email: admin.email, password: "password"}
   }
 
   let(:invalid_user) {
@@ -12,7 +13,7 @@ RSpec.describe SessionsController, type: :controller do
   }
 
   let(:invalid_password) {
-  	{email: "danpaulgo@aol.com", password: "wordpass"}
+  	{email: admin.email, password: "wordpass"}
   }
 
   describe "GET #new" do
@@ -30,6 +31,7 @@ RSpec.describe SessionsController, type: :controller do
   describe "POST #create" do
   	context "with logged in user" do
 	  	it "redirects user to their own show page" do
+	  		admin.reload
 	  		post :create, params: {session: valid_login}, session: logged_in_session
 	      expect(response).to redirect_to(user)
 	      post :create, params: {session: invalid_user}, session: logged_in_session
@@ -40,6 +42,7 @@ RSpec.describe SessionsController, type: :controller do
 	  end
 	  context "with logged out user" do
   		it "returns success response with valid credentials" do
+  			
   			post :create, params: {session: valid_login}, session: logged_out_session
 	      expect(response).to redirect_to(admin)
   		end
