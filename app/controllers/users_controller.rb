@@ -43,6 +43,7 @@ class UsersController < ApplicationController
   # DELETE /users/1
   def destroy
     @user.destroy
+    logout
     redirect_to users_url, notice: 'User was successfully destroyed.'
   end
 

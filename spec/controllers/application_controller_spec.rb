@@ -50,4 +50,12 @@ RSpec.describe ApplicationController, type: :controller do
       expect(session[:user_id]).to eq(user.id)
     end
   end
+
+  describe "logout" do
+    it "clears session hash" do
+      get :home, session: logged_in_session
+      controller.logout
+      expect(session[:user_id]).to be_nil
+    end
+  end
 end
