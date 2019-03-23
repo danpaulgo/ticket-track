@@ -51,14 +51,14 @@ RSpec.describe SessionsController, type: :controller do
 	      expect(response).to render_template(:new)
   		end
   	end
-
-  	describe "DELETE #destroy" do
-  		it "clears all session data" do
-  			delete :destroy, session: logged_in_session
-  			expect(response).to redirect_to(root_path)
-  			expect(session).to be_nil
-  		end
-  	end
   end
+
+	describe "DELETE #destroy" do
+		it "clears all session data" do
+			delete :destroy, session: logged_in_session
+			expect(response).to redirect_to(root_path)
+			expect(session).to be_empty
+		end
+	end
 
 end
