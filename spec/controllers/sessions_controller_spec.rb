@@ -42,7 +42,6 @@ RSpec.describe SessionsController, type: :controller do
 	  end
 	  context "with logged out user" do
   		it "returns success response with valid credentials" do
-  			
   			post :create, params: {session: valid_login}, session: logged_out_session
 	      expect(response).to redirect_to(admin)
   		end
