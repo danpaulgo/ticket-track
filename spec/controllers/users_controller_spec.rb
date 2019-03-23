@@ -40,9 +40,7 @@ RSpec.describe UsersController, type: :controller do
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # UsersController. Be sure to keep this updated too.
-  let(:logged_out_session) { {user_id: nil} }
-  let(:logged_in_session) { {user_id: user.id} }
-  let(:admin_session) { {user_id: admin.id}}
+  
   
 
   describe "GET #index" do

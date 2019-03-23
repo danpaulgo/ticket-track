@@ -152,6 +152,10 @@ RSpec.shared_context "fixtures", :shared_context => :metadata do
       source: "Stubhub"
     )
   }
+
+  let(:logged_out_session) { {user_id: nil} }
+  let(:logged_in_session) { {user_id: user.id} }
+  let(:admin_session) { {user_id: admin.id}}
 end
 
 RSpec.configure do |rspec|
