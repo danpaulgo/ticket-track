@@ -80,7 +80,7 @@ RSpec.describe PerformersController, type: :controller do
 		  context "with invalid attributes" do
 		    it "renders edit page" do
 		    	post :update, params: {id: performer.id, performer: invalid_attributes}, session: admin_session
-		      expect(response).to be_successful
+		      expect(response).to render(:edit)
 		    end
 	  	end
   	end

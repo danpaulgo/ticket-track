@@ -44,78 +44,99 @@ RSpec.describe UsersController, type: :controller do
   
 
   describe "GET #index" do
-    it "returns a success response for admin" do
-      get :index, params: {}, session: admin_session
-      expect(response).to be_successful
+    context "admin" do
+      it "returns a success response" do
+        get :index, params: {}, session: admin_session
+        expect(response).to be_successful
+      end
     end
 
-    it "redirects logged in non-admin users to their own show page" do
-      get :index, params: {}, session: logged_in_session
-      expect(response).to redirect_to(user)
+    context "logged in non-admin" do
+      it "redirects to users own show page" do
+        get :index, params: {}, session: logged_in_session
+        expect(response).to redirect_to(user)
+      end
     end
 
-    it "redirects logged out users to home page" do
-      get :index, params: {}, session: logged_out_session
-      expect(response).to redirect_to(root_path)
+    context "logged out user" do
+      it "redirects to home page" do
+        get :index, params: {}, session: logged_out_session
+        expect(response).to redirect_to(root_path)
+      end
     end
   end
 
   describe "GET #show" do
-    it "returns a success response for admin" do
-      get :show, params: {id: user.to_param}, session: admin_session
-      expect(response).to be_successful
+    context "admin" do
+      it "returns a success response" do
+        get :show, params: {id: user.to_param}, session: admin_session
+        expect(response).to be_successful
+      end
     end
 
-    it "returns a success response for user viewing their own page" do
-      get :show, params: {id: user.to_param}, session: logged_in_session
-      expect(response).to be_successful
+    context "logged in non-admin" do
+      it "returns a success response when viewing own page" do
+        get :show, params: {id: user.to_param}, session: logged_in_session
+        expect(response).to be_successful
+      end
+
+      it "redirects to own show page when requesting another users show page" do
+        get :show, params: {id: admin.to_param}, session: logged_in_session
+        expect(response).to redirect_to(user)
+      end
     end
 
-    it "redirects user attempting to view other user back to their own show page" do
-      get :show, params: {id: admin.to_param}, session: logged_in_session
-      expect(response).to redirect_to(user)
-    end
-
-    it "redirects logged out user to home page" do
-      get :show, params: {id: user.to_param}, session: logged_out_session
-      expect(response).to redirect_to(root_path)
+    context "logged out user" do
+      it "redirects to home page" do
+        get :show, params: {id: user.to_param}, session: logged_out_session
+        expect(response).to redirect_to(root_path)
+      end
     end
   end
 
   describe "GET #new" do
-    it "returns a success response for logged out user" do
-      get :new, params: {}, session: logged_out_session
-      expect(response).to be_successful
+    context "logged out user" do
+      it "returns a success response" do
+        get :new, params: {}, session: logged_out_session
+        expect(response).to be_successful
+      end
     end
 
-    it "redirects logged in user to their own show page" do
-      get :new, params: {}, session: logged_in_session
-      expect(response).to redirect_to(user)
-      get :new, params: {}, session: admin_session
-      expect(response).to redirect_to(admin)
+    context "logged in user" do 
+      it "redirects to their own show page" do
+        get :new, params: {}, session: logged_in_session
+        expect(response).to redirect_to(user)
+        get :new, params: {}, session: admin_session
+        expect(response).to redirect_to(admin)
+      end
     end
-
   end
 
   describe "GET #edit" do
-    it "returns a success response for admin" do
-      get :edit, params: {id: user.to_param}, session: admin_session
-      expect(response).to be_successful
+    context "admin" do 
+      it "returns a success response" do
+        get :edit, params: {id: user.to_param}, session: admin_session
+        expect(response).to be_successful
+      end
     end
 
-    it "returns a success response for user editing themself" do
-      get :edit, params: {id: user.to_param}, session: logged_in_session
-      expect(response).to be_successful
+    context "logged in non-admin" do
+      it "returns a success response when editing self" do
+        get :edit, params: {id: user.to_param}, session: logged_in_session
+        expect(response).to be_successful
+      end
+
+      it "redirects to own edit page when requesting another users edit page" do
+        get :edit, params: {id: admin.to_param}, session: logged_in_session
+        expect(response).to redirect_to(user)
+      end
     end
 
-    it "redirects user attempting to edit another user back to their own edit page" do
-      get :edit, params: {id: admin.to_param}, session: logged_in_session
-      expect(response).to redirect_to(user)
-    end
-
-    it "redirects logged out user to home page" do
-      get :edit, params: {id: user.to_param}, session: logged_out_session
-      expect(response).to redirect_to(root_path)
+    context "logged out user" do
+      it "redirects to home page" do
+        get :edit, params: {id: user.to_param}, session: logged_out_session
+        expect(response).to redirect_to(root_path)
+      end
     end
   end
 
@@ -127,28 +148,31 @@ RSpec.describe UsersController, type: :controller do
       end
     end
 
-    context "with valid params" do
-      it "creates a new User" do
-        expect {
+    context "with logged out user" do
+      context "with valid params" do
+        it "creates a new User" do
+          expect {
+            post :create, params: {user: valid_attributes}, session: logged_out_session
+          }.to change(User, :count).by(1)
+        end
+
+        it "automatically sets admin to false" do
           post :create, params: {user: valid_attributes}, session: logged_out_session
-        }.to change(User, :count).by(1)
+          expect(User.last.admin).to be(false)
+        end
+
+        it "redirects to the created user" do
+          post :create, params: {user: valid_attributes}, session: logged_out_session
+          expect(response).to redirect_to(User.last)
+        end
       end
 
-      it "automatically sets admin to false" do
-        post :create, params: {user: valid_attributes}, session: logged_out_session
-        expect(User.last.admin).to be(false)
-      end
 
-      it "redirects to the created user" do
-        post :create, params: {user: valid_attributes}, session: logged_out_session
-        expect(response).to redirect_to(User.last)
-      end
-    end
-
-    context "with invalid params" do
-      it "returns a success response (i.e. to display the 'new' template)" do
-        post :create, params: {user: invalid_attributes}, session: logged_out_session
-        expect(response).to render_template(:new)
+      context "with invalid params" do
+        it "returns a success response (i.e. to display the 'new' template)" do
+          post :create, params: {user: invalid_attributes}, session: logged_out_session
+          expect(response).to render_template(:new)
+        end
       end
     end
   end
@@ -199,33 +223,37 @@ RSpec.describe UsersController, type: :controller do
   end
 
   describe "DELETE #destroy" do
-    it "allows user to delete themself" do
-      delete :destroy, params: {id: user.to_param}, session: logged_in_session
-      expect(session[:user_id]).to be_nil
-      expect(User.all).not_to include(user)
-      expect(response).to redirect_to(root_path)
+    context "admin" do 
+      it "allows admin to delete any user" do
+        delete :destroy, params: {id: user.to_param}, session: admin_session
+        expect(session[:user_id]).to eq(admin.id)
+        expect(User.all).not_to include(user)
+        expect(response).to redirect_to(users_path)
+      end
     end
 
-    it "allows admin to delete any user" do
-      delete :destroy, params: {id: user.to_param}, session: admin_session
-      expect(session[:user_id]).to eq(admin.id)
-      expect(User.all).not_to include(user)
-      expect(response).to redirect_to(users_path)
+    context "logged in non-admin" do
+      it "allows to delete themself" do
+        delete :destroy, params: {id: user.to_param}, session: logged_in_session
+        expect(session[:user_id]).to be_nil
+        expect(User.all).not_to include(user)
+        expect(response).to redirect_to(root_path)
+      end
+
+      it "does not allow to delete another users account" do
+        delete :destroy, params: {id: admin.to_param}, session: logged_in_session
+        expect(session[:user_id]).to eq(user.id)
+        expect(User.all).to include(admin)
+        expect(response).to redirect_to(user)
+      end
     end
 
-    it "does not allow non-admin to delete another users account" do
-      delete :destroy, params: {id: admin.to_param}, session: logged_in_session
-      expect(session[:user_id]).to eq(user.id)
-      expect(User.all).to include(admin)
-      expect(response).to redirect_to(user)
+    context "logged out user" do 
+      it "does not allow to delete any user" do 
+        delete :destroy, params: {id: user.to_param}, session: logged_out_session
+        expect(User.all).to include(user)
+        expect(response).to redirect_to(root_path)
+      end
     end
-
-    it "does not allow logged out user to delete any user" do 
-      delete :destroy, params: {id: user.to_param}, session: logged_out_session
-      expect(User.all).to include(user)
-      expect(response).to redirect_to(root_path)
-    end
-
   end
-
 end
