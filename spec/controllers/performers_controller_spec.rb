@@ -51,10 +51,15 @@ RSpec.describe PerformersController, type: :controller do
 	    end
   	end
 
-  	context "non admin" do
-  		it "redirects to home page" do
+  	context "logged in non admin" do
+  		it "redirects to user page" do
 	      get :edit, params: {id: performer.id}, session: logged_in_session
-	      expect(response).to redirect_to(root_path)
+	      expect(response).to redirect_to(user)
+	    end
+	  end
+
+	  context "logged out user" do
+	  	it "redirects to root path" do 
 	      get :edit, params: {id: performer.id}, session: logged_out_session
 	      expect(response).to redirect_to(root_path)
 	    end
@@ -80,15 +85,20 @@ RSpec.describe PerformersController, type: :controller do
 		  context "with invalid attributes" do
 		    it "renders edit page" do
 		    	post :update, params: {id: performer.id, performer: invalid_attributes}, session: admin_session
-		      expect(response).to render(:edit)
+		      expect(response).to render_template(:edit)
 		    end
 	  	end
   	end
 
-  	context "non admin" do
+  	context "logged in non admin" do
   		it "redirects to home page" do
 	      get :edit, params: {id: performer.id}, session: logged_in_session
-	      expect(response).to redirect_to(root_path)
+	      expect(response).to redirect_to(user)
+	    end
+	  end
+
+	  context "logged out user" do 
+	  	it "redirect to root path" do
 	      get :edit, params: {id: performer.id}, session: logged_out_session
 	      expect(response).to redirect_to(root_path)
 	    end
@@ -111,9 +121,10 @@ RSpec.describe PerformersController, type: :controller do
 
 	  	context "with invalid performer id" do
 	  		it "does not delete any performers" do
+	  			performer
 	  			expect {
 	          delete :destroy, params: {id: 99}, session: admin_session
-	        }.not_to change(User, :count)
+	        }.not_to change(Performer, :count)
 	  		end
 	  		it "redirects to performers index" do
 	  			delete :destroy, params: {id: 99}, session: admin_session
@@ -123,21 +134,27 @@ RSpec.describe PerformersController, type: :controller do
 
   	context "logged in non admin" do
   		it "does not delete performer" do
-  			expect {
-          delete :destroy, params: {id: performer.id}, session: logged_in_session
-        }.not_to change(User, :count)
-  		end
-  		it "redirects to performers index" do
+  			# performer
   			delete :destroy, params: {id: performer.id}, session: logged_in_session
-  			expect(response).to redirect_to(performers_path)
+  			expect(Performer.all).to include(performer)
+  			# expect {
+     #      delete :destroy, params: {id: performer.id}, session: logged_in_session
+     #    }.not_to change(Performer, :count)
+  		end
+  		it "redirects to user's show page" do
+  			delete :destroy, params: {id: performer.id}, session: logged_in_session
+  			expect(response).to redirect_to(user)
 	  	end
   	end
 
   	context "logged out user" do
   		it "does not delete performer" do
-  			expect {
-          delete :destroy, params: {id: performer.id}, session: logged_out_session
-        }.not_to change(User, :count)
+  			delete :destroy, params: {id: performer.id}, session: logged_out_session
+  			expect(Performer.all).to include(performer)
+  			# performer
+  			# expect {
+     #      delete :destroy, params: {id: performer.id}, session: logged_out_session
+     #    }.not_to change(Performer, :count)
   		end
   		it "redirects to root path" do
   			delete :destroy, params: {id: performer.id}, session: logged_out_session
