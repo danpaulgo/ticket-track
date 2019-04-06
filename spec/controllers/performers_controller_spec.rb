@@ -74,11 +74,12 @@ RSpec.describe PerformersController, type: :controller do
 	  		end
 
 	  		it "updates performer" do
+	  			performer.reload
 		      expect(performer.name).to eq("Drizzy Drake")
 		    end
 
-		    it "returns success response" do
-		    	expect(response).to be_successful
+		    it "redirects to performer page" do
+		    	expect(response).to redirect_to(performer)
 		    end
 	  	end
 

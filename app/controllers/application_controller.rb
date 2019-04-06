@@ -34,4 +34,9 @@ class ApplicationController < ActionController::Base
       end
     end
 
+    def set_object
+    	type = controller_name.singularize
+    	instance_variable_set(:"@#{type}", type.capitalize.constantize.find_by(id: params[:id]))
+    end
+
 end

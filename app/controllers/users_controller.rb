@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
-  before_action :set_user, :matching_user, only: [:show, :edit, :update, :destroy]
+  
   before_action :valid_admin, only: [:index]
   before_action :valid_new_user, only: [:new, :create]
+  before_action :set_object, :matching_user, only: [:show, :edit, :update, :destroy]
 
   # GET /users
   def index
@@ -54,9 +55,9 @@ class UsersController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params[:id])
-    end
+    # def set_user
+    #   @user = User.find(params[:id])
+    # end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
