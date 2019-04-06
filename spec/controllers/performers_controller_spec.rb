@@ -134,12 +134,8 @@ RSpec.describe PerformersController, type: :controller do
 
   	context "logged in non admin" do
   		it "does not delete performer" do
-  			# performer
   			delete :destroy, params: {id: performer.id}, session: logged_in_session
   			expect(Performer.all).to include(performer)
-  			# expect {
-     #      delete :destroy, params: {id: performer.id}, session: logged_in_session
-     #    }.not_to change(Performer, :count)
   		end
   		it "redirects to user's show page" do
   			delete :destroy, params: {id: performer.id}, session: logged_in_session
@@ -151,10 +147,6 @@ RSpec.describe PerformersController, type: :controller do
   		it "does not delete performer" do
   			delete :destroy, params: {id: performer.id}, session: logged_out_session
   			expect(Performer.all).to include(performer)
-  			# performer
-  			# expect {
-     #      delete :destroy, params: {id: performer.id}, session: logged_out_session
-     #    }.not_to change(Performer, :count)
   		end
   		it "redirects to root path" do
   			delete :destroy, params: {id: performer.id}, session: logged_out_session
@@ -162,5 +154,4 @@ RSpec.describe PerformersController, type: :controller do
   		end
   	end
   end
-
 end

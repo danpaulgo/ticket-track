@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.describe SessionsController, type: :controller do
 
   include_context "fixtures"
-  # binding.pry
   let(:valid_login) {
   	{email: admin.email, password: "password"}
   }

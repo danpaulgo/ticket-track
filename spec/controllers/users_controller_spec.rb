@@ -224,7 +224,7 @@ RSpec.describe UsersController, type: :controller do
 
   describe "DELETE #destroy" do
     context "admin" do 
-      it "allows admin to delete any user" do
+      it "allows to delete any user" do
         delete :destroy, params: {id: user.to_param}, session: admin_session
         expect(session[:user_id]).to eq(admin.id)
         expect(User.all).not_to include(user)
