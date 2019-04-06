@@ -22,4 +22,16 @@ class ApplicationController < ActionController::Base
 		!session[:user_id].nil?
 	end
 
+	protected
+
+		def valid_user
+      redirect_to root_path if session[:user_id].nil?
+    end
+
+    def valid_admin
+      unless valid_user
+        redirect_to current_user unless current_user.admin?
+      end
+    end
+
 end

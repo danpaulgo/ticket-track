@@ -63,9 +63,9 @@ class UsersController < ApplicationController
       params.require(:user).permit(:name, :email, :password, :password_confirmation, :birthdate)
     end
 
-    def valid_user
-      redirect_to root_path if session[:user_id].nil?
-    end
+    # def valid_user
+    #   redirect_to root_path if session[:user_id].nil?
+    # end
 
     def matching_user 
       unless valid_user
@@ -73,11 +73,11 @@ class UsersController < ApplicationController
       end
     end
 
-    def valid_admin
-      unless valid_user
-        redirect_to current_user unless current_user.admin?
-      end
-    end
+    # def valid_admin
+    #   unless valid_user
+    #     redirect_to current_user unless current_user.admin?
+    #   end
+    # end
 
     def valid_new_user
       redirect_to User.find_by(id: session[:user_id]) unless session[:user_id].nil?

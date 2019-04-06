@@ -104,8 +104,8 @@ RSpec.describe PerformersController, type: :controller do
 	  		it "successfully deletes performer" do
 	  			expect(Performer.all).not_to include(performer)
 	  		end
-	  		it "redirects to perfomers index" do
-	  			expect(response).to redirect_to(perfomers_path)
+	  		it "redirects to performers index" do
+	  			expect(response).to redirect_to(performers_path)
 	  		end
 	  	end
 
@@ -115,9 +115,9 @@ RSpec.describe PerformersController, type: :controller do
 	          delete :destroy, params: {id: 99}, session: admin_session
 	        }.not_to change(User, :count)
 	  		end
-	  		it "redirects to perfomers index" do
+	  		it "redirects to performers index" do
 	  			delete :destroy, params: {id: 99}, session: admin_session
-	  			expect(response).to redirect_to(perfomers_path)
+	  			expect(response).to redirect_to(performers_path)
 	  		end
 	  	end
 
@@ -127,9 +127,9 @@ RSpec.describe PerformersController, type: :controller do
           delete :destroy, params: {id: performer.id}, session: logged_in_session
         }.not_to change(User, :count)
   		end
-  		it "redirects to perfomers index" do
+  		it "redirects to performers index" do
   			delete :destroy, params: {id: performer.id}, session: logged_in_session
-  			expect(response).to redirect_to(perfomers_path)
+  			expect(response).to redirect_to(performers_path)
 	  	end
   	end
 
