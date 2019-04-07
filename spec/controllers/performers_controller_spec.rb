@@ -85,23 +85,38 @@ RSpec.describe PerformersController, type: :controller do
 
 		  context "with invalid attributes" do
 		    it "renders edit page" do
-		    	post :update, params: {id: performer.id, performer: invalid_attributes}, session: admin_session
+		    	patch :update, params: {id: performer.id, performer: invalid_attributes}, session: admin_session
 		      expect(response).to render_template(:edit)
 		    end
 	  	end
   	end
 
   	context "logged in non admin" do
+  		before(:each) do 
+  			patch :update, params: {id: performer.id, performer: valid_attributes}, session: logged_in_session
+  		end
+
   		it "redirects to home page" do
-	      get :edit, params: {id: performer.id}, session: logged_in_session
 	      expect(response).to redirect_to(user)
+	    end
+
+	    it "does not update performer" do
+	    	expect(performer.name).to eq("Drake")
 	    end
 	  end
 
 	  context "logged out user" do 
+	  	before(:each) do 
+  			patch :update, params: {id: performer.id, performer: valid_attributes}, session: logged_out_session
+  		end
+
 	  	it "redirect to root path" do
-	      get :edit, params: {id: performer.id}, session: logged_out_session
+	      patch :update, params: {id: performer.id, performer: valid_attributes}, session: logged_out_session
 	      expect(response).to redirect_to(root_path)
+	    end
+
+	    it "does not update performer" do
+	    	expect(performer.name).to eq("Drake")
 	    end
   	end
   end
