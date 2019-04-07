@@ -68,7 +68,7 @@ RSpec.describe VenuesController, type: :controller do
     end
 
     context "logged in non admin" do
-      it "redirects to user page" do
+      it "redirects to user's show page" do
         get :edit, params: {id: venue.id}, session: logged_in_session
         expect(response).to redirect_to(user)
       end
@@ -87,14 +87,14 @@ RSpec.describe VenuesController, type: :controller do
       context "with valid attributes" do
         it "creates venue" do
           expect {
-            post :create, params: {user: valid_attributes}, session: logged_out_session
+            post :create, params: {venue: valid_attributes}, session: logged_in_session
           }.to change(Venue, :count).by(1)
           expect(Venue.last.name).to eq("Staples Center")
         end
 
         it "redirects to created venue" do
-          post :create, params: {id: venue.id, venue: valid_attributes}, session: logged_in_session
-          expect(response).to redirect_to(venue)
+          post :create, params: {venue: valid_attributes}, session: logged_in_session
+          expect(response).to redirect_to(Venue.last)
         end
 
       end
@@ -144,7 +144,7 @@ RSpec.describe VenuesController, type: :controller do
         patch :update, params: {id: venue.id, venue: valid_attributes}, session: logged_in_session
       end
 
-      it "redirects to home page" do
+      it "redirects to user's show page" do
         expect(response).to redirect_to(user)
       end
 
