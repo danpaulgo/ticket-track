@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   resources :users
   resources :performers, except: [:new]
+  resources :venues
 
   get 'login', to: 'sessions#new'
   post 'login', to: 'sessions#create'
