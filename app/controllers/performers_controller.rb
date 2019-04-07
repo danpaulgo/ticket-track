@@ -5,6 +5,7 @@ class PerformersController < ApplicationController
  before_action :set_object, only: [:show, :edit, :update, :destroy]
 
  def index
+ 	@performers = Performer.all
  end
 
  def show
