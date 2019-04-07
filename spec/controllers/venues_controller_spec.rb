@@ -101,6 +101,7 @@ RSpec.describe VenuesController, type: :controller do
 
       context "with invalid attributes" do
         it "renders 'new' page" do
+          post :create, params: {venue: invalid_attributes}, session: logged_in_session
            expect(response).to render_template(:new)
         end
       end
@@ -123,7 +124,7 @@ RSpec.describe VenuesController, type: :controller do
 
         it "updates venue" do
           venue.reload
-          expect(venue.name).to eq("Drizzy Drake")
+          expect(venue.name).to eq("Staples Center")
         end
 
         it "redirects to venue page" do
@@ -149,7 +150,7 @@ RSpec.describe VenuesController, type: :controller do
       end
 
       it "does not update venue" do
-        expect(venue.name).to eq("Drake")
+        expect(venue.name).to eq("Madison Square Garden")
       end
     end
 
@@ -164,7 +165,7 @@ RSpec.describe VenuesController, type: :controller do
       end
 
       it "does not update venue" do
-        expect(venue.name).to eq("Drake")
+        expect(venue.name).to eq("Madison Square Garden")
       end
     end
   end
@@ -188,7 +189,7 @@ RSpec.describe VenuesController, type: :controller do
           venue
           expect {
             delete :destroy, params: {id: 99}, session: admin_session
-          }.not_to change(venue, :count)
+          }.not_to change(Venue, :count)
         end
         it "redirects to venues index" do
           delete :destroy, params: {id: 99}, session: admin_session

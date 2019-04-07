@@ -48,7 +48,7 @@ class VenuesController < ApplicationController
   # DELETE /venues/1
   # DELETE /venues/1.json
   def destroy
-    @venue.destroy
+    @venue.destroy if @venue
     redirect_to venues_url, notice: 'Venue was successfully destroyed.'
   end
 
