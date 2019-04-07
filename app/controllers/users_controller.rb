@@ -24,6 +24,7 @@ class UsersController < ApplicationController
 
   # POST /users
   def create
+    # binding.pry
     @user = User.new(object_params)
     if @user.save
       redirect_to @user, notice: 'User was successfully created.'
@@ -54,31 +55,12 @@ class UsersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    # def set_user
-    #   @user = User.find(params[:id])
-    # end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
-    # def object_params
-    #   params.require(:user).permit(:name, :email, :password, :password_confirmation, :birthdate)
-    # end
-
-    # def valid_user
-    #   redirect_to root_path if session[:user_id].nil?
-    # end
 
     def matching_user 
       unless valid_user
         redirect_to current_user unless @user == current_user || current_user.admin?
       end
     end
-
-    # def valid_admin
-    #   unless valid_user
-    #     redirect_to current_user unless current_user.admin?
-    #   end
-    # end
 
     def valid_new_user
       redirect_to User.find_by(id: session[:user_id]) unless session[:user_id].nil?

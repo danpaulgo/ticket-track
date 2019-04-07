@@ -39,7 +39,7 @@ class ApplicationController < ActionController::Base
     end
 
     def object_attributes
-    	object_type.capitalize.constantize.new.attributes.keys
+    	object_type.capitalize.constantize.new.attributes.keys.map(&:to_sym)
     end
 
     def set_object
@@ -47,12 +47,13 @@ class ApplicationController < ActionController::Base
     end
 
     def object_params
-    	attributes = object_params
-    	attributes.delete("id"),
-    	attributes.delete("created_at")
-    	attributes.delete("updated_at")
-    	attributes.delete("admin")
-    	attributes
+    	attributes = object_attributes
+    	attributes.delete(:id)
+    	attributes.delete(:created_at)
+    	attributes.delete(:updated_at)
+    	attributes.delete(:admin)
+    	attributes.push(:password) if controller_name == "users"
+    	params.require(:"#{object_type}").permit(attributes)
     end
 
 end
