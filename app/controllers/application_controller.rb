@@ -34,9 +34,25 @@ class ApplicationController < ActionController::Base
       end
     end
 
+    def object_type
+    	controller_name.singularize
+    end
+
+    def object_attributes
+    	object_type.capitalize.constantize.new.attributes.keys
+    end
+
     def set_object
-    	type = controller_name.singularize
-    	instance_variable_set(:"@#{type}", type.capitalize.constantize.find_by(id: params[:id]))
+    	instance_variable_set(:"@#{object_type}", object_type.capitalize.constantize.find_by(id: params[:id]))
+    end
+
+    def object_params
+    	attributes = object_params
+    	attributes.delete("id"),
+    	attributes.delete("created_at")
+    	attributes.delete("updated_at")
+    	attributes.delete("admin")
+    	attributes
     end
 
 end
