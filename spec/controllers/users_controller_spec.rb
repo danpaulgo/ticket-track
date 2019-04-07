@@ -154,6 +154,7 @@ RSpec.describe UsersController, type: :controller do
           expect {
             post :create, params: {user: valid_attributes}, session: logged_out_session
           }.to change(User, :count).by(1)
+          expect(User.last.name).to eq("Valid User")
         end
 
         it "automatically sets admin to false" do
@@ -169,7 +170,7 @@ RSpec.describe UsersController, type: :controller do
 
 
       context "with invalid params" do
-        it "returns a success response (i.e. to display the 'new' template)" do
+        it "renders 'new' page" do
           post :create, params: {user: invalid_attributes}, session: logged_out_session
           expect(response).to render_template(:new)
         end

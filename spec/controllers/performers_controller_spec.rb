@@ -59,7 +59,7 @@ RSpec.describe PerformersController, type: :controller do
 	  end
 
 	  context "logged out user" do
-	  	it "redirects to root path" do 
+	  	it "redirects to home page" do 
 	      get :edit, params: {id: performer.id}, session: logged_out_session
 	      expect(response).to redirect_to(root_path)
 	    end
@@ -110,7 +110,7 @@ RSpec.describe PerformersController, type: :controller do
   			patch :update, params: {id: performer.id, performer: valid_attributes}, session: logged_out_session
   		end
 
-	  	it "redirect to root path" do
+	  	it "redirect to home page" do
 	      patch :update, params: {id: performer.id, performer: valid_attributes}, session: logged_out_session
 	      expect(response).to redirect_to(root_path)
 	    end
@@ -164,7 +164,7 @@ RSpec.describe PerformersController, type: :controller do
   			delete :destroy, params: {id: performer.id}, session: logged_out_session
   			expect(Performer.all).to include(performer)
   		end
-  		it "redirects to root path" do
+  		it "redirects to home page" do
   			delete :destroy, params: {id: performer.id}, session: logged_out_session
   			expect(response).to redirect_to(root_path)
   		end

@@ -75,7 +75,7 @@ RSpec.describe VenuesController, type: :controller do
     end
 
     context "logged out user" do
-      it "redirects to root path" do 
+      it "redirects to home page" do 
         get :edit, params: {id: venue.id}, session: logged_out_session
         expect(response).to redirect_to(root_path)
       end
@@ -85,12 +85,32 @@ RSpec.describe VenuesController, type: :controller do
   describe "POST #create" do
     context "logged in user" do
       context "with valid attributes" do
+        it "creates venue" do
+          expect {
+            post :create, params: {user: valid_attributes}, session: logged_out_session
+          }.to change(Venue, :count).by(1)
+          expect(Venue.last.name).to eq("Staples Center")
+        end
 
+        it "redirects to created venue" do
+          post :create, params: {id: venue.id, venue: valid_attributes}, session: logged_in_session
+          expect(response).to redirect_to(venue)
+        end
+
+      end
+
+      context "with invalid attributes" do
+        it "renders 'new' page" do
+           expect(response).to render_template(:new)
+        end
       end
     end
 
     context "logged out user" do
-      
+      it "redirects to home page" do
+        post :create, params: {id: venue.id, venue: valid_attributes}, session: logged_out_session
+        expect(response).to redirect_to(root_path)
+      end
     end
   end
 
@@ -120,16 +140,31 @@ RSpec.describe VenuesController, type: :controller do
     end
 
     context "logged in non admin" do
+      before(:each) do 
+        patch :update, params: {id: venue.id, venue: valid_attributes}, session: logged_in_session
+      end
+
       it "redirects to home page" do
-        get :edit, params: {id: venue.id}, session: logged_in_session
         expect(response).to redirect_to(user)
+      end
+
+      it "does not update venue" do
+        expect(venue.name).to eq("Drake")
       end
     end
 
     context "logged out user" do 
-      it "redirect to root path" do
-        get :edit, params: {id: venue.id}, session: logged_out_session
+      before(:each) do 
+        patch :update, params: {id: venue.id, venue: valid_attributes}, session: logged_out_session
+      end
+
+      it "redirect to home page" do
+        patch :update, params: {id: venue.id, venue: valid_attributes}, session: logged_out_session
         expect(response).to redirect_to(root_path)
+      end
+
+      it "does not update venue" do
+        expect(venue.name).to eq("Drake")
       end
     end
   end
@@ -141,7 +176,7 @@ RSpec.describe VenuesController, type: :controller do
           delete :destroy, params: {id: venue.id}, session: admin_session
         end
         it "successfully deletes venue" do
-          expect(venue.all).not_to include(venue)
+          expect(Venue.all).not_to include(venue)
         end
         it "redirects to venues index" do
           expect(response).to redirect_to(venues_path)
@@ -164,7 +199,7 @@ RSpec.describe VenuesController, type: :controller do
     context "logged in non admin" do
       it "does not delete venue" do
         delete :destroy, params: {id: venue.id}, session: logged_in_session
-        expect(venue.all).to include(venue)
+        expect(Venue.all).to include(venue)
       end
       it "redirects to user's show page" do
         delete :destroy, params: {id: venue.id}, session: logged_in_session
@@ -175,9 +210,9 @@ RSpec.describe VenuesController, type: :controller do
     context "logged out user" do
       it "does not delete venue" do
         delete :destroy, params: {id: venue.id}, session: logged_out_session
-        expect(venue.all).to include(venue)
+        expect(Venue.all).to include(venue)
       end
-      it "redirects to root path" do
+      it "redirects to home page" do
         delete :destroy, params: {id: venue.id}, session: logged_out_session
         expect(response).to redirect_to(root_path)
       end
