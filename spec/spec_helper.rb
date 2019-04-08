@@ -116,11 +116,19 @@ RSpec.shared_context "fixtures", :shared_context => :metadata do
     )
   }
   let(:performer){Performer.create(name: "Drake")}
+  let(:performer_2){Performer.create(name: "Eminem")}
   let(:venue){
     Venue.create(
       name: "Madison Square Garden",
       city: "New York",
       state: "NY"
+    )
+  }
+  let(:venue_2){
+    Venue.create(
+      name: "House of Blues",
+      city: "Boston",
+      state: "MA"
     )
   }
   let(:event){
