@@ -142,6 +142,13 @@ RSpec.describe UsersController, type: :controller do
 
   describe "POST #create" do
     context "with logged in user" do
+      it "does not create user" do
+        user
+        expect {
+          post :create, params: {user: valid_attributes}, session: logged_in_session
+        }.not_to change(User, :count)
+      end
+
       it "redirects to user's show page" do
         post :create, params: {user: valid_attributes}, session: logged_in_session
         expect(response).to redirect_to(user)

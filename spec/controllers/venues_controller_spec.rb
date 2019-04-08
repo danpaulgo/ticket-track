@@ -108,6 +108,12 @@ RSpec.describe VenuesController, type: :controller do
     end
 
     context "logged out user" do
+      it "does not create venue" do
+        expect {
+          post :create, params: {venue: valid_attributes}, session: logged_out_session
+        }.not_to change(Venue, :count)
+      end
+
       it "redirects to home page" do
         post :create, params: {id: venue.id, venue: valid_attributes}, session: logged_out_session
         expect(response).to redirect_to(root_path)

@@ -24,12 +24,13 @@ class UsersController < ApplicationController
 
   # POST /users
   def create
-    # binding.pry
-    @user = User.new(object_params)
-    if @user.save
-      redirect_to @user, notice: 'User was successfully created.'
-    else
-      render :new
+    if session[:user_id].nil?
+      @user = User.new(object_params)
+      if @user.save
+        redirect_to @user, notice: 'User was successfully created.'
+      else
+        render :new
+      end
     end
   end
 
