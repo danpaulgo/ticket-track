@@ -14,10 +14,6 @@ RSpec.describe PerformersController, type: :routing do
       expect(:get => "/performers/1/edit").to route_to("performers#edit", :id => "1")
     end
 
-    it "routes to #create" do
-      expect(:post => "/performers").to route_to("performers#create")
-    end
-
     it "routes to #update via PUT" do
       expect(:put => "/performers/1").to route_to("performers#update", :id => "1")
     end
