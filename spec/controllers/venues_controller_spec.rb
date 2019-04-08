@@ -46,14 +46,14 @@ RSpec.describe VenuesController, type: :controller do
   describe "GET #new" do
     context "logged in user" do
       it "returns a success response" do
-        get :new, params: {id: venue.id}, session: logged_in_session
+        get :new, params: {}, session: logged_in_session
         expect(response).to be_successful
       end
     end
 
     context "logged out user" do
       it "redirects to home page" do
-        get :new, params: {id: venue.id}, session: logged_out_session
+        get :new, params: {}, session: logged_out_session
         expect(response).to redirect_to(root_path)
       end
     end
