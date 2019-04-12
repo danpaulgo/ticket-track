@@ -4,12 +4,12 @@ Rails.application.routes.draw do
   root 'application#home'
 
   resources :users do
-  	resources :transactions
+  	resources :transactions, except: [:show]
   end
   resources :performers, except: [:new, :create]
   resources :venues
   resources :events, except: [:show]
-  resources :transactions, except: [:new, :create]
+  resources :transactions, except: [:new, :create, :show]
 
   get 'login', to: 'sessions#new'
   post 'login', to: 'sessions#create'
