@@ -13,7 +13,7 @@ RSpec.describe PerformersController, type: :controller do
 
 	describe "GET #index" do
 		context "logged in user" do
-	    it "returns a success response" do
+	    it "renders index template" do
 	      get :index, params: {}, session: logged_in_session
 	      expect(response).to render_template(:index)
 	    end
@@ -29,7 +29,7 @@ RSpec.describe PerformersController, type: :controller do
 
   describe "GET #show" do
   	context "logged in user" do
-	    it "returns a success response" do
+	    it "renders show template" do
 	      get :show, params: {id: performer.id}, session: logged_in_session
 	      expect(response).to render_template(:show)
 	    end
@@ -45,7 +45,7 @@ RSpec.describe PerformersController, type: :controller do
 
   describe "GET #edit" do
   	context "admin" do
-  		it "returns a success response" do
+  		it "renders edit template" do
 	      get :edit, params: {id: performer.id}, session: admin_session
 	      expect(response).to render_template(:edit)
 	    end

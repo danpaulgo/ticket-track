@@ -45,7 +45,7 @@ RSpec.describe UsersController, type: :controller do
 
   describe "GET #index" do
     context "admin" do
-      it "returns a success response" do
+      it "renders index template" do
         get :index, params: {}, session: admin_session
         expect(response).to render_template(:index)
       end
@@ -68,14 +68,14 @@ RSpec.describe UsersController, type: :controller do
 
   describe "GET #show" do
     context "admin" do
-      it "returns a success response" do
+      it "renders show template" do
         get :show, params: {id: user.to_param}, session: admin_session
         expect(response).to render_template(:show)
       end
     end
 
     context "logged in non-admin" do
-      it "returns a success response when viewing own page" do
+      it "renders show template when viewing own page" do
         get :show, params: {id: user.to_param}, session: logged_in_session
         expect(response).to render_template(:show)
       end
@@ -96,7 +96,7 @@ RSpec.describe UsersController, type: :controller do
 
   describe "GET #new" do
     context "logged out user" do
-      it "returns a success response" do
+      it "renders new template" do
         get :new, params: {}, session: logged_out_session
         expect(response).to render_template(:new)
       end
@@ -114,14 +114,14 @@ RSpec.describe UsersController, type: :controller do
 
   describe "GET #edit" do
     context "admin" do 
-      it "returns a success response" do
+      it "renders edit template" do
         get :edit, params: {id: user.to_param}, session: admin_session
         expect(response).to render_template(:edit)
       end
     end
 
     context "logged in non-admin" do
-      it "returns a success response when editing self" do
+      it "renders edit template when editing self" do
         get :edit, params: {id: user.to_param}, session: logged_in_session
         expect(response).to render_template(:edit)
       end
@@ -177,7 +177,7 @@ RSpec.describe UsersController, type: :controller do
 
 
       context "with invalid params" do
-        it "renders 'new' page" do
+        it "renders new template" do
           post :create, params: {user: invalid_attributes}, session: logged_out_session
           expect(response).to render_template(:new)
         end
@@ -223,7 +223,7 @@ RSpec.describe UsersController, type: :controller do
     end
 
     context "with invalid params" do
-      it "returns a success response (i.e. to display the 'edit' template)" do
+      it "renders edit template" do
         patch :update, params: {id: user.to_param, user: invalid_attributes}, session: logged_in_session
         expect(response).to render_template(:edit)
       end

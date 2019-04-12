@@ -13,9 +13,9 @@ RSpec.describe VenuesController, type: :controller do
 
   describe "GET #index" do
     context "logged in user" do
-      it "returns a success response" do
+      it "renders index template" do
         get :index, params: {}, session: logged_in_session
-        expect(response).to be_successful
+        expect(response).to render_template(:index)
       end
     end
 
@@ -29,9 +29,9 @@ RSpec.describe VenuesController, type: :controller do
 
   describe "GET #show" do
     context "logged in user" do
-      it "returns a success response" do
+      it "renders show template" do
         get :show, params: {id: venue.id}, session: logged_in_session
-        expect(response).to be_successful
+        expect(response).to render_template(:show)
       end
     end
 
@@ -45,9 +45,9 @@ RSpec.describe VenuesController, type: :controller do
 
   describe "GET #new" do
     context "logged in user" do
-      it "returns a success response" do
+      it "renders new template" do
         get :new, params: {}, session: logged_in_session
-        expect(response).to be_successful
+        expect(response).to render_template(:new)
       end
     end
 
@@ -61,9 +61,9 @@ RSpec.describe VenuesController, type: :controller do
 
   describe "GET #edit" do
     context "admin" do
-      it "returns a success response" do
+      it "renders edit template" do
         get :edit, params: {id: venue.id}, session: admin_session
-        expect(response).to be_successful
+        expect(response).to render_template(:edit)
       end
     end
 

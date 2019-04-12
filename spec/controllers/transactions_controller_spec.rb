@@ -56,7 +56,7 @@ RSpec.describe TransactionsController, type: :controller do
 
   describe "GET #new" do
     context "logged in user" do
-      it "returns a success response with user_id" do
+      it "renders new template with user_id" do
         get :new, params: {user_id: user.id}, session: logged_in_session
         expect(response).to render_template(:new)
       end
