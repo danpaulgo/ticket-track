@@ -66,7 +66,7 @@ RSpec.describe Transaction, type: :model do
       amount: 49.99,
       quantity: 1,
       order_number: purchase.order_number,
-      source: purchase.source
+      transaction_source_id: purchase.transaction_source.id
 		)
 		expect(purchase_two).not_to be_valid
 	end

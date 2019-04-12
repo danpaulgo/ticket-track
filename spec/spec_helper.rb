@@ -138,6 +138,12 @@ RSpec.shared_context "fixtures", :shared_context => :metadata do
       date: Date.today + 1.year
     )
   }
+  let(:ticketmaster){
+    Source.create(name: "Ticketmaster")
+  }
+  let(:stubhub){
+    Source.create(name: "Stubhub")
+  }
   let(:purchase){
     Transaction.create(
       event_id: event.id,
@@ -146,7 +152,7 @@ RSpec.shared_context "fixtures", :shared_context => :metadata do
       amount: 99.99,
       quantity: 2,
       order_number: "1234567",
-      source: "Ticketmaster"
+      source: ticketmaster.id
     )
   }
   let(:sale){
@@ -157,7 +163,7 @@ RSpec.shared_context "fixtures", :shared_context => :metadata do
       amount: 69.99,
       quantity: 1,
       order_number: "1234567",
-      source: "Stubhub"
+      source_id: stubhub.id
     )
   }
 
