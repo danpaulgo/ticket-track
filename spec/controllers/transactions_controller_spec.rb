@@ -77,28 +77,70 @@ RSpec.describe TransactionsController, type: :controller do
     end
   end
 
-  # describe "GET #edit" do
-  #   context "admin" do
-  #     it "returns a success response" do
-  #       get :edit, params: {id: venue.id}, session: admin_session
-  #       expect(response).to be_successful
-  #     end
-  #   end
+  describe "GET #edit" do
+    context "admin" do
+      context "valid transaction"
+        it "renders edit template with matching user_id" do
+          get :edit, params: {user_id: user.id, id: purchase.id}, session: admin_session
+          expect(response).to render_template(:edit)
+        end
 
-  #   context "logged in non admin" do
-  #     it "redirects to user's show page" do
-  #       get :edit, params: {id: venue.id}, session: logged_in_session
-  #       expect(response).to redirect_to(user)
-  #     end
-  #   end
+        it "redirects to admin show page with non-matching user_id" do
+          get :edit, params: {user_id: admin.id, id: purchase.id}, session: admin_session
+          expect(response).to redirect_to(admin)
+        end
 
-  #   context "logged out user" do
-  #     it "redirects to home page" do 
-  #       get :edit, params: {id: venue.id}, session: logged_out_session
-  #       expect(response).to redirect_to(root_path)
-  #     end
-  #   end
-  # end
+        it "redirects to correct user transaction path without user_id" do
+          get :edit, params: {id: purchase.id}, session: admin_session
+          expect(response).to redirect_to(edit_user_transaction_path(user, purchase))
+        end
+      end
+
+      context "invalid transaction" do
+        it "redirects to admin show page" do 
+          get :edit, params: {id: 0}, session: admin_session
+          expect(response).to redirect_to(admin)
+        end
+      end
+    end
+
+    context "logged in non admin" do
+      context "with own user_id and transaction" do
+        it "renders edit template" do
+          get :edit, params: {user_id: user.id, id: purchase.id}, session: logged_in_session
+          expext(response).to render_template(:edit)
+        end
+      end
+
+      context "other user's id" do
+        it "redirects to user's show page" do
+          get :edit, params: {user_id: admin.id, id: purchase.id}, session: logged_in_session
+          expect(response).to redirect_to(user)
+        end
+      end
+
+      context "no user_id" do
+        it "redirects to user's show page" do
+          get :edit, params: {id: purchase.id}, session: logged_in_session
+          expect(response).to redirect_to(user)
+        end
+      end
+
+      context "invalid transaction id" do
+        it "redirects to user's show page" do
+          get :edit, params: {user_id: user.id, id: 0}, session: logged_in_session
+          expect(response).to redirect_to(user)
+        end
+      end
+    end
+
+    context "logged out user" do
+      it "redirects to home page" do 
+        get :edit, params: {user_id: user.id, id: purchase.id}, session: logged_out_session
+        expect(response).to redirect_to(root_path)
+      end
+    end
+  end
 
   # describe "POST #create" do
   #   context "logged in user" do
