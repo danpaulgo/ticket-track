@@ -54,22 +54,6 @@ RSpec.describe TransactionsController, type: :controller do
     end
   end
 
-  # describe "GET #show" do
-  #   context "logged in user" do
-  #     it "returns a success response" do
-  #       get :show, params: {id: venue.id}, session: logged_in_session
-  #       expect(response).to be_successful
-  #     end
-  #   end
-
-  #   context "logged out user" do
-  #     it "redirects to home page" do
-  #       get :show, params: {id: venue.id}, session: logged_out_session
-  #       expect(response).to redirect_to(root_path)
-  #     end
-  #   end
-  # end
-
   # describe "GET #new" do
   #   context "logged in user" do
   #     it "returns a success response" do
