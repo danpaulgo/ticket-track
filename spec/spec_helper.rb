@@ -139,10 +139,10 @@ RSpec.shared_context "fixtures", :shared_context => :metadata do
     )
   }
   let(:ticketmaster){
-    Source.create(name: "Ticketmaster")
+    TransactionSource.create(name: "Ticketmaster")
   }
   let(:stubhub){
-    Source.create(name: "Stubhub")
+    TransactionSource.create(name: "Stubhub")
   }
   let(:purchase){
     Transaction.create(

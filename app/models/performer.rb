@@ -8,8 +8,4 @@ class Performer < ApplicationRecord
 
 	before_validation :titleize_name
 
-	def titleize_name
-		self.name = name.titleize if name
-	end
-
 end

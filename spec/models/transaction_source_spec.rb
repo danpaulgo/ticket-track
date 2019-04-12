@@ -18,6 +18,11 @@ RSpec.describe TransactionSource, type: :model do
   	expect(stubhub).not_to be_valid
   end
 
+  it "is invalid with a name that has been taken" do
+  	ticketmaster
+  	expect(Transaction.new(name:"Ticketmaster")).not_to be_valid
+  end
+
   it "deletes all associated events transactions upon being deleted" do
     ticketmaster.destroy
     expect(Event.all).not_to include(purchase)

@@ -19,6 +19,11 @@ RSpec.describe Performer, type: :model do
   	expect(performer).not_to be_valid
   end
 
+  it "is invalid with a name that has been taken" do
+    performer
+    expect(Performer.new(name:"Drake")).not_to be_valid
+  end
+
   it "has many events and many venues through events" do
   	expect(performer.events).to include(event)
   	expect(performer.venues).to include(venue)
