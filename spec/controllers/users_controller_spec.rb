@@ -68,9 +68,18 @@ RSpec.describe UsersController, type: :controller do
 
   describe "GET #show" do
     context "admin" do
-      it "renders show template" do
-        get :show, params: {id: user.to_param}, session: admin_session
-        expect(response).to render_template(:show)
+      context "with valid user id" do
+        it "renders show template" do
+          get :show, params: {id: user.to_param}, session: admin_session
+          expect(response).to render_template(:show)
+        end
+      end
+
+      context "with invalid user id" do
+        it "redirects to admin's show page" do 
+          get :show, params: {id: 0}, session: admin_session
+          expect(response).to redirect_to(admin)
+        end
       end
     end
 
@@ -114,9 +123,18 @@ RSpec.describe UsersController, type: :controller do
 
   describe "GET #edit" do
     context "admin" do 
-      it "renders edit template" do
-        get :edit, params: {id: user.to_param}, session: admin_session
-        expect(response).to render_template(:edit)
+      context "with valid user id" do
+        it "renders edit template" do
+          get :edit, params: {id: user.to_param}, session: admin_session
+          expect(response).to render_template(:edit)
+        end
+      end
+
+      context "with invalid user id" do
+        it "redirect to admin's show page" do
+          get :edit, params: {id: 0}, session: admin_session
+          expect(response).to redirect_to(admin)
+        end
       end
     end
 
@@ -192,16 +210,27 @@ RSpec.describe UsersController, type: :controller do
         {name: "New Name", birthdate: "2010-01-01", password: "password"}
       }
 
-      it "allows user to update themself" do
-        patch :update, params: {id: user.to_param, user: new_attributes}, session: logged_in_session
-        user.reload
-        expect(response).to redirect_to(user)
-        expect(user.name).to eq("New Name")
-        expect(user.birthdate).to eq("20100101".to_date)
+      context "admin" do
+        context "valid user id" do
+          it "allows to update any user" do
+            patch :update, params: {id: user.to_param, user: new_attributes}, session: admin_session
+            user.reload
+            expect(response).to redirect_to(user)
+            expect(user.name).to eq("New Name")
+            expect(user.birthdate).to eq("20100101".to_date)
+          end
+        end
+
+        context "with invalid user id" do
+          it "redirects to admin's show page" do
+            patch :update, params: {id: 0, user: new_attributes}, session: admin_session
+            expect(response).to redirect_to(admin)
+          end
+        end
       end
 
-      it "allows admin to update any user" do
-        patch :update, params: {id: user.to_param, user: new_attributes}, session: admin_session
+      it "allows user to update themself" do
+        patch :update, params: {id: user.to_param, user: new_attributes}, session: logged_in_session
         user.reload
         expect(response).to redirect_to(user)
         expect(user.name).to eq("New Name")
@@ -222,7 +251,7 @@ RSpec.describe UsersController, type: :controller do
       end
     end
 
-    context "with invalid params" do
+    context "invalid params" do
       it "renders edit template" do
         patch :update, params: {id: user.to_param, user: invalid_attributes}, session: logged_in_session
         expect(response).to render_template(:edit)
@@ -232,11 +261,26 @@ RSpec.describe UsersController, type: :controller do
 
   describe "DELETE #destroy" do
     context "admin" do 
-      it "allows to delete any user" do
-        delete :destroy, params: {id: user.to_param}, session: admin_session
-        expect(session[:user_id]).to eq(admin.id)
-        expect(User.all).not_to include(user)
-        expect(response).to redirect_to(users_path)
+      context "with valid user id" do 
+        it "allows to delete any user" do
+          delete :destroy, params: {id: user.to_param}, session: admin_session
+          expect(session[:user_id]).to eq(admin.id)
+          expect(User.all).not_to include(user)
+          expect(response).to redirect_to(users_path)
+        end
+      end
+
+      context "with invalid user id" do
+        it "does not delete any users" do
+          expect {
+            delete :destroy, params: {id: 0}, session: admin_session
+          }.not_to change(User, :count)
+        end
+
+        it "redirects to admin's show page" do
+          delete :destroy, params: {id: 0}, session: admin_session
+          expect(response).to redirect_to(admin)
+        end
       end
     end
 

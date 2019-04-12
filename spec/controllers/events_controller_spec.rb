@@ -45,9 +45,18 @@ RSpec.describe EventsController, type: :controller do
 
   describe "GET #edit" do
     context "admin" do
-      it "renders edit template" do
-        get :edit, params: {id: event.id}, session: admin_session
-        expect(response).to render_template(:edit)
+      context "with valid event id" do
+        it "renders edit template" do
+          get :edit, params: {id: event.id}, session: admin_session
+          expect(response).to render_template(:edit)
+        end
+      end
+
+      context "with invalid event id" do
+        it "redirects to admin's show page" do
+          get :edit, params: {id: 0}, session: admin_session
+          expect(response).to redirect_to(admin)
+        end
       end
     end
 
@@ -109,19 +118,27 @@ RSpec.describe EventsController, type: :controller do
   describe "PATCH #update" do
     context "admin" do
       context "with valid attributes" do
-        before(:each) do 
-          patch :update, params: {id: event.id, event: valid_attributes}, session: admin_session
+        context "with valid event id" do
+          before(:each) do 
+            patch :update, params: {id: event.id, event: valid_attributes}, session: admin_session
+          end
+
+          it "updates event" do
+            event.reload
+            expect(event.date).to eq("01-01-2021".to_date)
+            expect(event.performer).to eq(performer_2)
+            expect(event.venue).to eq(venue_2)
+          end
+
+          it "redirects to event page" do
+            expect(response).to redirect_to(event)
+          end
         end
 
-        it "updates event" do
-          event.reload
-          expect(event.date).to eq("01-01-2021".to_date)
-          expect(event.performer).to eq(performer_2)
-          expect(event.venue).to eq(venue_2)
-        end
-
-        it "redirects to event page" do
-          expect(response).to redirect_to(event)
+        context "with invalid event id" do
+          it "redirects to admin's show page" do
+            expect(response).to redirect_to(admin)
+          end
         end
       end
 

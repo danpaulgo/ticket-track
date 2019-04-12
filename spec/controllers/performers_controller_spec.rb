@@ -29,10 +29,19 @@ RSpec.describe PerformersController, type: :controller do
 
   describe "GET #show" do
   	context "logged in user" do
-	    it "renders show template" do
-	      get :show, params: {id: performer.id}, session: logged_in_session
-	      expect(response).to render_template(:show)
-	    end
+  		context "with valid performer id" do
+		    it "renders show template" do
+		      get :show, params: {id: performer.id}, session: logged_in_session
+		      expect(response).to render_template(:show)
+		    end
+		  end
+
+		  context "with invalid performer id" do
+		  	it "redirects to user show page" do
+		  		get :show, params: {id: 0}, session: logged_in_session
+		  		expect(response).to redirect_to(user)
+		  	end
+		  end
 	  end
 
 	  context "logged out user" do
@@ -45,10 +54,19 @@ RSpec.describe PerformersController, type: :controller do
 
   describe "GET #edit" do
   	context "admin" do
-  		it "renders edit template" do
-	      get :edit, params: {id: performer.id}, session: admin_session
-	      expect(response).to render_template(:edit)
-	    end
+  		context "with valid performer id" do
+	  		it "renders edit template" do
+		      get :edit, params: {id: performer.id}, session: admin_session
+		      expect(response).to render_template(:edit)
+		    end
+		  end
+
+		  context "with invalid performer id" do
+		  	it "redirects to user show page" do
+		  		get :edit, params: {id: 0}, session: logged_in_session
+		  		expect(response).to redirect_to(user)
+		  	end
+		  end
   	end
 
   	context "logged in non admin" do
@@ -69,19 +87,27 @@ RSpec.describe PerformersController, type: :controller do
   describe "PATCH #update" do
   	context "admin" do
   		context "with valid attributes" do
-	  		before(:each) do 
-	  			patch :update, params: {id: performer.id, performer: valid_attributes}, session: admin_session
-	  		end
+	  		context "with valid performer id" do
+	  			before(:each) do 
+		  			patch :update, params: {id: performer.id, performer: valid_attributes}, session: admin_session
+		  		end
+		  		it "updates performer" do
+		  			performer.reload
+			      expect(performer.name).to eq("Drizzy Drake")
+			    end
 
-	  		it "updates performer" do
-	  			performer.reload
-		      expect(performer.name).to eq("Drizzy Drake")
-		    end
+			    it "redirects to performer page" do
+			    	expect(response).to redirect_to(performer)
+			    end
+			  end
 
-		    it "redirects to performer page" do
-		    	expect(response).to redirect_to(performer)
-		    end
-	  	end
+			  context "with invalid performer id" do
+			  	it "redirects to user show page" do
+			  		patch :update, params: {id: 0}, session: admin_session
+			  		expect(response).to redirect_to(user)
+			  	end
+			  end
+		  end
 
 		  context "with invalid attributes" do
 		    it "renders edit page" do
@@ -139,7 +165,7 @@ RSpec.describe PerformersController, type: :controller do
 	  		it "does not delete any performers" do
 	  			performer
 	  			expect {
-	          delete :destroy, params: {id: 99}, session: admin_session
+	          delete :destroy, params: {id: 0}, session: admin_session
 	        }.not_to change(Performer, :count)
 	  		end
 	  		it "redirects to performers index" do

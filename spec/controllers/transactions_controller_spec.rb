@@ -79,7 +79,7 @@ RSpec.describe TransactionsController, type: :controller do
 
   describe "GET #edit" do
     context "admin" do
-      context "valid transaction"
+      context "with valid transaction id" do
         it "renders edit template with matching user_id" do
           get :edit, params: {user_id: user.id, id: purchase.id}, session: admin_session
           expect(response).to render_template(:edit)
@@ -96,7 +96,7 @@ RSpec.describe TransactionsController, type: :controller do
         end
       end
 
-      context "invalid transaction" do
+      context "with invalid transaction id" do
         it "redirects to admin show page" do 
           get :edit, params: {id: 0}, session: admin_session
           expect(response).to redirect_to(admin)
@@ -126,7 +126,7 @@ RSpec.describe TransactionsController, type: :controller do
         end
       end
 
-      context "invalid transaction id" do
+      context "with invalid transaction id" do
         it "redirects to user's show page" do
           get :edit, params: {user_id: user.id, id: 0}, session: logged_in_session
           expect(response).to redirect_to(user)
