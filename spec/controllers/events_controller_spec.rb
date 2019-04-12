@@ -137,6 +137,7 @@ RSpec.describe EventsController, type: :controller do
 
         context "with invalid event id" do
           it "redirects to admin's show page" do
+            patch :update, params: {id: 0, event: valid_attributes}, session: admin_session
             expect(response).to redirect_to(admin)
           end
         end
@@ -203,9 +204,9 @@ RSpec.describe EventsController, type: :controller do
             delete :destroy, params: {id: 99}, session: admin_session
           }.not_to change(Event, :count)
         end
-        it "redirects to events index" do
+        it "redirects to admin's show page" do
           delete :destroy, params: {id: 99}, session: admin_session
-          expect(response).to redirect_to(events_path)
+          expect(response).to redirect_to(admin)
         end
       end
 

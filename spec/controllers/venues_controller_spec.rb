@@ -224,9 +224,9 @@ RSpec.describe VenuesController, type: :controller do
             delete :destroy, params: {id: 99}, session: admin_session
           }.not_to change(Venue, :count)
         end
-        it "redirects to venues index" do
+        it "redirects to admin's show page" do
           delete :destroy, params: {id: 99}, session: admin_session
-          expect(response).to redirect_to(venues_path)
+          expect(response).to redirect_to(admin)
         end
       end
 

@@ -104,7 +104,7 @@ RSpec.describe PerformersController, type: :controller do
 			  context "with invalid performer id" do
 			  	it "redirects to user show page" do
 			  		patch :update, params: {id: 0}, session: admin_session
-			  		expect(response).to redirect_to(user)
+			  		expect(response).to redirect_to(admin)
 			  	end
 			  end
 		  end
@@ -168,9 +168,9 @@ RSpec.describe PerformersController, type: :controller do
 	          delete :destroy, params: {id: 0}, session: admin_session
 	        }.not_to change(Performer, :count)
 	  		end
-	  		it "redirects to performers index" do
+	  		it "redirects to admin's show page" do
 	  			delete :destroy, params: {id: 99}, session: admin_session
-	  			expect(response).to redirect_to(performers_path)
+	  			expect(response).to redirect_to(admin)
 	  		end
 	  	end
 

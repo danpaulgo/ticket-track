@@ -272,6 +272,7 @@ RSpec.describe UsersController, type: :controller do
 
       context "with invalid user id" do
         it "does not delete any users" do
+          admin
           expect {
             delete :destroy, params: {id: 0}, session: admin_session
           }.not_to change(User, :count)

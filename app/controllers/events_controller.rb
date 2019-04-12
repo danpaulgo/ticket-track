@@ -10,11 +10,6 @@ class EventsController < ApplicationController
     @events = Event.all
   end
 
-  # GET /events/1
-  # GET /events/1.json
-  def show
-  end
-
   # GET /events/new
   def new
     @event = Event.new

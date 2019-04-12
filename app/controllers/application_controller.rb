@@ -43,7 +43,8 @@ class ApplicationController < ActionController::Base
     end
 
     def set_object
-    	instance_variable_set(:"@#{object_type}", object_type.capitalize.constantize.find_by(id: params[:id]))
+    	obj = instance_variable_set(:"@#{object_type}", object_type.capitalize.constantize.find_by(id: params[:id]))
+    	redirect_to current_user if obj.nil?
     end
 
     def object_params
