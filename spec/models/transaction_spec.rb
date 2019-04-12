@@ -11,7 +11,7 @@ RSpec.describe Transaction, type: :model do
 		expect(Transaction.new).to respond_to(:direction)
 		expect(Transaction.new).to respond_to(:quantity)
 		expect(Transaction.new).to respond_to(:order_number)
-		expect(Transaction.new).to respond_to(:source)
+		expect(Transaction.new).to respond_to(:transaction_source_id)
 	end
 
 	it "is valid with an event_id, user_id, amount, direction, and quantity" do
@@ -52,9 +52,7 @@ RSpec.describe Transaction, type: :model do
 	end
 
 	it "is invalid without a source" do
-		purchase.source = nil
-		expect(purchase).not_to be_valid
-		purchase.source = ""
+		purchase.transaction_source_id = nil
 		expect(purchase).not_to be_valid
 	end
 
@@ -96,12 +94,6 @@ RSpec.describe Transaction, type: :model do
 	it "belongs to a user" do
 		expect(purchase.user).to eq(user)
 		expect(sale.user).to eq(user)
-	end
-
-	it "titleizes source name before saving" do
-		sale.source = "vivid seats"
-		sale.save
-		expect(Transaction.find_by(id: sale.id).source).to eq("Vivid Seats")
 	end
 
 end

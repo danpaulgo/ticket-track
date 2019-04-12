@@ -152,7 +152,7 @@ RSpec.shared_context "fixtures", :shared_context => :metadata do
       amount: 99.99,
       quantity: 2,
       order_number: "1234567",
-      source: ticketmaster.id
+      transaction_source_id: ticketmaster.id
     )
   }
   let(:sale){
@@ -163,7 +163,7 @@ RSpec.shared_context "fixtures", :shared_context => :metadata do
       amount: 69.99,
       quantity: 1,
       order_number: "1234567",
-      source_id: stubhub.id
+      transaction_source_id: stubhub.id
     )
   }
 

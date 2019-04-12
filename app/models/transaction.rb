@@ -11,7 +11,7 @@ class Transaction < ApplicationRecord
 	validates :order_number, uniqueness: { scope: :transaction_source_id }
 
 	before_validation :capitalize_direction 
-	before_save :titleize_source
+	# before_save :titleize_source
 
 	private
 
@@ -19,8 +19,8 @@ class Transaction < ApplicationRecord
 		self.direction.capitalize! if direction
 	end
 
-	def titleize_source
-		self.source = source.titleize if source
-	end
+	# def titleize_source
+	# 	self.source = source.titleize if source
+	# end
 
 end
