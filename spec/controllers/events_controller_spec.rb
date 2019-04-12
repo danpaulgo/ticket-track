@@ -15,7 +15,7 @@ RSpec.describe EventsController, type: :controller do
     context "logged in user" do
       it "returns a success response" do
         get :index, params: {}, session: logged_in_session
-        expect(response).to be_successful
+        expect(response).to render_template(:index)
       end
     end
 
@@ -31,7 +31,7 @@ RSpec.describe EventsController, type: :controller do
     context "logged in user" do
       it "returns a success response" do
         get :new, params: {}, session: logged_in_session
-        expect(response).to be_successful
+        expect(response).to render_template(:new)
       end
     end
 
@@ -47,7 +47,7 @@ RSpec.describe EventsController, type: :controller do
     context "admin" do
       it "returns a success response" do
         get :edit, params: {id: event.id}, session: admin_session
-        expect(response).to be_successful
+        expect(response).to render_template(:edit)
       end
     end
 

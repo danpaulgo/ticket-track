@@ -47,7 +47,7 @@ RSpec.describe UsersController, type: :controller do
     context "admin" do
       it "returns a success response" do
         get :index, params: {}, session: admin_session
-        expect(response).to be_successful
+        expect(response).to render_template(:index)
       end
     end
 
@@ -70,14 +70,14 @@ RSpec.describe UsersController, type: :controller do
     context "admin" do
       it "returns a success response" do
         get :show, params: {id: user.to_param}, session: admin_session
-        expect(response).to be_successful
+        expect(response).to render_template(:show)
       end
     end
 
     context "logged in non-admin" do
       it "returns a success response when viewing own page" do
         get :show, params: {id: user.to_param}, session: logged_in_session
-        expect(response).to be_successful
+        expect(response).to render_template(:show)
       end
 
       it "redirects to own show page when requesting another users show page" do
@@ -98,7 +98,7 @@ RSpec.describe UsersController, type: :controller do
     context "logged out user" do
       it "returns a success response" do
         get :new, params: {}, session: logged_out_session
-        expect(response).to be_successful
+        expect(response).to render_template(:new)
       end
     end
 
@@ -116,14 +116,14 @@ RSpec.describe UsersController, type: :controller do
     context "admin" do 
       it "returns a success response" do
         get :edit, params: {id: user.to_param}, session: admin_session
-        expect(response).to be_successful
+        expect(response).to render_template(:edit)
       end
     end
 
     context "logged in non-admin" do
       it "returns a success response when editing self" do
         get :edit, params: {id: user.to_param}, session: logged_in_session
-        expect(response).to be_successful
+        expect(response).to render_template(:edit)
       end
 
       it "redirects to own edit page when requesting another users edit page" do
