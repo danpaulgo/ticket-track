@@ -2,6 +2,7 @@ class Transaction < ApplicationRecord
 
 	belongs_to :user
 	belongs_to :event
+	belongs_to :transaction_source
 
 	validates :order_number, :source, presence: true
 	validates :direction, inclusion: { in: %w(Purchase Sale)}
