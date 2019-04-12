@@ -16,19 +16,19 @@ RSpec.describe TransactionsController, type: :controller do
 
   describe "GET #index" do
     context "admin" do
-      it "returns a success response without user_id" do
+      it "renders index without user_id" do
         get :index, params: {}, session: admin_session
         expect(response).to render_template(:index)
       end
 
-      it "returns a success response with any user_id" do
+      it "renders index with any user_id" do
         get :index, params: {user_id: user.id}, session: admin_session
         expect(response).to render_template(:index)
       end
     end
 
     context "logged in user" do
-      it "returns a success response with own user_id" do
+      it "renders index with own user_id" do
         get :index, params: {user_id: user.id}, session: logged_in_session
         expect(response).to render_template(:index)
       end
@@ -38,9 +38,9 @@ RSpec.describe TransactionsController, type: :controller do
         expect(response).to redirect_to(user)
       end
 
-      it "redirects to users show page without user_id" do
+      it "redirects to users transactions page without user_id" do
         get :index, params: {}, session: logged_in_session
-        expect(response).to redirect_to(user)
+        expect(response).to redirect_to(user_transactions_path(user.id))
       end
     end
 
@@ -54,21 +54,28 @@ RSpec.describe TransactionsController, type: :controller do
     end
   end
 
-  # describe "GET #new" do
-  #   context "logged in user" do
-  #     it "returns a success response" do
-  #       get :new, params: {}, session: logged_in_session
-  #       expect(response).to be_successful
-  #     end
-  #   end
+  describe "GET #new" do
+    context "logged in user" do
+      it "returns a success response with user_id" do
+        get :new, params: {user_id: user.id}, session: logged_in_session
+        expect(response).to render_template(:new)
+      end
 
-  #   context "logged out user" do
-  #     it "redirects to home page" do
-  #       get :new, params: {}, session: logged_out_session
-  #       expect(response).to redirect_to(root_path)
-  #     end
-  #   end
-  # end
+      it "redirects to new user tranaction without user_id" do
+        get :new, params: {}, session: logged_in_session
+        expect(response).to redirect_to(new_user_transaction_path(user.id))
+      end
+    end
+
+    context "logged out user" do
+      it "redirects to home page" do
+        get :new, params: {}, session: logged_out_session
+        expect(response).to redirect_to(root_path)
+        get :new, params: {user_id: user.id}, session: logged_out_session
+        expect(response).to redirect_to(root_path)
+      end
+    end
+  end
 
   # describe "GET #edit" do
   #   context "admin" do
