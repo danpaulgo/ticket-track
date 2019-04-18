@@ -38,9 +38,9 @@ RSpec.describe TransactionsController, type: :controller do
         expect(response).to redirect_to(user)
       end
 
-      it "redirects to users transactions page without user_id" do
+      it "redirects to users show page without user_id" do
         get :index, params: {}, session: logged_in_session
-        expect(response).to redirect_to(user_transactions_path(user.id))
+        expect(response).to redirect_to(user)
       end
     end
 
@@ -56,14 +56,19 @@ RSpec.describe TransactionsController, type: :controller do
 
   describe "GET #new" do
     context "logged in user" do
-      it "renders new template with user_id" do
+      it "renders new template with correct user_id" do
         get :new, params: {user_id: user.id}, session: logged_in_session
         expect(response).to render_template(:new)
       end
 
-      it "redirects to new user tranaction without user_id" do
+      it "redirects to user's show page with incorrect user_id" do
+        get :new, params: {user_id: admin.id}, session: logged_in_session
+        expect(response).to redirect_to(user)
+      end
+
+      it "redirects to user's show page without user_id" do
         get :new, params: {}, session: logged_in_session
-        expect(response).to redirect_to(new_user_transaction_path(user.id))
+        expect(response).to redirect_to(user)
       end
     end
 
@@ -90,9 +95,9 @@ RSpec.describe TransactionsController, type: :controller do
           expect(response).to redirect_to(admin)
         end
 
-        it "redirects to correct user transaction path without user_id" do
+        it "redirects to admin show page without user_id" do
           get :edit, params: {id: purchase.id}, session: admin_session
-          expect(response).to redirect_to(edit_user_transaction_path(user, purchase))
+          expect(response).to redirect_to(admin)
         end
       end
 
@@ -108,7 +113,7 @@ RSpec.describe TransactionsController, type: :controller do
       context "with own user_id and transaction" do
         it "renders edit template" do
           get :edit, params: {user_id: user.id, id: purchase.id}, session: logged_in_session
-          expext(response).to render_template(:edit)
+          expect(response).to render_template(:edit)
         end
       end
 

@@ -1,15 +1,17 @@
 class TransactionsController < ApplicationController
-  before_action :set_transaction, only: [:show, :edit, :update, :destroy]
+  
+  before_action :authorized_user
+  before_action :matching_user, only: [:edit, :update, :destroy]
+  
 
   # GET /transactions
   # GET /transactions.json
   def index
-    @transactions = Transaction.all
-  end
-
-  # GET /transactions/1
-  # GET /transactions/1.json
-  def show
+    if params[:user_id]
+      @transactions = User.find_by(id: params[:user_id]).transactions
+    else
+      @transactions = Transaction.all
+    end
   end
 
   # GET /transactions/new
@@ -24,30 +26,21 @@ class TransactionsController < ApplicationController
   # POST /transactions
   # POST /transactions.json
   def create
-    @transaction = Transaction.new(transaction_params)
-
-    respond_to do |format|
-      if @transaction.save
-        format.html { redirect_to @transaction, notice: 'Transaction was successfully created.' }
-        format.json { render :show, status: :created, location: @transaction }
-      else
-        format.html { render :new }
-        format.json { render json: @transaction.errors, status: :unprocessable_entity }
-      end
+    @transaction = Transaction.new(object_params)
+    if @transaction.save
+      redirect_to @transaction, notice: 'Transaction was successfully created.'
+    else
+      render :new
     end
   end
 
   # PATCH/PUT /transactions/1
   # PATCH/PUT /transactions/1.json
   def update
-    respond_to do |format|
-      if @transaction.update(transaction_params)
-        format.html { redirect_to @transaction, notice: 'Transaction was successfully updated.' }
-        format.json { render :show, status: :ok, location: @transaction }
-      else
-        format.html { render :edit }
-        format.json { render json: @transaction.errors, status: :unprocessable_entity }
-      end
+    if @transaction.update(transaction_params)
+      redirect_to @transaction, notice: 'Transaction was successfully updated.'
+    else
+      render :edit
     end
   end
 
@@ -55,20 +48,27 @@ class TransactionsController < ApplicationController
   # DELETE /transactions/1.json
   def destroy
     @transaction.destroy
-    respond_to do |format|
-      format.html { redirect_to transactions_url, notice: 'Transaction was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to transactions_url, notice: 'Transaction was successfully destroyed.'
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_transaction
-      @transaction = Transaction.find(params[:id])
+
+    def set_user
+      @user ||= User.find_by(id: params[:user_id]) if params[:user_id]
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def transaction_params
-      params.fetch(:transaction, {})
+    def matching_user
+      set_object
+      redirect_to current_user if @transaction && (@transaction.user != @user)
     end
+
+    def authorized_user
+      set_user
+      if current_user.nil?
+        redirect_to root_path
+      else
+        redirect_to current_user unless (@user == current_user) || current_user.admin?
+      end
+    end
+
 end

@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   resources :performers, except: [:new, :create]
   resources :venues
   resources :events, except: [:show]
-  resources :transactions, except: [:new, :create, :show]
+  resources :transactions, except: [:show]
 
   get 'login', to: 'sessions#new'
   post 'login', to: 'sessions#create'
