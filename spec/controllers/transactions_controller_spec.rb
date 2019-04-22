@@ -147,8 +147,6 @@ RSpec.describe TransactionsController, type: :controller do
     end
   end
 
-
-
   describe "POST #create" do
     context "logged in user" do
       context "with valid attributes" do
@@ -182,7 +180,7 @@ RSpec.describe TransactionsController, type: :controller do
       it "does not create transaction source" do
 
       end
-      
+
       it "redirects to home page" do
 
       end
@@ -190,109 +188,126 @@ RSpec.describe TransactionsController, type: :controller do
 
   end
 
-  # describe "PATCH #update" do
-  #   context "admin" do
-  #     context "with valid attributes" do
-  #       before(:each) do 
-  #         patch :update, params: {id: venue.id, venue: valid_attributes}, session: admin_session
-  #       end
+  describe "PATCH #update" do
+    context "admin" do
+      context "with valid attributes" do
+        context "with matching user id" do
+          before(:each) do 
+    
+          end
+         
+          it "successfully updates transaction" do
 
-  #       it "updates venue" do
-  #         venue.reload
-  #         expect(venue.name).to eq("Staples Center")
-  #       end
+          end
 
-  #       it "redirects to venue page" do
-  #         expect(response).to redirect_to(venue)
-  #       end
-  #     end
+          it "redirects to transactions index" do
 
-  #     context "with invalid attributes" do
-  #       it "renders edit page" do
-  #         post :update, params: {id: venue.id, venue: invalid_attributes}, session: admin_session
-  #         expect(response).to render_template(:edit)
-  #       end
-  #     end
-  #   end
+          end
+        end
 
-  #   context "logged in non admin" do
-  #     before(:each) do 
-  #       patch :update, params: {id: venue.id, venue: valid_attributes}, session: logged_in_session
-  #     end
+        context "with non-matching user id" do
+          it "redirects to admin's show page" do
 
-  #     it "redirects to user's show page" do
-  #       expect(response).to redirect_to(user)
-  #     end
+          end
 
-  #     it "does not update venue" do
-  #       expect(venue.name).to eq("Madison Square Garden")
-  #     end
-  #   end
+          it "does not update transaction" do
 
-  #   context "logged out user" do 
-  #     before(:each) do 
-  #       patch :update, params: {id: venue.id, venue: valid_attributes}, session: logged_out_session
-  #     end
+          end
+        end
+      end
+      context "with invalid attributes" do
+        it "renders edit page" do
+          
+        end
+      end
+    end
 
-  #     it "redirect to home page" do
-  #       patch :update, params: {id: venue.id, venue: valid_attributes}, session: logged_out_session
-  #       expect(response).to redirect_to(root_path)
-  #     end
+    context "logged in non admin" do
+      before(:each) do 
+    
+      end
 
-  #     it "does not update venue" do
-  #       expect(venue.name).to eq("Madison Square Garden")
-  #     end
-  #   end
-  # end
+      it "redirects to user's show page" do
+        
+      end
 
-  # describe "DELETE #destroy" do
-  #   context "admin" do
-  #     context "with valid venue id"
-  #       before(:each) do 
-  #         delete :destroy, params: {id: venue.id}, session: admin_session
-  #       end
-  #       it "successfully deletes venue" do
-  #         expect(Venue.all).not_to include(venue)
-  #       end
-  #       it "redirects to venues index" do
-  #         expect(response).to redirect_to(venues_path)
-  #       end
-  #     end
+      it "does not update transaction" do
+        
+      end
+    end
 
-  #     context "with invalid venue id" do
-  #       it "does not delete any venues" do
-  #         venue
-  #         expect {
-  #           delete :destroy, params: {id: 99}, session: admin_session
-  #         }.not_to change(Venue, :count)
-  #       end
-  #       it "redirects to venues index" do
-  #         delete :destroy, params: {id: 99}, session: admin_session
-  #         expect(response).to redirect_to(venues_path)
-  #       end
-  #     end
+    context "logged out user" do 
+      before(:each) do 
+    
+      end
 
-  #   context "logged in non admin" do
-  #     it "does not delete venue" do
-  #       delete :destroy, params: {id: venue.id}, session: logged_in_session
-  #       expect(Venue.all).to include(venue)
-  #     end
-  #     it "redirects to user's show page" do
-  #       delete :destroy, params: {id: venue.id}, session: logged_in_session
-  #       expect(response).to redirect_to(user)
-  #     end
-  #   end
+      it "redirect to home page" do
+        
+      end
 
-  #   context "logged out user" do
-  #     it "does not delete venue" do
-  #       delete :destroy, params: {id: venue.id}, session: logged_out_session
-  #       expect(Venue.all).to include(venue)
-  #     end
-  #     it "redirects to home page" do
-  #       delete :destroy, params: {id: venue.id}, session: logged_out_session
-  #       expect(response).to redirect_to(root_path)
-  #     end
-  #   end
-  # end
+      it "does not update transaction" do
+        
+      end
+    end
+  end
+
+  describe "DELETE #destroy" do
+    context "admin" do
+      context "with valid transaction id" do
+        context "with matching user id" do
+          before(:each) do 
+            delete :destroy, params: {id: venue.id}, session: admin_session
+          end
+
+          it "successfully deletes venue" do
+            
+          end
+
+          it "redirects to venues index" do
+            
+          end
+        end
+        context "with non-matching user id" do
+          it "redirects to admin's show page" do
+
+          end
+
+          it "does not delete transaction" do
+
+          end
+        end
+      end
+
+      context "with invalid transaction id" do
+        it "does not delete any transactions" do
+          
+        end
+
+        it "redirects to transactions index" do
+          
+        end
+      end
+    end
+
+    context "logged in non admin" do
+      it "does not delete transaction" do
+        
+      end
+
+      it "redirects to user's show page" do
+        
+      end
+    end
+
+    context "logged out user" do
+      it "does not delete transaction" do
+        
+      end
+
+      it "redirects to home page" do
+        
+      end
+    end
+  end
 
 end

@@ -209,9 +209,11 @@ RSpec.describe VenuesController, type: :controller do
         before(:each) do 
           delete :destroy, params: {id: venue.id}, session: admin_session
         end
+
         it "successfully deletes venue" do
           expect(Venue.all).not_to include(venue)
         end
+
         it "redirects to venues index" do
           expect(response).to redirect_to(venues_path)
         end
@@ -224,6 +226,7 @@ RSpec.describe VenuesController, type: :controller do
             delete :destroy, params: {id: 99}, session: admin_session
           }.not_to change(Venue, :count)
         end
+
         it "redirects to admin's show page" do
           delete :destroy, params: {id: 99}, session: admin_session
           expect(response).to redirect_to(admin)
@@ -235,6 +238,7 @@ RSpec.describe VenuesController, type: :controller do
         delete :destroy, params: {id: venue.id}, session: logged_in_session
         expect(Venue.all).to include(venue)
       end
+
       it "redirects to user's show page" do
         delete :destroy, params: {id: venue.id}, session: logged_in_session
         expect(response).to redirect_to(user)
@@ -246,6 +250,7 @@ RSpec.describe VenuesController, type: :controller do
         delete :destroy, params: {id: venue.id}, session: logged_out_session
         expect(Venue.all).to include(venue)
       end
+      
       it "redirects to home page" do
         delete :destroy, params: {id: venue.id}, session: logged_out_session
         expect(response).to redirect_to(root_path)
