@@ -138,6 +138,13 @@ RSpec.shared_context "fixtures", :shared_context => :metadata do
       date: Date.today + 1.year
     )
   }
+  let(:event_2){
+    Event.create(
+      performer_id: performer_2.id,
+      venue_id: venue_2.id,
+      date: "31-12-2020".to_date
+      )
+  }
   let(:ticketmaster){
     TransactionSource.create(name: "Ticketmaster")
   }

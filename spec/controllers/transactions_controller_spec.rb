@@ -7,7 +7,13 @@ RSpec.describe TransactionsController, type: :controller do
   include_context "fixtures"
 
   let(:valid_attributes) {
-    # skip("Add a hash of attributes valid for your model")
+    {
+      event_id: event_2.id, 
+      amount: 200, direction: "Purchase", 
+      quantity: 4, 
+      order_number: "testing123"
+      transaction_source_id: stubhub.id
+    }
   }
 
   let(:invalid_attributes) {
@@ -151,9 +157,17 @@ RSpec.describe TransactionsController, type: :controller do
     context "logged in user" do
       context "with valid attributes" do
         context "with matching user id" do
-          it "creates new transaction" do
+          before(:each) do 
+            post :create, params: {user_id: user.id}, session: logged_in_session
+          end 
 
+          it "creates new transaction" do
+            expect {
+              post :create, params: {user_id: user.id, transaction: valid_attributes}, session: logged_in_session
+            }.to change(Transaction, :count).by(1)
+            expect(Transaction.last.order_number).to eq("testing123")
           end
+
           it "redirects to user's transaction index" do
 
           end
@@ -263,7 +277,7 @@ RSpec.describe TransactionsController, type: :controller do
             
           end
 
-          it "redirects to venues index" do
+          it "redirects to transactions index" do
             
           end
         end
@@ -283,7 +297,7 @@ RSpec.describe TransactionsController, type: :controller do
           
         end
 
-        it "redirects to transactions index" do
+        it "redirects to admin's show page" do
           
         end
       end

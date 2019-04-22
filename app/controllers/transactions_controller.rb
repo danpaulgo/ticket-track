@@ -27,6 +27,7 @@ class TransactionsController < ApplicationController
   # POST /transactions.json
   def create
     @transaction = Transaction.new(object_params)
+    @transaction.user_id = current_user.id
     if @transaction.save
       redirect_to @transaction, notice: 'Transaction was successfully created.'
     else
