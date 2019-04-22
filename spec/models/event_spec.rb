@@ -43,9 +43,10 @@ RSpec.describe Event, type: :model do
 	end
 
 	it "deletes all associated transactions upon being deleted" do
-		event.delete
-		expect(Transaction.find_by(id: sale.id)).to be_nil
-  	expect(Transaction.find_by(id: purchase.id)).to be_nil
+		sale
+    purchase
+    event.destroy
+		expect(Transaction.all).not_to include(purchase, sale)
 	end
 
 end

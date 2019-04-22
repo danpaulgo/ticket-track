@@ -24,8 +24,9 @@ RSpec.describe TransactionSource, type: :model do
   end
 
   it "deletes all associated events transactions upon being deleted" do
+    purchase
     ticketmaster.destroy
-    expect(Event.all).not_to include(purchase)
+    expect(Transaction.all).not_to include(purchase)
   end
 
 	it "titleizes source name before saving" do

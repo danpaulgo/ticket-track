@@ -216,7 +216,7 @@ RSpec.describe TransactionsController, type: :controller do
       context "with valid attributes" do
         context "with matching user id" do
           before(:each) do 
-    
+            # patch :update, params: {id: purchase.id, user_id: user.id, transaction: valid_attributes}, session: admin_session
           end
          
           it "successfully updates transaction" do

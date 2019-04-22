@@ -1,6 +1,6 @@
 class TransactionSource < ApplicationRecord
 
-	has_many :transactions
+	has_many :transactions, dependent: :destroy
 
 	validates :name, presence: true
 	validates :name, uniqueness: true
