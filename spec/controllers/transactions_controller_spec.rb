@@ -147,44 +147,48 @@ RSpec.describe TransactionsController, type: :controller do
     end
   end
 
-  # describe "POST #create" do
-  #   context "logged in user" do
-  #     context "with valid attributes" do
-  #       it "creates venue" do
-  #         expect {
-  #           post :create, params: {venue: valid_attributes}, session: logged_in_session
-  #         }.to change(Venue, :count).by(1)
-  #         expect(Venue.last.name).to eq("Staples Center")
-  #       end
 
-  #       it "redirects to created venue" do
-  #         post :create, params: {venue: valid_attributes}, session: logged_in_session
-  #         expect(response).to redirect_to(Venue.last)
-  #       end
 
-  #     end
+  describe "POST #create" do
+    context "logged in user" do
+      context "with valid attributes" do
+        context "with matching user id" do
+          it "creates new transaction" do
 
-  #     context "with invalid attributes" do
-  #       it "renders 'new' page" do
-  #         post :create, params: {venue: invalid_attributes}, session: logged_in_session
-  #          expect(response).to render_template(:new)
-  #       end
-  #     end
-  #   end
+          end
+          it "redirects to user's transaction index" do
 
-  #   context "logged out user" do
-  #     it "does not create venue" do
-  #       expect {
-  #         post :create, params: {venue: valid_attributes}, session: logged_out_session
-  #       }.not_to change(Venue, :count)
-  #     end
+          end
+        end
 
-  #     it "redirects to home page" do
-  #       post :create, params: {id: venue.id, venue: valid_attributes}, session: logged_out_session
-  #       expect(response).to redirect_to(root_path)
-  #     end
-  #   end
-  # end
+        context "with non matching user id" do
+          it "redirects to user's show page" do
+
+          end
+
+          it "does not create new transaction" do
+
+          end
+        end
+      end
+      context "with invalid attributes" do
+        it "renders 'new' template" do
+
+        end
+      end
+    end
+
+    context "logged out user" do
+      it "does not create transaction source" do
+
+      end
+      
+      it "redirects to home page" do
+
+      end
+    end
+
+  end
 
   # describe "PATCH #update" do
   #   context "admin" do
