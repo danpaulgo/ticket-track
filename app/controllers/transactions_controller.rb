@@ -29,7 +29,7 @@ class TransactionsController < ApplicationController
     @transaction = Transaction.new(object_params)
     @transaction.user_id = current_user.id
     if @transaction.save
-      redirect_to @transaction, notice: 'Transaction was successfully created.'
+      redirect_to user_transactions_path(current_user), notice: 'Transaction was successfully created.'
     else
       render :new
     end

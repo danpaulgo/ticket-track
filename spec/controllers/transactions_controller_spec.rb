@@ -11,13 +11,19 @@ RSpec.describe TransactionsController, type: :controller do
       event_id: event_2.id, 
       amount: 200, direction: "Purchase", 
       quantity: 4, 
-      order_number: "testing123"
+      order_number: "testing123",
       transaction_source_id: stubhub.id
     }
   }
 
   let(:invalid_attributes) {
-    # skip("Add a hash of attributes invalid for your model")
+    {
+      event_id: 0, 
+      amount: 200, direction: "buy", 
+      quantity: 0, 
+      order_number: 1234,
+      transaction_source_id: 0
+    }
   }
 
   describe "GET #index" do
@@ -157,10 +163,6 @@ RSpec.describe TransactionsController, type: :controller do
     context "logged in user" do
       context "with valid attributes" do
         context "with matching user id" do
-          before(:each) do 
-            post :create, params: {user_id: user.id}, session: logged_in_session
-          end 
-
           it "creates new transaction" do
             expect {
               post :create, params: {user_id: user.id, transaction: valid_attributes}, session: logged_in_session
@@ -169,37 +171,44 @@ RSpec.describe TransactionsController, type: :controller do
           end
 
           it "redirects to user's transaction index" do
-
+            post :create, params: {user_id: user.id, transaction: valid_attributes}, session: logged_in_session
+            expect(response).to redirect_to(user_transactions_path(user))
           end
         end
 
         context "with non matching user id" do
           it "redirects to user's show page" do
-
+            post :create, params: {user_id: admin.id, transaction: valid_attributes}, session: logged_in_session
+            expect(response).to redirect_to(user)
           end
 
           it "does not create new transaction" do
-
+            expect {
+              post :create, params: {user_id: user.id, transaction: valid_attributes}, session: logged_in_session
+            }.not_to change(Transaction, :count)
           end
         end
       end
       context "with invalid attributes" do
         it "renders 'new' template" do
-
+          post :create, params: {user_id: user.id, transaction: invalid_attributes}, session: logged_in_session
+          expect(response).to render_template(:new)
         end
       end
     end
 
     context "logged out user" do
       it "does not create transaction source" do
-
+        expect {
+          post :create, params: {user_id: user.id, transaction: valid_attributes}, session: logged_out_session
+        }.not_to change(Transaction, :count)
       end
 
       it "redirects to home page" do
-
+        post :create, params: {user_id: admin.id, transaction: valid_attributes}, session: logged_in_session
+        expect(response).to redirect_to(root_path)
       end
     end
-
   end
 
   describe "PATCH #update" do
