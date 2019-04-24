@@ -130,8 +130,8 @@ RSpec.describe EventsController, type: :controller do
             expect(event.venue).to eq(venue_2)
           end
 
-          it "redirects to event page" do
-            expect(response).to redirect_to(event)
+          it "redirects to events index page" do
+            expect(response).to redirect_to(events_path)
           end
         end
 

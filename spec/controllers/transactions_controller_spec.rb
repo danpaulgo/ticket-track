@@ -216,60 +216,65 @@ RSpec.describe TransactionsController, type: :controller do
       context "with valid attributes" do
         context "with matching user id" do
           before(:each) do 
-            # patch :update, params: {id: purchase.id, user_id: user.id, transaction: valid_attributes}, session: admin_session
+            patch :update, params: {id: purchase.id, user_id: user.id, transaction: valid_attributes}, session: admin_session
           end
          
           it "successfully updates transaction" do
-
+            expect(transaction.order_number).to eq("testing123")
           end
 
           it "redirects to transactions index" do
-
+            expect(response).to redirect_to(transactions_path)
           end
         end
 
         context "with non-matching user id" do
-          it "redirects to admin's show page" do
+          before(:each) do 
+            patch :update, params: {id: purchase.id, user_id: 0, transaction: valid_attributes}, session: admin_session
+          end
 
+          it "redirects to admin's show page" do
+            expect(response).to redirect_to(admin)
           end
 
           it "does not update transaction" do
-
+            expect(purchase.order_number).to eq("1234567")
           end
         end
       end
       context "with invalid attributes" do
         it "renders edit page" do
-          
+          patch :update, params: {id: purchase.id, user_id: user.id, transaction: invalid_attributes}, session: admin_session
+          expect(response).to render_template(:edit)
         end
       end
     end
 
     context "logged in non admin" do
       before(:each) do 
-    
+        patch :update, params: {id: purchase.id, user_id: user.id, transaction: valid_attributes}, session: logged_in_session
       end
 
       it "redirects to user's show page" do
-        
+        expect(response).to redirect_to(user)
       end
 
       it "does not update transaction" do
-        
+        expect(purchase.order_number).to eq("1234567")
       end
     end
 
     context "logged out user" do 
       before(:each) do 
-    
+        patch :update, params: {id: purchase.id, user_id: user.id, transaction: valid_attributes}, session: logged_out_session
       end
 
       it "redirect to home page" do
-        
+        expect(response).to redirect_to(root_path)
       end
 
       it "does not update transaction" do
-        
+        expect(purchase.order_number).to eq("1234567")
       end
     end
   end
@@ -279,7 +284,7 @@ RSpec.describe TransactionsController, type: :controller do
       context "with valid transaction id" do
         context "with matching user id" do
           before(:each) do 
-            delete :destroy, params: {id: venue.id}, session: admin_session
+            delete :destroy, params: {id: sale.id}, session: admin_session
           end
 
           it "successfully deletes venue" do
