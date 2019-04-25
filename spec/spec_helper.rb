@@ -189,6 +189,6 @@ RSpec.shared_context "fixtures", :shared_context => :metadata do
   let(:admin_session) { {user_id: admin.id}}
 end
 
-RSpec.configure do |rspec|
-  rspec.include_context "fixtures", :include_shared => true
-end
+# RSpec.configure do |rspec|
+#   rspec.include_context "fixtures", :include_shared => true
+# end

@@ -62,9 +62,9 @@ RSpec.describe PerformersController, type: :controller do
 		  end
 
 		  context "with invalid performer id" do
-		  	it "redirects to user show page" do
-		  		get :edit, params: {id: 0}, session: logged_in_session
-		  		expect(response).to redirect_to(user)
+		  	it "redirects to admin's show page" do
+		  		get :edit, params: {id: 0}, session: admin_session
+		  		expect(response).to redirect_to(admin)
 		  	end
 		  end
   	end
@@ -103,7 +103,7 @@ RSpec.describe PerformersController, type: :controller do
 
 			  context "with invalid performer id" do
 			  	it "redirects to user show page" do
-			  		patch :update, params: {id: 0}, session: admin_session
+			  		patch :update, params: {id: 0, performer: valid_attributes}, session: admin_session
 			  		expect(response).to redirect_to(admin)
 			  	end
 			  end
@@ -127,6 +127,7 @@ RSpec.describe PerformersController, type: :controller do
 	    end
 
 	    it "does not update performer" do
+	    	performer.reload
 	    	expect(performer.name).to eq("Drake")
 	    end
 	  end
@@ -142,6 +143,7 @@ RSpec.describe PerformersController, type: :controller do
 	    end
 
 	    it "does not update performer" do
+	    	performer.reload
 	    	expect(performer.name).to eq("Drake")
 	    end
   	end
@@ -169,7 +171,7 @@ RSpec.describe PerformersController, type: :controller do
 	        }.not_to change(Performer, :count)
 	  		end
 	  		it "redirects to admin's show page" do
-	  			delete :destroy, params: {id: 99}, session: admin_session
+	  			delete :destroy, params: {id: 0}, session: admin_session
 	  			expect(response).to redirect_to(admin)
 	  		end
 	  	end
