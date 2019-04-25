@@ -184,7 +184,7 @@ RSpec.describe TransactionsController, type: :controller do
 
           it "does not create new transaction" do
             expect {
-              post :create, params: {user_id: user.id, transaction: valid_attributes}, session: logged_in_session
+              post :create, params: {user_id: admin.id, transaction: valid_attributes}, session: logged_in_session
             }.not_to change(Transaction, :count)
           end
         end
@@ -205,7 +205,7 @@ RSpec.describe TransactionsController, type: :controller do
       end
 
       it "redirects to home page" do
-        post :create, params: {user_id: admin.id, transaction: valid_attributes}, session: logged_in_session
+        post :create, params: {user_id: admin.id, transaction: valid_attributes}, session: logged_out_session
         expect(response).to redirect_to(root_path)
       end
     end
@@ -220,7 +220,8 @@ RSpec.describe TransactionsController, type: :controller do
           end
          
           it "successfully updates transaction" do
-            expect(transaction.order_number).to eq("testing123")
+            purchase.reload
+            expect(purchase.order_number).to eq("testing123")
           end
 
           it "redirects to transactions index" do
@@ -257,10 +258,11 @@ RSpec.describe TransactionsController, type: :controller do
         end
 
         it "redirects to user's transactions page" do
-          expect(response).to redirect_to(user_transactions(user))
+          expect(response).to redirect_to(user_transactions_path(user))
         end
 
         it "successfully updates transaction" do
+          purchase.reload
           expect(purchase.order_number).to eq("testing123")
         end
       end
@@ -317,9 +319,10 @@ RSpec.describe TransactionsController, type: :controller do
           end
 
           it "does not delete transaction" do
+            sale
             expect {
               delete :destroy, params: {id: sale.id, user_id: admin.id}, session: admin_session
-            }.not_to change(Venue, :count)
+            }.not_to change(Transaction, :count)
           end
         end
       end
@@ -340,6 +343,10 @@ RSpec.describe TransactionsController, type: :controller do
 
     context "logged in non admin" do
       context "deleting own transaction" do
+        before(:each) do 
+          delete :destroy, params: {id: sale.id, user_id: user.id}, session: logged_in_session
+        end
+
         it "successfully deletes transaction" do
           expect(Transaction.all).not_to include(sale)
         end
@@ -351,6 +358,7 @@ RSpec.describe TransactionsController, type: :controller do
 
       context "attempting to delete another user's transaction" do
         it "does not delete transaction" do
+          admin_sale
           expect{
             delete :destroy, params: {id: admin_sale.id, user_id: admin.id}, session: logged_in_session
           }.not_to change(Transaction, :count)
@@ -364,16 +372,17 @@ RSpec.describe TransactionsController, type: :controller do
     end
 
     context "logged out user" do
-       it "does not delete any transactions" do
-          expect {
-            delete :destroy, params: {id: sale.id, user_id: user.id}, session: logged_out_session
-          }.not_to change(Transaction, :count)
-        end
-
-        it "redirects to home page" do
+      it "does not delete any transactions" do
+        sale
+        expect {
           delete :destroy, params: {id: sale.id, user_id: user.id}, session: logged_out_session
-          expect(response).to redirect_to(root_path)
-        end
+        }.not_to change(Transaction, :count)
+      end
+
+      it "redirects to home page" do
+        delete :destroy, params: {id: sale.id, user_id: user.id}, session: logged_out_session
+        expect(response).to redirect_to(root_path)
+      end
     end
   end
 

@@ -38,8 +38,8 @@ class TransactionsController < ApplicationController
   # PATCH/PUT /transactions/1
   # PATCH/PUT /transactions/1.json
   def update
-    if @transaction.update(transaction_params)
-      redirect_to @transaction, notice: 'Transaction was successfully updated.'
+    if @transaction.update(object_params)
+      index_redirect('Transaction was successfully updated.')
     else
       render :edit
     end
@@ -49,7 +49,7 @@ class TransactionsController < ApplicationController
   # DELETE /transactions/1.json
   def destroy
     @transaction.destroy
-    redirect_to transactions_url, notice: 'Transaction was successfully destroyed.'
+    index_redirect('Transaction was successfully deleted.')
   end
 
   private
@@ -69,6 +69,14 @@ class TransactionsController < ApplicationController
         redirect_to root_path
       else
         redirect_to current_user unless (@user == current_user) || current_user.admin?
+      end
+    end
+
+    def index_redirect(notice)
+      if current_user.admin?
+        redirect_to transactions_path, notice: notice
+      else
+        redirect_to user_transactions_path(current_user), notice: notice
       end
     end
 
