@@ -173,7 +173,17 @@ RSpec.shared_context "fixtures", :shared_context => :metadata do
       transaction_source_id: stubhub.id
     )
   }
-
+  let(:admin_sale){
+    Transaction.create(
+      event_id: event_2.id,
+      user_id: admin.id,
+      direction: "Sale",
+      amount: 80,
+      quantity: 2,
+      order_number: "abc123",
+      transaction_source_id: stubhub.id
+    )
+  }
   let(:logged_out_session) { {user_id: nil} }
   let(:logged_in_session) { {user_id: user.id} }
   let(:admin_session) { {user_id: admin.id}}

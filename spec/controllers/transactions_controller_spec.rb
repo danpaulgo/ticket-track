@@ -251,16 +251,32 @@ RSpec.describe TransactionsController, type: :controller do
     end
 
     context "logged in non admin" do
-      before(:each) do 
-        patch :update, params: {id: purchase.id, user_id: user.id, transaction: valid_attributes}, session: logged_in_session
+      context "updating own transaction" do
+        before(:each) do 
+          patch :update, params: {id: purchase.id, user_id: user.id, transaction: valid_attributes}, session: logged_in_session
+        end
+
+        it "redirects to user's transactions page" do
+          expect(response).to redirect_to(user_transactions(user))
+        end
+
+        it "successfully updates transaction" do
+          expect(purchase.order_number).to eq("testing123")
+        end
       end
 
-      it "redirects to user's show page" do
-        expect(response).to redirect_to(user)
-      end
+      context "attempting to update another users transaction" do
+        before(:each) do 
+          patch :update, params: {id: admin_sale.id, user_id: admin.id, transaction: valid_attributes}, session: logged_in_session
+        end
 
-      it "does not update transaction" do
-        expect(purchase.order_number).to eq("1234567")
+        it "redirects to user's show page" do
+          expect(response).to redirect_to(user)
+        end
+
+        it "does not update transaction" do
+          expect(purchase.order_number).to eq("1234567")
+        end
       end
     end
 
@@ -284,57 +300,80 @@ RSpec.describe TransactionsController, type: :controller do
       context "with valid transaction id" do
         context "with matching user id" do
           before(:each) do 
-            delete :destroy, params: {id: sale.id}, session: admin_session
+            delete :destroy, params: {id: sale.id, user_id: user.id}, session: admin_session
           end
 
-          it "successfully deletes venue" do
-            
+          it "successfully deletes transaction" do
+            expect(Transaction.all).not_to include(sale)
           end
 
           it "redirects to transactions index" do
-            
+            expect(response).to redirect_to(transactions_path)
           end
         end
         context "with non-matching user id" do
           it "redirects to admin's show page" do
-
+            delete :destroy, params: {id: sale.id, user_id: admin.id}, session: admin_session
           end
 
           it "does not delete transaction" do
-
+            expect {
+              delete :destroy, params: {id: sale.id, user_id: admin.id}, session: admin_session
+            }.not_to change(Venue, :count)
           end
         end
       end
 
       context "with invalid transaction id" do
         it "does not delete any transactions" do
-          
+          expect {
+            delete :destroy, params: {id: 0, user_id: admin.id}, session: admin_session
+          }.not_to change(Transaction, :count)
         end
 
         it "redirects to admin's show page" do
-          
+          delete :destroy, params: {id: 0, user_id: admin.id}, session: admin_session
+          expect(response).to redirect_to(admin)
         end
       end
     end
 
     context "logged in non admin" do
-      it "does not delete transaction" do
-        
+      context "deleting own transaction" do
+        it "successfully deletes transaction" do
+          expect(Transaction.all).not_to include(sale)
+        end
+
+        it "redirects to user's transactions index" do
+          expect(response).to redirect_to(user_transactions_path(user))
+        end
       end
 
-      it "redirects to user's show page" do
-        
+      context "attempting to delete another user's transaction" do
+        it "does not delete transaction" do
+          expect{
+            delete :destroy, params: {id: admin_sale.id, user_id: admin.id}, session: logged_in_session
+          }.not_to change(Transaction, :count)
+        end
+
+        it "redirects to user's show page" do
+          delete :destroy, params: {id: admin_sale.id, user_id: admin.id}, session: logged_in_session
+          expect(response).to redirect_to(user)
+        end
       end
     end
 
     context "logged out user" do
-      it "does not delete transaction" do
-        
-      end
+       it "does not delete any transactions" do
+          expect {
+            delete :destroy, params: {id: sale.id, user_id: user.id}, session: logged_out_session
+          }.not_to change(Transaction, :count)
+        end
 
-      it "redirects to home page" do
-        
-      end
+        it "redirects to home page" do
+          delete :destroy, params: {id: sale.id, user_id: user.id}, session: logged_out_session
+          expect(response).to redirect_to(root_path)
+        end
     end
   end
 
