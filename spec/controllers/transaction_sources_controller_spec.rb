@@ -43,7 +43,7 @@ RSpec.describe TransactionSourcesController, type: :controller do
         end
       end
 
-      context "with invalid performer id" do
+      context "with invalid transaction_source id" do
         it "redirects to admin show page" do
           get :edit, params: {id: 0}, session: logged_in_session
           expect(response).to redirect_to(admin)
@@ -69,14 +69,14 @@ RSpec.describe TransactionSourcesController, type: :controller do
   describe "PATCH #update" do
     context "admin" do
       context "with valid attributes" do
-        context "with valid performer id" do
+        context "with valid transaction_source id" do
           before(:each) do 
             patch :update, params: {id: ticketmaster.id, transaction_source: valid_attributes}, session: admin_session
           end
 
           it "updates transaction_source" do
             ticketmaster.reload
-            expect(performer.name).to eq("Tickpick")
+            expect(ticketmaster.name).to eq("Tickpick")
           end
 
           it "redirects to transaction_source index" do
@@ -102,83 +102,87 @@ RSpec.describe TransactionSourcesController, type: :controller do
 
     context "logged in non admin" do
       before(:each) do 
-        patch :update, params: {id: ticketmaster.id, performer: valid_attributes}, session: logged_in_session
+        patch :update, params: {id: ticketmaster.id, transaction_source: valid_attributes}, session: logged_in_session
       end
 
-      it "redirects to home page" do
+      it "redirects to user's show page" do
         expect(response).to redirect_to(user)
       end
 
-      it "does not update performer" do
+      it "does not update transaction_source" do
         ticketmaster.reload
-        expect(performer.name).to eq("Ticketmaster")
+        expect(transaction_source.name).to eq("Ticketmaster")
       end
     end
 
     context "logged out user" do 
       before(:each) do 
-        patch :update, params: {id: performer.id, performer: valid_attributes}, session: logged_out_session
+        patch :update, params: {id: ticketmaster.id, transaction_source: valid_attributes}, session: logged_out_session
       end
 
       it "redirect to home page" do
-        patch :update, params: {id: performer.id, performer: valid_attributes}, session: logged_out_session
         expect(response).to redirect_to(root_path)
       end
 
-      it "does not update performer" do
-        expect(performer.name).to eq("Drake")
+      it "does not update transaction_source" do
+        ticketmaster.reload
+        expect(ticketmaster.name).to eq("Ticketmaster")
       end
     end
   end
 
-  # describe "DELETE #destroy" do
-  #   context "admin" do
-  #     context "with valid performer id"
-  #       before(:each) do 
-  #         delete :destroy, params: {id: performer.id}, session: admin_session
-  #       end
-  #       it "successfully deletes performer" do
-  #         expect(Performer.all).not_to include(performer)
-  #       end
-  #       it "redirects to performers index" do
-  #         expect(response).to redirect_to(performers_path)
-  #       end
-  #     end
+  describe "DELETE #destroy" do
+    context "admin" do
+      context "with valid transaction_source id"
+        before(:each) do 
+          delete :destroy, params: {id: ticketmaster.id}, session: admin_session
+        end
 
-  #     context "with invalid performer id" do
-  #       it "does not delete any performers" do
-  #         performer
-  #         expect {
-  #           delete :destroy, params: {id: 0}, session: admin_session
-  #         }.not_to change(Performer, :count)
-  #       end
-  #       it "redirects to admin's show page" do
-  #         delete :destroy, params: {id: 99}, session: admin_session
-  #         expect(response).to redirect_to(admin)
-  #       end
-  #     end
+        it "successfully deletes transaction_source" do
+          expect(TransactionSource.all).not_to include(ticketmaster)
+        end
 
-  #   context "logged in non admin" do
-  #     it "does not delete performer" do
-  #       delete :destroy, params: {id: performer.id}, session: logged_in_session
-  #       expect(Performer.all).to include(performer)
-  #     end
-  #     it "redirects to user's show page" do
-  #       delete :destroy, params: {id: performer.id}, session: logged_in_session
-  #       expect(response).to redirect_to(user)
-  #     end
-  #   end
+        it "redirects to transaction_source index" do
+          expect(response).to redirect_to(transaction_sources_path)
+        end
+      end
 
-  #   context "logged out user" do
-  #     it "does not delete performer" do
-  #       delete :destroy, params: {id: performer.id}, session: logged_out_session
-  #       expect(Performer.all).to include(performer)
-  #     end
-  #     it "redirects to home page" do
-  #       delete :destroy, params: {id: performer.id}, session: logged_out_session
-  #       expect(response).to redirect_to(root_path)
-  #     end
-  #   end
-  # end
+      context "with invalid transaction_source id" do
+        it "does not delete any transaction_sources" do
+          ticketmaster
+          expect {
+            delete :destroy, params: {id: 0}, session: admin_session
+          }.not_to change(TransactionSource, :count)
+        end
+
+        it "redirects to admin's show page" do
+          delete :destroy, params: {id: 0}, session: admin_session
+          expect(response).to redirect_to(admin)
+        end
+      end
+
+    context "logged in non admin" do
+      it "does not delete transaction_source" do
+        delete :destroy, params: {id: ticketmaster.id}, session: logged_in_session
+        expect(TransactionSource.all).to include(ticketmaster)
+      end
+
+      it "redirects to user's show page" do
+        delete :destroy, params: {id: ticketmaster.id}, session: logged_in_session
+        expect(response).to redirect_to(user)
+      end
+    end
+
+    context "logged out user" do
+      it "does not delete transaction_source" do
+        delete :destroy, params: {id: ticketmaster.id}, session: logged_out_session
+        expect(TransactionSource.all).to include(ticketmaster)
+      end
+      it "redirects to home page" do
+        delete :destroy, params: {id: ticketmaster.id}, session: logged_out_session
+        expect(response).to redirect_to(root_path)
+      end
+    end
+  end
 
 end

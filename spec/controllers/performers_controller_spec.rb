@@ -122,7 +122,7 @@ RSpec.describe PerformersController, type: :controller do
   			patch :update, params: {id: performer.id, performer: valid_attributes}, session: logged_in_session
   		end
 
-  		it "redirects to home page" do
+  		it "redirects to user's show page" do
 	      expect(response).to redirect_to(user)
 	    end
 
@@ -137,8 +137,7 @@ RSpec.describe PerformersController, type: :controller do
   			patch :update, params: {id: performer.id, performer: valid_attributes}, session: logged_out_session
   		end
 
-	  	it "redirect to home page" do
-	      patch :update, params: {id: performer.id, performer: valid_attributes}, session: logged_out_session
+	  	it "redirects to home page" do
 	      expect(response).to redirect_to(root_path)
 	    end
 
