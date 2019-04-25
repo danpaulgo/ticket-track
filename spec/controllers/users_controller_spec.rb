@@ -247,6 +247,11 @@ RSpec.describe UsersController, type: :controller do
       it "redirects logged out user to home page" do
         patch :update, params: {id: user.to_param, user: new_attributes}, session: logged_out_session
         expect(response).to redirect_to(root_path)
+      end
+
+      it "does not allow logged out user to update any user" do
+        patch :update, params: {id: user.to_param, user: new_attributes}, session: logged_out_session
+        user.reload
         expect(user.name).to eq("John Doe")
       end
     end

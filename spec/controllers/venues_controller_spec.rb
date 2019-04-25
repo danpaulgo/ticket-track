@@ -183,6 +183,7 @@ RSpec.describe VenuesController, type: :controller do
       end
 
       it "does not update venue" do
+        venue.reload
         expect(venue.name).to eq("Madison Square Garden")
       end
     end
@@ -198,6 +199,7 @@ RSpec.describe VenuesController, type: :controller do
       end
 
       it "does not update venue" do
+        venue.reload
         expect(venue.name).to eq("Madison Square Garden")
       end
     end
@@ -250,7 +252,7 @@ RSpec.describe VenuesController, type: :controller do
         delete :destroy, params: {id: venue.id}, session: logged_out_session
         expect(Venue.all).to include(venue)
       end
-      
+
       it "redirects to home page" do
         delete :destroy, params: {id: venue.id}, session: logged_out_session
         expect(response).to redirect_to(root_path)

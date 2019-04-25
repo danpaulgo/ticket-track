@@ -161,6 +161,7 @@ RSpec.describe EventsController, type: :controller do
       end
 
       it "does not update event" do
+        event.reload
         expect(event.date).to eq(Date.today + 1.year)
         expect(event.venue).to eq(venue)
       end
@@ -177,6 +178,7 @@ RSpec.describe EventsController, type: :controller do
       end
 
       it "does not update event" do
+        event.reload
         expect(event.date).to eq(Date.today + 1.year)
         expect(event.venue).to eq(venue)
       end

@@ -239,6 +239,7 @@ RSpec.describe TransactionsController, type: :controller do
           end
 
           it "does not update transaction" do
+            purchase.reload
             expect(purchase.order_number).to eq("1234567")
           end
         end
@@ -277,6 +278,7 @@ RSpec.describe TransactionsController, type: :controller do
         end
 
         it "does not update transaction" do
+          purchase.reload
           expect(purchase.order_number).to eq("1234567")
         end
       end
