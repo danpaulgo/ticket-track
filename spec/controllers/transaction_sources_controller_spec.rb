@@ -45,7 +45,7 @@ RSpec.describe TransactionSourcesController, type: :controller do
 
       context "with invalid transaction_source id" do
         it "redirects to admin show page" do
-          get :edit, params: {id: 0}, session: logged_in_session
+          get :edit, params: {id: 0}, session: admin_session
           expect(response).to redirect_to(admin)
         end
       end
@@ -111,7 +111,7 @@ RSpec.describe TransactionSourcesController, type: :controller do
 
       it "does not update transaction_source" do
         ticketmaster.reload
-        expect(transaction_source.name).to eq("Ticketmaster")
+        expect(ticketmaster.name).to eq("Ticketmaster")
       end
     end
 

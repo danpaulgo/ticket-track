@@ -39,11 +39,11 @@ class ApplicationController < ActionController::Base
     end
 
     def object_attributes
-    	object_type.capitalize.constantize.new.attributes.keys
+    	object_type.spaceless_title.constantize.new.attributes.keys
     end
 
     def set_object
-    	obj = instance_variable_set(:"@#{object_type}", object_type.capitalize.constantize.find_by(id: params[:id]))
+    	obj = instance_variable_set(:"@#{object_type}", object_type.spaceless_title.constantize.find_by(id: params[:id]))
     	redirect_to current_user if obj.nil?
     end
 
