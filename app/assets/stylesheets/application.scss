@@ -1,0 +1,160 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+ @import url('https://fonts.googleapis.com/css?family=Righteous');
+ @import url('https://fonts.googleapis.com/css?family=Montserrat');
+ @import url('https://fonts.googleapis.com/css?family=Hammersmith+One');
+ @import url('https://fonts.googleapis.com/css?family=Changa');
+
+ $color_a: #52ceff; //light blue
+ $color_a_dark: #0092cc; //darker blue
+ $color_b: white;
+ $color_c: #bfbfbf; //light grey
+ $color_d: black;
+
+ $font_a: "Montserrat";
+ $font_b: "Hammersmith One";
+ $font_c: "Righteous";
+
+ // UNIVERSAL
+
+ *{
+ 	margin: 0;
+ 	padding: 0;
+ 	text-decoration: none;
+ }
+
+ div#main{
+ 	min-height: 500px;
+ }
+
+// HEADER
+
+header{
+	height:60px;
+	width: 100%;
+	background: linear-gradient(90deg, rgba(82,206,255,1) 0%, rgba(173,232,255,1) 50%, rgba(82,206,255,1) 100%);
+	p#header-title{
+		display: inline-block;
+		font-size:36px;
+		padding-top:7px;
+		padding-left: 15px;
+		font-weight:bold;
+		font-family: $font_a, sans-serif;
+		color: white;
+	}
+	a:visited{
+		color: $color_b;
+	}
+	p#header-login{
+		display: inline-block;
+		float: right;
+		padding-right: 25px;
+		padding-top: 16px;
+		font-size: 20px;
+		font-family: $font_a;
+	}
+}
+
+// HOMEPAGE
+
+div#homepage-banner{
+	height:300px;
+	width:100%;
+	img{
+		height:100%;
+		width:100%;
+	}
+}
+
+div#homepage-body{
+	padding-top:70px;
+	padding-bottom: 80px;
+	h2#homepage-title{
+		margin-bottom: 12px;
+		font-size: 48px;
+		text-align:center;
+		font-family: $font_b;
+		color: $color_c;
+	}
+	div#homepage-checkpoints{
+		display: inline-block;
+		width:40%;
+		padding: 20px 5%;
+		font-size: 24px;
+		color: $color_c;
+		font-family: $font_a;
+		table{
+			tr{
+				height: 96px;
+				td.checkmark{
+					min-width: 50px;
+				}
+			}
+		}
+	}
+	div#homepage-signup-box{
+		float:right;
+		width:50%;
+		text-align: center;
+		padding-top: 152px;
+		div#signup-button{
+			display:inline;
+			padding: 22px;
+			border: 2px solid $color_a_dark;
+			border-radius: 40px;
+			font-family: $font_a;
+			font-size: 24px;
+			font-weight: bold;
+			background-color: $color_a;
+			color: $color_b;
+			a{
+				color: $color_b;
+			}
+			a:hover{
+				color: $color_a_dark;
+			}
+		}
+	}
+}
+
+
+// FOOTER
+
+footer{
+	height: 150px;
+	background-color: $color_d;
+	text-align: center;
+	padding: 22px 0;
+	color: $color_b;
+	p#footer-title{
+		font-family: $font_c;
+		font-size: 26px;
+		margin-bottom: 6px;
+	}
+	p.footer-link{
+		font-family: $font_a;
+		font-size: 16px;
+		margin-top: 8px;
+		a{
+			color: $color_b;
+		}
+		a:hover{
+			color: $color_c;
+		}
+	}
+}
+

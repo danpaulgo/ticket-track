@@ -10,6 +10,19 @@
   </head>
 
   <body>
-    <%= yield %>
+    <header>
+      <p id="header-title"><%= link_to "TicketTrack", root_path %></p>
+      <p id="header-login"><%= link_to "Log In", login_path %></p>
+    </header>
+    <div id="main">
+      <%= yield %>
+    </div>
+    <footer>
+      <p id="footer-title">TicketTrack</p>
+      <p class="footer-link"><%= link_to "Home", root_path %></p>
+      <p class="footer-link"><%= link_to "Sign Up", root_path %></p>
+      <p class="footer-link"><%= link_to "About", root_path %></p>
+      <p class="footer-link"><%= link_to "Contact", root_path %></p>
+    </footer>
   </body>
 </html>
