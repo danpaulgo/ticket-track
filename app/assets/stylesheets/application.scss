@@ -45,7 +45,7 @@
 
  div#main{
  	min-height: 400px;
- 	padding: 0 5px;
+ 	// padding: 0 5px;
  }
 
 // HEADER
@@ -62,11 +62,10 @@ header{
 		// font-weight:bold;
 		font-family: $font_c, sans-serif;
 		color: white;
+		a{
+			color: $color_b;
+		}
 	}
-	a:visited{
-		color: $color_b;
-	}
-
 	p#header-login{
 		display: inline-block;
 		float: right;
@@ -74,6 +73,9 @@ header{
 		padding-top: 16px;
 		font-size: 20px;
 		font-family: $font_a;
+		a{
+			color: $color_b;
+		}
 		a:hover{
 			color: $color_a_dark;
 		}

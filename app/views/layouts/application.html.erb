@@ -12,7 +12,8 @@
   <body>
     <header>
       <p id="header-title"><%= link_to "TicketTrack", root_path %></p>
-      <p id="header-login"><%= link_to "Log In", login_path %></p>
+      <%= render "partials/header_menu" %>
+      
     </header>
     <div id="main">
       <%= yield %>
