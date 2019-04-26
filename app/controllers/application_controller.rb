@@ -53,7 +53,7 @@ class ApplicationController < ActionController::Base
     	attributes.delete("created_at")
     	attributes.delete("updated_at")
     	attributes.delete("admin")
-    	attributes.push("password") if controller_name == "users"
+    	attributes.push("password", "password_confirmation") if controller_name == "users"
     	params.require(:"#{object_type}").permit(attributes)
     end
 

@@ -43,7 +43,7 @@ purchase = Transaction.create(
 				      amount: 99.99,
 				      quantity: 2,
 				      order_number: "1234567",
-				      source: "Ticketmaster"
+				      transaction_source: TransactionSource.create(name: "Ticketmaster")
 				    )
 
 sale = Transaction.create(
@@ -53,5 +53,5 @@ sale = Transaction.create(
 	      amount: 69.99,
 	      quantity: 1,
 	      order_number: "1234567",
-	      source: "Stubhub"
+	      transaction_source: TransactionSource.create(name: "Stubhub")
 	    )
