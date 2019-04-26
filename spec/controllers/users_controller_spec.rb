@@ -37,6 +37,10 @@ RSpec.describe UsersController, type: :controller do
     {name: "", email: "invalid", password: "foo", birthdate: nil}
   }
 
+  let(:blank_confirmation) {
+    {name: "Valid User", email: "valid@gmail.com", password: "password", password_confirmation: "", birthdate: "1993-06-18"}
+  }
+
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # UsersController. Be sure to keep this updated too.
@@ -197,6 +201,13 @@ RSpec.describe UsersController, type: :controller do
       context "with invalid params" do
         it "renders new template" do
           post :create, params: {user: invalid_attributes}, session: logged_out_session
+          expect(response).to render_template(:new)
+        end
+      end
+
+      context "with blank password confirmation" do
+        it "renders new template" do
+          post :create, params: {user: blank_confirmation}, session: logged_out_session
           expect(response).to render_template(:new)
         end
       end
