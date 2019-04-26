@@ -14,20 +14,22 @@
  *= require_self
  */
 
- @import url('https://fonts.googleapis.com/css?family=Righteous');
- @import url('https://fonts.googleapis.com/css?family=Montserrat');
- @import url('https://fonts.googleapis.com/css?family=Hammersmith+One');
- @import url('https://fonts.googleapis.com/css?family=Changa');
+ @import url('https://fonts.googleapis.com/css?family=Montserrat|Hammersmith+One|Proza+Libre|Bai+Jamjuree');
 
- $color_a: #52ceff; //light blue
+ $color_a: rgba(82,206,255,1); //light blue
+ $color_a_light: rgba(158, 228, 255, 1);
  $color_a_dark: #0092cc; //darker blue
+ $color_a_gradient: linear-gradient(90deg, $color_a 0%, $color_a_light 50%, $color_a 100%);
  $color_b: white;
  $color_c: #bfbfbf; //light grey
+ $color_c_dark: grey;
  $color_d: black;
+
 
  $font_a: "Montserrat";
  $font_b: "Hammersmith One";
- $font_c: "Righteous";
+ $font_c: "Proza Libre";
+ $font_d: "Bai Jamjuree";
 
  // UNIVERSAL
 
@@ -37,8 +39,13 @@
  	text-decoration: none;
  }
 
+ body{
+ 	min-width: 400px;
+ }
+
  div#main{
- 	min-height: 500px;
+ 	min-height: 400px;
+ 	padding: 0 5px;
  }
 
 // HEADER
@@ -46,14 +53,14 @@
 header{
 	height:60px;
 	width: 100%;
-	background: linear-gradient(90deg, rgba(82,206,255,1) 0%, rgba(173,232,255,1) 50%, rgba(82,206,255,1) 100%);
+	background: $color_a_gradient;
 	p#header-title{
 		display: inline-block;
 		font-size:36px;
-		padding-top:7px;
+		padding-top:8px;
 		padding-left: 15px;
-		font-weight:bold;
-		font-family: $font_a, sans-serif;
+		// font-weight:bold;
+		font-family: $font_c, sans-serif;
 		color: white;
 	}
 	a:visited{
@@ -116,7 +123,7 @@ div#homepage-body{
 		text-align: center;
 		padding-top: 152px;
 		div#signup-button{
-			box-shadow: 3px 3px 5px grey;
+			box-shadow: 3px 3px 5px $color_c_dark;
 			display:inline;
 			padding: 22px;
 			border: 2px solid $color_a_dark;
@@ -141,9 +148,9 @@ div#homepage-body{
 
 footer{
 	height: 150px;
-	background-color: $color_d;
+	background: $color_a_gradient;
 	text-align: center;
-	padding: 22px 0;
+	padding: 12px 0 6px;
 	color: $color_b;
 	p#footer-title{
 		font-family: $font_c;
@@ -162,4 +169,64 @@ footer{
 		}
 	}
 }
+
+
+// FORMS
+
+div.form-container{
+	width: 330px;
+	margin: auto;
+	margin-top: 80px;
+	margin-bottom: 80px;
+	padding: 40px 29px;
+	border: 1px solid $color_d;
+	border-radius: 10px;
+	box-shadow: 3px 3px 5px $color_c;
+	// text-align: center;
+	div#error_explanation{
+		margin-bottom: 24px;
+	}
+	h2.form-title{
+		text-align: center;
+		font-family: $font_d;
+		margin-bottom: 15px;
+	}
+	div.form-section{
+		font-family: $font_a;
+		padding: 20px 0;
+		label{
+			float: left;
+		}
+		input{
+			float: right;
+			width: 150px;
+			height:20px;
+			border-radius: 5px;
+			font-size: 14px;
+			font-family: $font_a;
+		}
+	}
+	div.submit{
+		margin-top: 36px;
+		text-align: center;
+		input{
+			background-color: $color_a;
+		  border: none;
+		  color: white;
+		  padding: 15px 32px;
+		  text-align: center;
+		  text-decoration: none;
+		  display: inline-block;
+		  font-size: 16px;
+		  border-radius: 8px;
+		  font-family: $font_a;
+		  margin: 4px 2px;
+	  	cursor: pointer;
+		}
+		input:hover{
+			color:$color_a_dark;
+		}
+	}
+}
+
 
