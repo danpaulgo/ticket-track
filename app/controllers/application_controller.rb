@@ -45,6 +45,10 @@ class ApplicationController < ActionController::Base
     	redirect_to current_user if obj.nil?
     end
 
+    def set_user
+      @user ||= User.find_by(id: params[:user_id]) if params[:user_id]
+    end
+
     def object_params
     	attributes = object_attributes
     	attributes.delete("id")

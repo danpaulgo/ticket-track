@@ -4,10 +4,15 @@ RSpec.describe EventsController, type: :routing do
   describe "routing" do
     it "routes to #index" do
       expect(:get => "/events").to route_to("events#index")
+      expect(:get => "/users/1/events").to route_to("events#index", user_id: "1")
     end
 
     it "routes to #new" do
       expect(:get => "/events/new").to route_to("events#new")
+    end
+
+    it "routes to #show" do
+      expect(:get => "/users/1/events/1").to route_to("events#show", id: "1", user_id: "1")
     end
 
     it "routes to #edit" do

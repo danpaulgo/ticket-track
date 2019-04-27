@@ -54,20 +54,16 @@ class TransactionsController < ApplicationController
 
   private
 
-    def set_user
-      @user ||= User.find_by(id: params[:user_id]) if params[:user_id]
-    end
-
     def matching_user
       set_object
       redirect_to current_user if @transaction && (@transaction.user != @user)
     end
 
     def authorized_user
-      set_user
       if current_user.nil?
         redirect_to root_path
       else
+        set_user
         redirect_to current_user unless (@user == current_user) || current_user.admin?
       end
     end

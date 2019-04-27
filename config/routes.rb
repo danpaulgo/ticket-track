@@ -5,10 +5,11 @@ Rails.application.routes.draw do
 
   resources :users do
   	resources :transactions, except: :show
+    resources :events, only: [:index, :show]
   end
   resources :performers, except: [:new, :create]
   resources :venues
-  resources :events, except: :show
+  resources :events
   resources :transactions, except: :show
   resources :transaction_sources, except: [:new, :create, :show]
 

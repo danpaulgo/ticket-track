@@ -1,8 +1,8 @@
 class EventsController < ApplicationController
-  before_action :set_object, only: [:edit, :update, :destroy]
+  before_action :set_object, only: [:show, :edit, :update, :destroy]
   before_action :valid_admin, only: [:edit, :update, :destroy]
-  before_action :valid_user, only:[:index, :new, :create]
-
+  before_action :valid_user, only:[:index, :show, :new, :create]
+  before_action :set_user, :matching_user, only: [:index, :show]
 
   # GET /events
   # GET /events.json
@@ -13,6 +13,10 @@ class EventsController < ApplicationController
   # GET /events/new
   def new
     @event = Event.new
+  end
+
+  def show
+    redirect_to current_user if @user.nil?
   end
 
   # GET /events/1/edit
@@ -46,5 +50,11 @@ class EventsController < ApplicationController
     @event.destroy if @event
     redirect_to events_url, notice: 'Event was successfully destroyed.'
   end
+
+  private
+
+    def matching_user
+      redirect_to current_user if !@user.nil? && @user != current_user 
+    end
 
 end
