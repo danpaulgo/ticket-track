@@ -1,5 +1,7 @@
 class SessionsController < ApplicationController
   def new
+    @email = nil
+    @password = nil
   	redirect_to current_user if logged_in?
   end
 
@@ -10,8 +12,13 @@ class SessionsController < ApplicationController
   		set_user
   		set_password
   		if @user.nil?
+        @email = nil
+        @password = nil
+        flash[:error] = "User does not exist"
   			render :new, notice: "User does not exist"
   		elsif !@user.authenticate(@password)
+        @password = nil
+        flash[:error] = "Invalid email and/or password"
   			render :new, notice: "Invalid email and/or password"
   		else
   			login(@user)
@@ -27,16 +34,13 @@ class SessionsController < ApplicationController
 
   private
 
-  	def session_params
-	    params.require(:session).permit(:email, :password, :remember_me)
-	  end
-
 	  def set_user
-	  	@user = User.find_by(email: params[:session][:email])
+      @email = params[:email]
+	  	@user = User.find_by(email: @email)
 	  end
 
 	  def set_password
-	  	@password = params[:session][:password]
+	  	@password = params[:password]
 	  end
 
 end

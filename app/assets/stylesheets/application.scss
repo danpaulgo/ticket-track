@@ -201,7 +201,7 @@ div.form-container{
 		}
 		input{
 			float: right;
-			width: 150px;
+			width: 160px;
 			height:20px;
 			border-radius: 5px;
 			font-size: 14px;
@@ -228,6 +228,16 @@ div.form-container{
 		input:hover{
 			color:$color_a_dark;
 		}
+	}
+}
+
+div#flash-container{
+	margin-bottom: 30px;
+	p#flash-title{
+		margin-bottom: 12px;
+	}
+	li.flash-message{
+		margin-left: 20px;
 	}
 }
 

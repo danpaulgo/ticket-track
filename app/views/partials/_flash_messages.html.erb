@@ -1,0 +1,10 @@
+<div id="flash-container" %>
+	<% if !flash.empty? %>
+		<% flash.each do |key, value| %>
+			<p id="flash-title"><%= key.capitalize %>:</p>
+			<ul>
+	    	<li class="flash-message"><%= value %></li>
+	    </ul>
+	  <% end %>
+	<% end %>
+</div>
