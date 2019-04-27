@@ -31,24 +31,24 @@ RSpec.describe SessionsController, type: :controller do
   	context "with logged in user" do
 	  	it "redirects user to their own show page" do
 	  		admin.reload
-	  		post :create, params: {session: valid_login}, session: logged_in_session
+	  		post :create, params: valid_login, session: logged_in_session
 	      expect(response).to redirect_to(user)
-	      post :create, params: {session: invalid_user}, session: logged_in_session
+	      post :create, params: invalid_user, session: logged_in_session
 	      expect(response).to redirect_to(user)
-	      post :create, params: {session: invalid_password}, session: logged_in_session
+	      post :create, params: invalid_password, session: logged_in_session
 	      expect(response).to redirect_to(user)
 	  	end
 	  end
 	  context "with logged out user" do
   		it "returns success response with valid credentials" do
-  			post :create, params: {session: valid_login}, session: logged_out_session
+  			post :create, params: valid_login, session: logged_out_session
 	      expect(response).to redirect_to(admin)
   		end
 
   		it "re-renders login page with invalid credentials" do
-  			post :create, params: {session: invalid_user}, session: logged_out_session
+  			post :create, params: invalid_user, session: logged_out_session
 	      expect(response).to render_template(:new)
-	      post :create, params: {session: invalid_password}, session: logged_out_session
+	      post :create, params: invalid_password, session: logged_out_session
 	      expect(response).to render_template(:new)
   		end
   	end
