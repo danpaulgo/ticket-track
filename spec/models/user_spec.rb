@@ -69,4 +69,10 @@ RSpec.describe User, :type => :model do
     expect(Transaction.all).not_to include(purchase, sale)
   end
 
+  describe "first_name" do
+    it "returns user's first name" do
+      expect(admin.first_name).to eq("Daniel")
+    end
+  end
+
 end

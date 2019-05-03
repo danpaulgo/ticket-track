@@ -1,4 +1,23 @@
-<p id="notice"><%= notice %></p>
+<div class="show-container" id="user-info-container">
+	<div id="user-info">
+		<h2>Welcome back, <%= @user.first_name %>!</h2>
+		<p>Name: <%= @user.name %></p>
+		<p>Email: <%= @user.email %></p>
+		<p>DOB: <%= @user.birthdate.strftime("%b %e, %Y") %></p>
+		</div>
+</div>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<div id="user-lists" class="clearfix">
+	<div id="upcoming-events" class="show-container">
+		<h3>Upcoming Events</h3>
+		<ol>
+			<% @upcoming_events.each do |event| %>
+				<li><%= link_to "#{event.name}", user_event_path(@user, event) %></li>	
+			<% end %>
+		</ol>
+	</div>
+
+	<div id="recent-transactions" class="show-container">
+		<h3>Recent Transactions</h3>
+	</div>
+</div>

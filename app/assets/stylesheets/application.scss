@@ -41,6 +41,7 @@
 
  body{
  	min-width: 400px;
+ 	background-color: #F5F5F5;
  }
 
  div#main{
@@ -115,6 +116,7 @@ div#homepage-body{
 				height: 96px;
 				td.checkmark{
 					min-width: 50px;
+					color:#91f88b;
 				}
 			}
 		}
@@ -184,6 +186,7 @@ div.form-container{
 	border: 1px solid $color_d;
 	border-radius: 10px;
 	box-shadow: 3px 3px 5px $color_c;
+	background-color: white;
 	// text-align: center;
 	div#error_explanation{
 		margin-bottom: 24px;
@@ -230,6 +233,55 @@ div.form-container{
 		}
 	}
 }
+
+// SHOW PAGES
+
+div.show-container{
+	background-color: $color_b;
+	border: 1px solid $color_d;;
+	border-radius: 10px;
+	font-family: $font_a;
+	h2, h3{
+		font-family: $font_d;
+		margin-bottom: 12px;
+		font-style: italic;
+	}
+}
+div#user-info-container{
+	width:80%;
+	margin: auto;
+	margin-top: 40px;
+	margin-bottom: 40px;
+	div#user-info{
+		padding:12px;
+	}
+}
+div#user-lists{
+	margin:auto;
+	width: 80%;
+	margin-bottom: 40px;
+	div{
+		width:45%;
+		text-align:center;
+		ol{
+			list-style: none;
+			padding: 12px;
+		}
+		// padding: 12px;
+	}
+	div#upcoming-events{
+		float: left;
+	}
+	div#recent-transactions{
+		float: right;
+	}
+}
+
+.clearfix {
+  overflow: auto;
+}
+
+// FLASH MESSAGES
 
 div#flash-container{
 	margin-bottom: 30px;

@@ -9,4 +9,8 @@ class User < ApplicationRecord
 	validates :email, uniqueness: true
 	validates :password, length: { minimum: 6 }
 
+	def first_name
+		name.split(" ").first
+	end
+
 end

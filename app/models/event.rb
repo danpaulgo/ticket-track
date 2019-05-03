@@ -6,4 +6,9 @@ class Event < ApplicationRecord
 
 	validates :date, presence: true
 
+	def name
+		string_date = date.strftime("%m/%e/%Y")
+		"#{performer.name} @ #{venue.name} (#{string_date})"
+	end
+
 end

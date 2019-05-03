@@ -49,4 +49,10 @@ RSpec.describe Event, type: :model do
 		expect(Transaction.all).not_to include(purchase, sale)
 	end
 
+  describe "name" do
+    it "returns formatted name based on attributes" do
+      expect(event_2.name).to eq("Eminem @ House of Blues (12/31/2020)")
+    end 
+  end
+
 end

@@ -30,7 +30,7 @@ RSpec.describe UsersController, type: :controller do
   # adjust the attributes here as well.
   include_context "fixtures"
   let(:valid_attributes) {
-    {name: "Valid User", email: "valid@gmail.com", password: "password", birthdate: "1993-06-18"}
+    {name: "Valid User", email: "valid@gmail.com", password: "password", password_confirmation: "password", birthdate: "1993-06-18"}
   }
 
   let(:invalid_attributes) {
@@ -217,51 +217,59 @@ RSpec.describe UsersController, type: :controller do
   describe "PATCH #update" do
     
     context "with valid params" do
-      let(:new_attributes) { 
-        {name: "New Name", birthdate: "2010-01-01", password: "password"}
+      let(:edit_attributes) { 
+        {name: "Updated User", birthdate: "2010-01-01"}
       }
 
       context "admin" do
         context "valid user id" do
           it "allows to update any user" do
-            patch :update, params: {id: user.to_param, user: new_attributes}, session: admin_session
+            patch :update, params: {id: user.to_param, user: valid_attributes}, session: admin_session
             user.reload
             expect(response).to redirect_to(user)
-            expect(user.name).to eq("New Name")
-            expect(user.birthdate).to eq("20100101".to_date)
+            expect(user.name).to eq("Valid User")
+            expect(user.birthdate).to eq("19930618".to_date)
           end
         end
 
         context "with invalid user id" do
           it "redirects to admin's show page" do
-            patch :update, params: {id: 0, user: new_attributes}, session: admin_session
+            patch :update, params: {id: 0, user: valid_attributes}, session: admin_session
             expect(response).to redirect_to(admin)
           end
         end
       end
 
       it "allows user to update themself" do
-        patch :update, params: {id: user.to_param, user: new_attributes}, session: logged_in_session
+        patch :update, params: {id: user.to_param, user: valid_attributes}, session: logged_in_session
         user.reload
         expect(response).to redirect_to(user)
-        expect(user.name).to eq("New Name")
+        expect(user.name).to eq("Valid User")
+        expect(user.birthdate).to eq("19930618".to_date)
+      end
+
+      it "allows user to update themself without entering password" do
+        patch :update, params: {id: user.to_param, user: edit_attributes}, session: logged_in_session
+        user.reload
+        expect(response).to redirect_to(user)
+        expect(user.name).to eq("Updated User")
         expect(user.birthdate).to eq("20100101".to_date)
       end
 
       it "does not allow non-admin to update users other than themself" do
-        patch :update, params: {id: admin.to_param, user: new_attributes}, session: logged_in_session
+        patch :update, params: {id: admin.to_param, user: valid_attributes}, session: logged_in_session
         user.reload
         expect(response).to redirect_to(user)
         expect(user.name).to eq("John Doe")
       end
 
       it "redirects logged out user to home page" do
-        patch :update, params: {id: user.to_param, user: new_attributes}, session: logged_out_session
+        patch :update, params: {id: user.to_param, user: valid_attributes}, session: logged_out_session
         expect(response).to redirect_to(root_path)
       end
 
       it "does not allow logged out user to update any user" do
-        patch :update, params: {id: user.to_param, user: new_attributes}, session: logged_out_session
+        patch :update, params: {id: user.to_param, user: valid_attributes}, session: logged_out_session
         user.reload
         expect(user.name).to eq("John Doe")
       end

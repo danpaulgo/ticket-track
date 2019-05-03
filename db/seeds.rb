@@ -23,6 +23,9 @@ admin = User.create(
 				)
 
 performer = Performer.create(name: "Drake")
+performer_2 = Performer.create(name: "Eminem")
+performer_3 = Performer.create(name:"Rihanna")
+performer_4 = Performer.create(name: "Flume")
 
 venue = Venue.create(
 		      name: "Madison Square Garden",
@@ -30,28 +33,94 @@ venue = Venue.create(
 		      state: "NY"
 		    )
 
-event = Event.create(
-		      performer_id: performer.id,
-		      venue_id: venue.id,
-		      date: Date.today + 1.year
-		    )
+venue_2 = Venue.create(
+			      name: "EchoStage",
+			      city: "Washington",
+			      state: "D.C."
+			    )
 
-purchase = Transaction.create(
-				      event_id: event.id,
-				      user_id: user.id,
-				      direction: "purchase",
-				      amount: 99.99,
-				      quantity: 2,
-				      order_number: "1234567",
-				      transaction_source: TransactionSource.create(name: "Ticketmaster")
-				    )
+venue_3 = Venue.create(
+			      name: "Red Rocks",
+			      city: "Morrison",
+			      state: "CO"
+			    )
 
-sale = Transaction.create(
-	      event_id: event.id,
-	      user_id: user.id,
-	      direction: "sale",
-	      amount: 69.99,
-	      quantity: 1,
-	      order_number: "1234567",
-	      transaction_source: TransactionSource.create(name: "Stubhub")
-	    )
+venue_4 = Venue.create(
+						name: "House of Blues",
+						city: "Boston",
+						state: "MA"
+					)
+
+# def time_rand(from = 0.0, to = Time.now)
+#   Time.at(from + rand * (to - from))
+# end
+
+def random_date(year)
+	month = 1 + rand(12)
+	day = 1 + rand(28)
+	"#{day}-#{month}-#{year}".to_date
+end
+
+Performer.all.each do |p|
+	Venue.all.each do |v|
+		Event.create(
+			performer: p,
+			venue: v,
+			date: random_date(2020)
+			)
+	end
+end
+
+ticketmaster = TransactionSource.create(name: "Ticketmaster")
+stubhub = TransactionSource.create(name: "Stubhub")
+
+Event.all.each do |e|
+	q = rand(8) + 1
+	pa = rand(10.0..99.99)
+	Transaction.create(
+		event: e,
+		user: user,
+		direction: "purchase",
+		quantity: q, 
+		amount: q*pa,
+		order_number: (0...10).map { ('A'..'Z').to_a[rand(26)] }.join,
+		transaction_source: ticketmaster
+		)
+	sa = rand(10.0..99.99)
+	Transaction.create(
+		event: e,
+		user: user,
+		direction: "sale",
+		quantity: q, 
+		amount: q*sa,
+		order_number: (0...10).map { ('A'..'Z').to_a[rand(26)] }.join,
+		transaction_source: stubhub
+		)
+end
+
+
+# event = Event.create(
+# 		      performer_id: performer.id,
+# 		      venue_id: venue.id,
+# 		      date: Date.today + 1.year
+# 		    )
+
+# purchase = Transaction.create(
+# 				      event_id: event.id,
+# 				      user_id: user.id,
+# 				      direction: "purchase",
+# 				      amount: 99.99,
+# 				      quantity: 2,
+# 				      order_number: "1234567",
+# 				      transaction_source: TransactionSource.create(name: "Ticketmaster")
+# 				    )
+
+# sale = Transaction.create(
+# 	      event_id: event.id,
+# 	      user_id: user.id,
+# 	      direction: "sale",
+# 	      amount: 69.99,
+# 	      quantity: 1,
+# 	      order_number: "1234567",
+# 	      transaction_source: TransactionSource.create(name: "Stubhub")
+# 	    )
