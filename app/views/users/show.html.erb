@@ -3,7 +3,7 @@
 		<h2>Welcome back, <%= @user.first_name %>!</h2>
 		<p>Name: <%= @user.name %></p>
 		<p>Email: <%= @user.email %></p>
-		<p>DOB: <%= @user.birthdate.strftime("%b %e, %Y") %></p>
+		<p id="dob">DOB: <%= @user.birthdate.strftime("%b %e, %Y") %></p>
 		</div>
 </div>
 
@@ -12,7 +12,9 @@
 		<h3>Upcoming Events</h3>
 		<ol>
 			<% @upcoming_events.each do |event| %>
-				<li><%= link_to "#{event.name}", user_event_path(@user, event) %></li>	
+				<li id="event-listing" class="clearfix">
+					<%= link_to render(partial: 'events/event', locals: {event: event}), user_event_path(@user, event) %>
+				</li>	
 			<% end %>
 		</ol>
 	</div>

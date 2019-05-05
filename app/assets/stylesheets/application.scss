@@ -241,10 +241,17 @@ div.show-container{
 	border: 1px solid $color_d;;
 	border-radius: 10px;
 	font-family: $font_a;
+	min-width: 300px;
 	h2, h3{
 		font-family: $font_d;
 		margin-bottom: 12px;
 		font-style: italic;
+	}
+	h3{
+		padding-top: 16px;
+	}
+	p#dob{
+
 	}
 }
 div#user-info-container{
@@ -259,21 +266,67 @@ div#user-info-container{
 div#user-lists{
 	margin:auto;
 	width: 80%;
-	margin-bottom: 40px;
+	margin-bottom: 60px;
+	@media screen and (max-width: 775px) {
+    width: 100%;
+  }
 	div{
 		width:45%;
 		text-align:center;
 		ol{
 			list-style: none;
-			padding: 12px;
+			padding: 16px;
+			li#event-listing{
+				margin-bottom: 16px;
+			}
+			a{
+				color: $color_c_dark;
+				div#event-left{
+					width:39%;
+					float: left;
+					div#event-artist{
+						margin:auto;
+						width: 100%;
+						// padding-top: 7px;
+						font-size: 18px;
+					}
+				}
+				div#event-right{
+					width:59%;
+					float:right;
+					font-size: 14px;
+					// border-left: 1px solid $color_c_dark;
+					div{
+						width: 100%;
+					}
+					div#event-venue{
+						padding-bottom:6px;
+					}
+				}
+			}
+			a:hover{
+				color: $color_d;
+				font-style: italic;
+			}
 		}
 		// padding: 12px;
 	}
 	div#upcoming-events{
 		float: left;
+		@media screen and (max-width: 775px) {
+	    float: none;
+	    margin: auto;
+	    width: 80%;
+	    margin-bottom: 40px;
+	  }
 	}
 	div#recent-transactions{
 		float: right;
+		@media screen and (max-width: 775px) {
+	    float: none;
+	    margin: auto;
+	    width: 80%;
+	  }
 	}
 }
 

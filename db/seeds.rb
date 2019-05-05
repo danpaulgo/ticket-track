@@ -24,7 +24,7 @@ admin = User.create(
 
 performer = Performer.create(name: "Drake")
 performer_2 = Performer.create(name: "Eminem")
-performer_3 = Performer.create(name:"Rihanna")
+performer_3 = Performer.create(name:"Florence and the Machine")
 performer_4 = Performer.create(name: "Flume")
 
 venue = Venue.create(
