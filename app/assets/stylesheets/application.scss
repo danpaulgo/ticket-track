@@ -41,7 +41,7 @@
 
  body{
  	min-width: 400px;
- 	background-color: #F5F5F5;
+ 	background-color: white;
  }
 
  div#main{
@@ -238,95 +238,123 @@ div.form-container{
 
 div.show-container{
 	background-color: $color_b;
-	border: 1px solid $color_d;;
+	// border: 1px solid $color_d;;
 	border-radius: 10px;
 	font-family: $font_a;
-	min-width: 300px;
 	h2, h3{
 		font-family: $font_d;
 		margin-bottom: 12px;
-		font-style: italic;
 	}
 	h3{
 		padding-top: 16px;
+		font-size: 20px;
 	}
-	p#dob{
-
-	}
+	
 }
 div#user-info-container{
-	width:80%;
+	width:89%;
 	margin: auto;
 	margin-top: 40px;
-	margin-bottom: 40px;
+	margin-bottom: 30px;
+	font-style: italic;
+	p{
+		margin-bottom: 6px;
+	}
 	div#user-info{
 		padding:12px;
 	}
+	h2#welcome-message{
+		font-style: normal;
+	}
+	div#profits-container{
+		font-style: normal;
+		font-weight: bold;
+		font-size: 17px;
+		width:50%;
+		margin-top:12px;
+		border-top:1px solid $color_c;
+		padding-top: 12px;
+		@media screen and (max-width: 775px) {
+			width: 100%;
+		}
+	}
 }
+
 div#user-lists{
 	margin:auto;
-	width: 80%;
+	width: 90%;
 	margin-bottom: 60px;
+  div#events-wrapper{
+  	margin-right:2%;
+  	margin-bottom: 30px;
+  }
+  div#transactions-wrapper{
+  	margin-left:2%;
+  }
+  div.wrapper{
+  	width:48%;
+  	min-width: 300px;
+  	font-family: $font_d;
+  	a{
+			color: $color_c_dark;
+		}
+		a:hover{
+			color: $color_d;
+			font-style: italic;
+			li{
+				border: 1px dashed black;
+				border-radius: 10px;
+			}
+		}
 	@media screen and (max-width: 775px) {
-    width: 100%;
+	    float: none;
+	    margin: auto;
+	    width: 100%;
+	  }
+  }
+  div#events-wrapper{
+  	float:left;
+  }
+  div#transactions-wrapper{
+  	float:right;
   }
 	div{
-		width:45%;
 		text-align:center;
 		ol{
 			list-style: none;
 			padding: 16px;
-			li#event-listing{
-				margin-bottom: 16px;
+			li{
+				margin-bottom: 10px;
+				padding: 4px;
+				// border: 1px solid grey;
 			}
-			a{
-				color: $color_c_dark;
-				div#event-left{
-					width:39%;
-					float: left;
-					div#event-artist{
-						margin:auto;
-						width: 100%;
-						// padding-top: 7px;
-						font-size: 18px;
-					}
+			
+			div.listing-left{
+				width:39%;
+				float: left;
+				
+				div#event-artist{
+					margin:auto;
+					width: 100%;
+					font-size: 16px;
 				}
-				div#event-right{
-					width:59%;
-					float:right;
+				div#order-number{
 					font-size: 14px;
-					// border-left: 1px solid $color_c_dark;
-					div{
-						width: 100%;
-					}
-					div#event-venue{
-						padding-bottom:6px;
-					}
 				}
 			}
-			a:hover{
-				color: $color_d;
-				font-style: italic;
-			}
+			div.listing-right{
+				width:59%;
+				float:right;
+				font-size: 14px;
+				div{
+					width: 100%;
+				}
+				div#event-venue{
+					padding-bottom:4px;
+				}
+			}	
+			
 		}
-		// padding: 12px;
-	}
-	div#upcoming-events{
-		float: left;
-		@media screen and (max-width: 775px) {
-	    float: none;
-	    margin: auto;
-	    width: 80%;
-	    margin-bottom: 40px;
-	  }
-	}
-	div#recent-transactions{
-		float: right;
-		@media screen and (max-width: 775px) {
-	    float: none;
-	    margin: auto;
-	    width: 80%;
-	  }
 	}
 }
 

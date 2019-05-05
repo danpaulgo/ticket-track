@@ -1,25 +1,40 @@
 <div class="show-container" id="user-info-container">
 	<div id="user-info">
-		<h2>Welcome back, <%= @user.first_name %>!</h2>
-		<p>Name: <%= @user.name %></p>
-		<p>Email: <%= @user.email %></p>
-		<p id="dob">DOB: <%= @user.birthdate.strftime("%b %e, %Y") %></p>
+		<h2 id="welcome-message">Welcome back, <%= @user.first_name %>!</h2>
+		<p><%= @user.name %></p>
+		<p><%= @user.email %></p>
+		<div id="profits-container">
+			<p>YTD Profit: $100</p>
+			<p>Total Profit: $1,000</p>
 		</div>
+	</div>
 </div>
 
 <div id="user-lists" class="clearfix">
-	<div id="upcoming-events" class="show-container">
-		<h3>Upcoming Events</h3>
-		<ol>
-			<% @upcoming_events.each do |event| %>
-				<li id="event-listing" class="clearfix">
-					<%= link_to render(partial: 'events/event', locals: {event: event}), user_event_path(@user, event) %>
-				</li>	
-			<% end %>
-		</ol>
-	</div>
+	<div id="events-wrapper" class="wrapper clearfix">
+		<div id="upcoming-events" class="show-container">
+			<h3>Upcoming Events</h3>
+			<ol>
+				<% @upcoming_events.each do |event| %>
+					
+						<%= link_to render(partial: 'events/event', locals: {event: event}), user_event_path(@user, event) %>
 
-	<div id="recent-transactions" class="show-container">
-		<h3>Recent Transactions</h3>
+				<% end %>
+			</ol>
+		</div>
+		<div id="all-events-link"><%= link_to "All Events", user_events_path(@user) %></div>
+	</div>
+	<div id="transactions-wrapper" class="wrapper clearfix">
+		<div id="recent-transactions" class="show-container">
+			<h3>Recent Transactions</h3>
+			<ol>
+				<% @recent_transactions.each do |transaction| %>
+					<li id="transaction-listing" class="clearfix">
+						<%= render(partial: 'transactions/transaction', locals: {transaction: transaction}) %>
+					</li>	
+				<% end %>
+			</ol>
+		</div>
+		<div id="all-transactions-link"><%= link_to "All Transactions ", user_transactions_path(@user) %></div>
 	</div>
 </div>

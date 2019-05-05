@@ -1,7 +1,9 @@
-<div id="event-left">
-	<div id="event-artist"><%= event.performer.name %></div>
-</div>
-<div id="event-right">
-	<div id="event-venue"><%= event.venue.name %></div>
-	<div id="event-date"><%= event.date.strftime("%B %-d, %Y") %></div>
-</div>
+<li id="event-listing" class="clearfix">
+	<div class="listing-left">
+		<div id="event-artist"><%= event.performer.name %></div>
+	</div>
+	<div class="listing-right">
+		<div id="event-venue"><%= event.venue.name %></div>
+		<div id="event-date"><%= event.date.strftime("%B %-d, %Y") %></div>
+	</div>
+</li>
