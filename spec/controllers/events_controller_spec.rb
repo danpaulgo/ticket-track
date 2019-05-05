@@ -12,16 +12,40 @@ RSpec.describe EventsController, type: :controller do
   }
 
   describe "GET #index" do
-    context "logged in user" do
-      it "renders index template" do
-        get :index, params: {}, session: logged_in_session
+    context "admin" do
+      it "renders index without user_id" do
+        get :index, params: {}, session: admin_session
         expect(response).to render_template(:index)
+      end
+
+      it "renders index with any user_id" do
+        get :index, params: {user_id: user.id}, session: admin_session
+        expect(response).to render_template(:index)
+      end
+    end
+    
+    context "logged in user" do
+      it "renders index with own user_id" do
+        get :index, params: {user_id: user.id}, session: logged_in_session
+        expect(response).to render_template(:index)
+      end
+
+      it "redirects to users show page with other user_id" do
+        get :index, params: {user_id: admin.id}, session: logged_in_session
+        expect(response).to redirect_to(user)
+      end
+
+      it "redirects to users show page without user_id" do
+        get :index, params: {}, session: logged_in_session
+        expect(response).to redirect_to(user)
       end
     end
 
     context "logged out user" do
       it "redirects to home page" do
         get :index, params: {}, session: logged_out_session
+        expect(response).to redirect_to(root_path)
+        get :index, params: {user_id: user.id}, session: logged_out_session
         expect(response).to redirect_to(root_path)
       end
     end
@@ -53,9 +77,17 @@ RSpec.describe EventsController, type: :controller do
       end
 
       context "with other user's id" do
-        it "redirects to user's show page" do
-          get :show, params: {id: event.id, user_id: admin.id}, session: logged_in_session
-          expect(response).to redirect_to(user)
+        context "admin" do
+          it "renders show page" do
+            get :show, params: {id: event.id, user_id: user.id}, session: admin_session
+            expect(response).to render_template(:show)
+          end
+        end
+        context "non-admin" do
+          it "redirects to user's show page" do
+            get :show, params: {id: event.id, user_id: admin.id}, session: logged_in_session
+            expect(response).to redirect_to(user)
+          end
         end
       end
 

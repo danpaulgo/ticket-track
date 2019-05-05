@@ -28,9 +28,9 @@ RSpec.describe TransactionsController, type: :controller do
 
   describe "GET #index" do
     context "admin" do
-      it "renders index without user_id" do
+      it "redirects to admin's show page without user_id" do
         get :index, params: {}, session: admin_session
-        expect(response).to render_template(:index)
+        expect(response).to redirect_to(admin)
       end
 
       it "renders index with any user_id" do
