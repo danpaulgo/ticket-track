@@ -12,9 +12,10 @@ RSpec.describe Transaction, type: :model do
 		expect(Transaction.new).to respond_to(:quantity)
 		expect(Transaction.new).to respond_to(:order_number)
 		expect(Transaction.new).to respond_to(:transaction_source_id)
+		expect(Transaction.new).to respond_to(:date)
 	end
 
-	it "is valid with an event_id, user_id, amount, direction, and quantity" do
+	it "is valid with all attributes present" do
 		expect(purchase).to be_valid
 		expect(sale).to be_valid
 	end
@@ -56,6 +57,11 @@ RSpec.describe Transaction, type: :model do
 		expect(purchase).not_to be_valid
 	end
 
+	it "is invalid without a date" do
+		purchase.date = nil
+		expect(purchase).not_to be_valid
+	end
+
 	it "is invalid with the same order number and source as another transaction" do
 		purchase_two = Transaction.new(
 			event_id: event.id,
@@ -67,6 +73,11 @@ RSpec.describe Transaction, type: :model do
       transaction_source_id: purchase.transaction_source.id
 		)
 		expect(purchase_two).not_to be_valid
+	end
+
+	it "is valid with same order number as another transaction if sources are different" do
+		purchase
+		expect(sale).to be_valid
 	end
 
 	it "is invalid with a negative amount" do

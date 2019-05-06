@@ -160,6 +160,7 @@ RSpec.shared_context "fixtures", :shared_context => :metadata do
       quantity: 2,
       order_number: "1234567",
       transaction_source_id: ticketmaster.id
+      date: "21-04-2019".to_date
     )
   }
   let(:sale){
@@ -171,19 +172,65 @@ RSpec.shared_context "fixtures", :shared_context => :metadata do
       quantity: 1,
       order_number: "1234567",
       transaction_source_id: stubhub.id
+      date: "21-05-2019".to_date
+    )
+  }
+  let(:admin_purchase){
+    Transaction.create(
+      event: event_2,
+      user: admin,
+      direction: "purchase",
+      quantity: 4,
+      amount: 200,
+      order_number: "1a",
+      transaction_source: ticketmaster
     )
   }
   let(:admin_sale){
     Transaction.create(
       event_id: event_2.id,
-      user_id: admin.id,
-      direction: "Sale",
-      amount: 80,
-      quantity: 2,
-      order_number: "abc123",
-      transaction_source_id: stubhub.id
+      user: admin,
+      direction: "sale",
+      quantity: 3,
+      amount: 210,
+      order_number: "1b",
+      transaction_source: stubhub
     )
   }
+  let(:admin_sale_2){
+    Transaction.create(
+      event_id: event_2.id,
+      user: admin,
+      direction: "sale",
+      quantity: 1,
+      amount: 40.0,
+      order_number: "1c",
+      transaction_source: ticketmaster
+    )
+  }
+  let(:admin_purchase_2){
+    Transaction.create(
+      event: event,
+      user: admin,
+      direction: "Purchase",
+      quantity: 3,
+      amount: 121.55,
+      order_number: "2a",
+      transaction_source: stubhub
+    )
+  }
+  let(:admin_sale_3){
+    Transaction.create(
+      event_id: event.id,
+      user: admin,
+      direction: "Sale",
+      quantity: 1,
+      amount: 52.81,
+      order_number: "1b",
+      transaction_source: stubhub
+    )
+  }
+
   let(:logged_out_session) { {user_id: nil} }
   let(:logged_in_session) { {user_id: user.id} }
   let(:admin_session) { {user_id: admin.id}}

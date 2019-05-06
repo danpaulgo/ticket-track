@@ -10,7 +10,7 @@ class TransactionsController < ApplicationController
     if params[:user_id]
       @transactions = User.find_by(id: params[:user_id]).transactions
     else
-      @transactions = Transaction.all
+      redirect_to current_user
     end
   end
 

@@ -98,6 +98,58 @@ Event.all.each do |e|
 		)
 end
 
+Transaction.create(
+	event: Event.first,
+	user: admin,
+	direction: "purchase",
+	quantity: 4,
+	amount: 200,
+	order_number: "1a",
+	transaction_source: ticketmaster
+	)
+
+Transaction.create(
+	event: Event.first,
+	user: admin,
+	direction: "sale",
+	quantity: 3,
+	amount: 210,
+	order_number: "1b",
+	transaction_source: stubhub
+	)
+
+Transaction.create(
+	event: Event.first,
+	user: admin,
+	direction: "sale",
+	quantity: 1,
+	amount: 40.0,
+	order_number: "1c",
+	transaction_source: ticketmaster
+	)
+
+Transaction.create(
+	event: Event.last,
+	user: admin,
+	direction: "Purchase",
+	quantity: 3,
+	amount: 121.55,
+	order_number: "2a",
+	transaction_source: stubhub
+	)
+
+Transaction.create(
+	event: Event.last,
+	user: admin,
+	direction: "Sale",
+	quantity: 1,
+	amount: 52.81,
+	order_number: "1b",
+	transaction_source: stubhub
+	)
+
+
+
 
 # event = Event.create(
 # 		      performer_id: performer.id,

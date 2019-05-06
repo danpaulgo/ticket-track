@@ -4,7 +4,7 @@ class Transaction < ApplicationRecord
 	belongs_to :event
 	belongs_to :transaction_source
 
-	validates :order_number, :transaction_source_id, presence: true
+	validates :order_number, :transaction_source_id, :date, presence: true
 	validates :direction, inclusion: { in: %w(Purchase Sale)}
 	validates :quantity, numericality: { greater_than_or_equal_to: 1}
 	validates :amount, numericality: { greater_than: 0}
