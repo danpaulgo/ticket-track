@@ -73,6 +73,8 @@ end
 
 ticketmaster = TransactionSource.create(name: "Ticketmaster")
 stubhub = TransactionSource.create(name: "Stubhub")
+purchase_date = "21-04-2019".to_date
+sale_date = "01-05-2019".to_date
 
 Event.all.each do |e|
 	q = rand(8) + 1
@@ -84,7 +86,8 @@ Event.all.each do |e|
 		quantity: q, 
 		amount: q*pa,
 		order_number: (0...10).map { ('A'..'Z').to_a[rand(26)] }.join,
-		transaction_source: ticketmaster
+		transaction_source: ticketmaster,
+		date: random_date(2018)
 		)
 	sa = rand(10.0..99.99)
 	Transaction.create(
@@ -94,7 +97,8 @@ Event.all.each do |e|
 		quantity: q, 
 		amount: q*sa,
 		order_number: (0...10).map { ('A'..'Z').to_a[rand(26)] }.join,
-		transaction_source: stubhub
+		transaction_source: stubhub,
+		date: random_date(2018)
 		)
 end
 
@@ -105,7 +109,8 @@ Transaction.create(
 	quantity: 4,
 	amount: 200,
 	order_number: "1a",
-	transaction_source: ticketmaster
+	transaction_source: ticketmaster,
+	date: purchase_date
 	)
 
 Transaction.create(
@@ -115,7 +120,8 @@ Transaction.create(
 	quantity: 3,
 	amount: 210,
 	order_number: "1b",
-	transaction_source: stubhub
+	transaction_source: stubhub,
+	date: sale_date
 	)
 
 Transaction.create(
@@ -125,7 +131,8 @@ Transaction.create(
 	quantity: 1,
 	amount: 40.0,
 	order_number: "1c",
-	transaction_source: ticketmaster
+	transaction_source: ticketmaster,
+	date: sale_date
 	)
 
 Transaction.create(
@@ -135,7 +142,8 @@ Transaction.create(
 	quantity: 3,
 	amount: 121.55,
 	order_number: "2a",
-	transaction_source: stubhub
+	transaction_source: stubhub,
+	date: purchase_date
 	)
 
 Transaction.create(
@@ -145,7 +153,8 @@ Transaction.create(
 	quantity: 1,
 	amount: 52.81,
 	order_number: "1b",
-	transaction_source: stubhub
+	transaction_source: stubhub,
+	date: sale_date
 	)
 
 

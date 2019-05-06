@@ -159,7 +159,7 @@ RSpec.shared_context "fixtures", :shared_context => :metadata do
       amount: 99.99,
       quantity: 2,
       order_number: "1234567",
-      transaction_source_id: ticketmaster.id
+      transaction_source_id: ticketmaster.id,
       date: "21-04-2019".to_date
     )
   }
@@ -171,8 +171,8 @@ RSpec.shared_context "fixtures", :shared_context => :metadata do
       amount: 69.99,
       quantity: 1,
       order_number: "1234567",
-      transaction_source_id: stubhub.id
-      date: "21-05-2019".to_date
+      transaction_source_id: stubhub.id,
+      date: "01-05-2019".to_date
     )
   }
   let(:admin_purchase){
@@ -183,7 +183,8 @@ RSpec.shared_context "fixtures", :shared_context => :metadata do
       quantity: 4,
       amount: 200,
       order_number: "1a",
-      transaction_source: ticketmaster
+      transaction_source: ticketmaster,
+      date: "21-04-2019".to_date
     )
   }
   let(:admin_sale){
@@ -194,7 +195,8 @@ RSpec.shared_context "fixtures", :shared_context => :metadata do
       quantity: 3,
       amount: 210,
       order_number: "1b",
-      transaction_source: stubhub
+      transaction_source: stubhub,
+      date: "01-05-2019".to_date
     )
   }
   let(:admin_sale_2){
@@ -205,7 +207,8 @@ RSpec.shared_context "fixtures", :shared_context => :metadata do
       quantity: 1,
       amount: 40.0,
       order_number: "1c",
-      transaction_source: ticketmaster
+      transaction_source: ticketmaster,
+      date: "01-05-2019".to_date
     )
   }
   let(:admin_purchase_2){
@@ -216,7 +219,8 @@ RSpec.shared_context "fixtures", :shared_context => :metadata do
       quantity: 3,
       amount: 121.55,
       order_number: "2a",
-      transaction_source: stubhub
+      transaction_source: stubhub,
+      date: "21-04-2019".to_date
     )
   }
   let(:admin_sale_3){
@@ -227,7 +231,8 @@ RSpec.shared_context "fixtures", :shared_context => :metadata do
       quantity: 1,
       amount: 52.81,
       order_number: "1b",
-      transaction_source: stubhub
+      transaction_source: stubhub,
+      date: "01-05-2019".to_date
     )
   }
 

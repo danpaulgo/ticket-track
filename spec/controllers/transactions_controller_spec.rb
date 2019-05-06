@@ -12,7 +12,8 @@ RSpec.describe TransactionsController, type: :controller do
       amount: 200, direction: "Purchase", 
       quantity: 4, 
       order_number: "testing123",
-      transaction_source_id: stubhub.id
+      transaction_source_id: stubhub.id,
+      date: "01-01-2019".to_date
     }
   }
 
@@ -22,7 +23,8 @@ RSpec.describe TransactionsController, type: :controller do
       amount: 200, direction: "buy", 
       quantity: 0, 
       order_number: 1234,
-      transaction_source_id: 0
+      transaction_source_id: 0,
+      date: "01-01-2030".to_date
     }
   }
 
