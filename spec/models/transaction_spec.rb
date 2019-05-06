@@ -108,4 +108,14 @@ RSpec.describe Transaction, type: :model do
 		expect(sale.user).to eq(user)
 	end
 
+	it "is invalid with date after event date" do
+		purchase.date = purchase.event.date + 1.day
+		expect(purchase).not_to be_valid
+	end
+
+	it "is invalid with date in future" do
+		purchase.date = Date.today + 1.day
+		expect(purchase).not_to be_valid
+	end
+
 end
