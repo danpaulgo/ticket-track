@@ -4,9 +4,8 @@
 		<p><%= @user.name %></p>
 		<p><%= @user.email %></p>
 		<div id="profits-container">
-			<p>YTD Profit: $100</p>
-			<p>Total Profit: $1,000</p>
-			<p>Inventory Value: $500</p>
+			<p>Total Profit: $<%= @user.total_profit %></p>
+			<p>Inventory Value: $<%= @user.inventory_value %></p>
 		</div>
 	</div>
 </div>
