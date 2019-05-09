@@ -230,7 +230,7 @@ RSpec.shared_context "fixtures", :shared_context => :metadata do
       direction: "Sale",
       quantity: 1,
       amount: 52.81,
-      order_number: "1b",
+      order_number: "2b",
       transaction_source: stubhub,
       date: "01-05-2019".to_date
     )

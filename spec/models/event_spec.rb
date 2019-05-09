@@ -55,49 +55,74 @@ RSpec.describe Event, type: :model do
     end 
   end
 
-  describe "total_purchase" do
-    it "returns sum of all purchases for event from specified user" do
-      expect(event.total_purchase(admin)).to eq(121.55)
+  context "caluclation actions" do
+    before(:each) do 
+      admin_purchase
+      admin_purchase_2
+      admin_sale
+      admin_sale_2
+      admin_sale_3
     end
-  end
 
-  describe "total_sale" do
-    it "returns sum of all sales for event from specified user" do
-      expect(event_2.total_sale(admin)).to eq(250.0)
+    describe "total_purchase" do
+      it "returns sum of all purchases for event from specified user" do
+        expect(event.total_purchase(admin)).to eq(121.55)
+      end
     end
-  end
 
-  describe "average_purchase_price" do
-    it "returns the average price of all tickets purchased by user" do
-      expect(event_2.average_purchase_price(admin)).to eq(50)
+    describe "total_sale" do
+      it "returns sum of all sales for event from specified user" do
+        expect(event_2.total_sale(admin)).to eq(250.0)
+      end
     end
-  end
 
-  describe "average_sale_price" do
-    it "returns the average price of all tickets sold by user" do
-      expect(event_2.average_sale_price(admin)).to eq(62.5)
+    describe "average_purchase_price" do
+      it "returns the average price of all tickets purchased by user" do
+        expect(event_2.average_purchase_price(admin)).to eq(50)
+      end
     end
-  end
 
-  describe "tickets_remaining" do
-    it "returns the quantity of tickets still held by user" do
-      expect(event.tickets_remaining(admin)).to eq(2)
-      expect(event_2.tickets_remaining(admin)).to eq(0)
+    describe "average_sale_price" do
+      it "returns the average price of all tickets sold by user" do
+        expect(event_2.average_sale_price(admin)).to eq(62.5)
+      end
     end
-  end
 
-  describe "inventory_value" do
-    it "returns the total value of a user's remaining tickets based on average purchase price" do
-      expect(event.inventory_value(admin)).to eq(81.03)
-      expect(event_2.inventory_value(admin)).to eq(0)
+    describe "tickets_purchased" do
+      it "returns the quantity of tickets purchased by user" do
+        expect(event.tickets_purchased(admin)).to eq(3)
+        expect(event_2.tickets_purchased(admin)).to eq(4)
+      end
     end
-  end
 
-  describe "current_profit" do
-    it "returns value of a user's total sales minus total purchases" do
-      expect(event.current_profit(admin)).to eq(-68.74)
-      expect(event.current_profit(admin)).to eq(50)
+    describe "tickets_sold" do
+      it "returns the quantity of tickets sold by user" do
+        expect(event.tickets_sold(admin)).to eq(1)
+        expect(event_2.tickets_sold(admin)).to eq(4)
+      end
     end
+
+    describe "tickets_remaining" do
+      it "returns the quantity of tickets still held by user" do
+        expect(event.tickets_remaining(admin)).to eq(2)
+        expect(event_2.tickets_remaining(admin)).to eq(0)
+      end
+    end
+
+    describe "inventory_value" do
+      it "returns the total value of a user's remaining tickets based on average purchase price" do
+        expect(event.inventory_value(admin)).to eq(81.04)
+        expect(event_2.inventory_value(admin)).to eq(0)
+      end
+    end
+
+    describe "current_profit" do
+      it "returns value of a user's total sales minus total purchases" do
+        expect(event.current_profit(admin)).to eq(-68.74)
+        expect(event_2.current_profit(admin)).to eq(50)
+      end
+    end
+
   end
 
 end

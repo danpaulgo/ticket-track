@@ -75,22 +75,39 @@ RSpec.describe User, :type => :model do
     end
   end
 
-  describe "total_purchase" do
-    it "returns sum of all user's purchases" do
-      expect(admin.total_purchase).to eq(321.55)
+  context "caluclation actions" do
+    before(:each) do 
+      admin_purchase
+      admin_purchase_2
+      admin_sale
+      admin_sale_2
+      admin_sale_3
     end
-  end
 
-  describe "total_sale" do
-    it "returns sum of all user's sales" do
-      expect(admin.total_sale).to eq(302.81)
+    describe "total_purchase" do
+      it "returns sum of all user's purchases" do
+        expect(admin.total_purchase).to eq(321.55)
+      end
     end
-  end
 
-  describe "total_profit" do
-    it "returns user's total purchases minus total sales" do
-      expect(admin.total_profit).to eq(-18.74)
+    describe "total_sale" do
+      it "returns sum of all user's sales" do
+        expect(admin.total_sale).to eq(302.81)
+      end
     end
+
+    describe "total_profit" do
+      it "returns user's total purchases minus total sales" do
+        expect(admin.total_profit).to eq(-18.74)
+      end
+    end
+
+    describe "inventory_value" do
+      it "returns the value of all tickets user currently holds based on purchase price" do
+        expect(admin.inventory_value).to eq(81.04)
+      end
+    end
+
   end
 
 end

@@ -13,4 +13,26 @@ class User < ApplicationRecord
 		name.split(" ").first
 	end
 
+	def total_purchase
+		sum = 0
+		events.uniq.each{|e| sum += e.total_purchase(self)}
+		sum
+	end
+
+	def total_sale
+		sum = 0
+		events.uniq.each{|e| sum += e.total_sale(self)}
+		sum
+	end
+
+	def total_profit
+		(total_sale - total_purchase).round(2)
+	end
+
+	def inventory_value
+		sum = 0
+		events.uniq.each{|e| sum += e.inventory_value(self)}
+		sum
+	end
+
 end
