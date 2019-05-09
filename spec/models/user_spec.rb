@@ -75,4 +75,22 @@ RSpec.describe User, :type => :model do
     end
   end
 
+  describe "total_purchase" do
+    it "returns sum of all user's purchases" do
+      expect(admin.total_purchase).to eq(321.55)
+    end
+  end
+
+  describe "total_sale" do
+    it "returns sum of all user's sales" do
+      expect(admin.total_sale).to eq(302.81)
+    end
+  end
+
+  describe "total_profit" do
+    it "returns user's total purchases minus total sales" do
+      expect(admin.total_profit).to eq(-18.74)
+    end
+  end
+
 end
