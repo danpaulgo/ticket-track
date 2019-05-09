@@ -2,8 +2,8 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   root 'application#home'
-  # get 'about', to: 'application#about'
-  # get 'contact', to: 'application#contact'
+  get 'about', to: 'application#about'
+  get 'contact', to: 'application#contact'
 
   resources :users do
   	resources :transactions, except: :show
