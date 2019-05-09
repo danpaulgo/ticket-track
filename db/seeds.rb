@@ -152,7 +152,7 @@ Transaction.create(
 	direction: "Sale",
 	quantity: 1,
 	amount: 52.81,
-	order_number: "1b",
+	order_number: "2b",
 	transaction_source: stubhub,
 	date: sale_date
 	)

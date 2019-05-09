@@ -55,4 +55,49 @@ RSpec.describe Event, type: :model do
     end 
   end
 
+  describe "total_purchase" do
+    it "returns sum of all purchases for event from specified user" do
+      expect(event.total_purchase(admin)).to eq(121.55)
+    end
+  end
+
+  describe "total_sale" do
+    it "returns sum of all sales for event from specified user" do
+      expect(event_2.total_sale(admin)).to eq(250.0)
+    end
+  end
+
+  describe "average_purchase_price" do
+    it "returns the average price of all tickets purchased by user" do
+      expect(event_2.average_purchase_price(admin)).to eq(50)
+    end
+  end
+
+  describe "average_sale_price" do
+    it "returns the average price of all tickets sold by user" do
+      expect(event_2.average_sale_price(admin)).to eq(62.5)
+    end
+  end
+
+  describe "tickets_remaining" do
+    it "returns the quantity of tickets still held by user" do
+      expect(event.tickets_remaining(admin)).to eq(2)
+      expect(event_2.tickets_remaining(admin)).to eq(0)
+    end
+  end
+
+  describe "inventory_value" do
+    it "returns the total value of a user's remaining tickets based on average purchase price" do
+      expect(event.inventory_value(admin)).to eq(81.03)
+      expect(event_2.inventory_value(admin)).to eq(0)
+    end
+  end
+
+  describe "current_profit" do
+    it "returns value of a user's total sales minus total purchases" do
+      expect(event.current_profit(admin)).to eq(-68.74)
+      expect(event.current_profit(admin)).to eq(50)
+    end
+  end
+
 end
