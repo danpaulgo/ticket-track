@@ -1,5 +1,15 @@
 <% if logged_in? %>
-	<p id="header-login"><%= link_to 'Logout', logout_path, method: :delete %></p>
+	<!-- <p id="header-login"><%= link_to 'Logout', logout_path, method: :delete %></p> -->
+	<div class="dropdown">
+  	<button onclick="showDropdown()" class="dropbtn clearfix"><%= image_tag "new-menu-icon.png", id: "menu-image" %></button>
+	  <div id="myDropdown" class="dropdown-content">
+	    <%= link_to render(partial: 'partials/menu_item', locals: {text: "Events"}), events_path %>
+	    <%= link_to render(partial: 'partials/menu_item', locals: {text: "Performers"}), performers_path %>
+	    <%= link_to render(partial: 'partials/menu_item', locals: {text: "Venues"}), venues_path %>
+	    <%= link_to render(partial: 'partials/menu_item', locals: {text: "Settings"}), edit_user_path(current_user) %>
+	    <%= link_to render(partial: 'partials/menu_item', locals: {text: "Log Out"}), logout_path, method: :delete %>
+	  </div>
+	</div>
 <% else %>
 	<p id="header-login"><%= link_to "Log In", login_path %></p>
 <% end %>

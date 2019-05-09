@@ -12,7 +12,7 @@ class UsersController < ApplicationController
   # GET /users/1
   def show
     @upcoming_events = @user.events.where(['events.date >= ?', Date.today]).order(:date).uniq[0..9]
-    @recent_transactions = @user.transactions.order(created_at: :desc).limit(10)
+    @recent_transactions = @user.transactions.order(date: :desc).limit(10)
   end
 
   # GET /users/new
