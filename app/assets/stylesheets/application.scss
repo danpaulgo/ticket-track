@@ -105,6 +105,8 @@ header{
 		  border-bottom: 1px solid black;
 		  border-left: 1px solid black;
 		  border-right: 1px solid black;
+		  position: absolute; 
+    	right: 0; 
 		  a:hover{
 		  	div.menu-item{
 		  		background-color: $color_a_light;

@@ -8,6 +8,14 @@ class ApplicationController < ActionController::Base
 		end	
 	end
 
+  def about
+
+  end
+
+  def contact
+
+  end
+
 	def login(user)
 		session[:user_id] = user.id
 	end
@@ -15,8 +23,6 @@ class ApplicationController < ActionController::Base
 	def logout
 		session.clear
 	end
-
-	
 
 	protected
 
