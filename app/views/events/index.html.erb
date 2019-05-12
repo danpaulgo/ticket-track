@@ -1,25 +1,22 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Events</h1>
+<div class="index-container">
+  <div id="transactions-wrapper" class="wrapper clearfix">
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+      <h2><%= @title %></h3>
+      <ol>
+        <% @events.each do |event| %>
+          <% if @user %>
+            <%= link_to render(partial: 'events/event', locals: {event: event}), user_transaction_path(@user, event) %>
+          <% else %>
+            <%= render(partial: 'events/event', locals: {event: event}) %>
+          <% end %>
+        <% end %>
+      </ol>
 
-  <tbody>
-    <% @events.each do |event| %>
-      <tr>
-        <td><%= link_to 'Show', event %></td>
-        <td><%= link_to 'Edit', edit_event_path(event) %></td>
-        <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+  </div>
 
-<br>
+  <br>
 
-<%= link_to 'New Event', new_event_path %>
+  <p class="create-new-link"><%= link_to 'New Event', new_event_path %></p>
+</div>

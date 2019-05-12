@@ -10,8 +10,10 @@ class EventsController < ApplicationController
     if @user.nil?
       # valid_admin
       @events = Event.all
+      @title = "Events"
     else
       @events = @user.events
+      @title = "My Events"
     end
   end
 
