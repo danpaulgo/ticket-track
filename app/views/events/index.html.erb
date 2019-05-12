@@ -1,13 +1,13 @@
 <p id="notice"><%= notice %></p>
 
 <div class="index-container">
-  <div id="transactions-wrapper" class="wrapper clearfix">
+  <div id="index-wrapper" class="wrapper clearfix">
 
-      <h2><%= @title %></h3>
+      <h2><%= @title %></h2>
       <ol>
         <% @events.each do |event| %>
           <% if @user %>
-            <%= link_to render(partial: 'events/event', locals: {event: event}), user_transaction_path(@user, event) %>
+            <%= link_to render(partial: 'events/event', locals: {event: event}), user_event_path(@user, event) %>
           <% else %>
             <%= render(partial: 'events/event', locals: {event: event}) %>
           <% end %>

@@ -6,4 +6,8 @@ class Venue < ApplicationRecord
 	validates :name, :city, :state, presence: true
 	validates :name, uniqueness: { scope: [:city, :state] }
 
+	def location
+		"#{city}, #{state}"
+	end
+
 end

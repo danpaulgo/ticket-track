@@ -45,7 +45,7 @@
  }
 
  div#main{
- 	min-height: 400px;
+ 	min-height: 450px;
  	// padding: 0 5px;
  }
 
@@ -423,15 +423,23 @@ div.index-container{
 	text-align: center;
 	margin-top: 50px;
 	margin-bottom: 50px;
-	div#transactions-wrapper{
+	div#index-wrapper{
 		margin:auto;
 		width: 80%;
 		h2{
 			margin-bottom: 20px;
 		}
-		li{
-			font-size: 160px;
+		li.performer-name{
+			font-size: 20px;
 		}
+	}
+	div#venue-left{
+		width:50%;
+		font-size: 17px;
+	}
+	div#venue-right{
+		width:50%;
+		font-size: 17px;
 	}
 	p.create-new-link{
 		font-family: $font_d;

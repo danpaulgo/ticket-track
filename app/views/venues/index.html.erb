@@ -1,25 +1,18 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Venues</h1>
+<div class="index-container">
+  <div id="index-wrapper" class="wrapper clearfix">
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+      <h2>Venues</h2>
+      <ol>
+        <% @venues.each do |venue| %>
+          <%= link_to render(partial: 'venues/venue', locals: {venue: venue}), venue %>
+        <% end %>
+      </ol>
 
-  <tbody>
-    <% @venues.each do |venue| %>
-      <tr>
-        <td><%= link_to 'Show', venue %></td>
-        <td><%= link_to 'Edit', edit_venue_path(venue) %></td>
-        <td><%= link_to 'Destroy', venue, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+  </div>
 
-<br>
+  <br>
 
-<%= link_to 'New Venue', new_venue_path %>
+  <p class="create-new-link"><%= link_to 'New Venue', new_venue_path %></p>
+</div>

@@ -1,0 +1,16 @@
+<p id="notice"><%= notice %></p>
+
+<div class="index-container">
+  <div id="index-wrapper" class="wrapper clearfix">
+
+    <h2>Performers</h2>
+    <ol>
+      <% @performers.each do |performer| %>
+        <li class="performer-name">
+          <%= link_to performer.name, performer %>
+        </li>
+      <% end %>
+    </ol>
+    <p class="create-new-link"><%= link_to 'Back To Home', root_path %></p>
+  </div>
+</div>
