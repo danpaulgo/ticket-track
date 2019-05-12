@@ -8,7 +8,7 @@ class EventsController < ApplicationController
   # GET /events.json
   def index
     if @user.nil?
-      valid_admin
+      # valid_admin
       @events = Event.all
     else
       @events = @user.events

@@ -13,17 +13,14 @@ RSpec.describe EventsController, type: :controller do
 
   describe "GET #index" do
     context "admin" do
-      it "renders index without user_id" do
-        get :index, params: {}, session: admin_session
-        expect(response).to render_template(:index)
-      end
+      
 
       it "renders index with any user_id" do
         get :index, params: {user_id: user.id}, session: admin_session
         expect(response).to render_template(:index)
       end
     end
-    
+
     context "logged in user" do
       it "renders index with own user_id" do
         get :index, params: {user_id: user.id}, session: logged_in_session
@@ -35,9 +32,9 @@ RSpec.describe EventsController, type: :controller do
         expect(response).to redirect_to(user)
       end
 
-      it "redirects to users show page without user_id" do
+      it "renders index without user_id" do
         get :index, params: {}, session: logged_in_session
-        expect(response).to redirect_to(user)
+        expect(response).to render_template(:index)
       end
     end
 

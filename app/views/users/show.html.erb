@@ -4,9 +4,9 @@
 		<p><%= @user.name %></p>
 		<p><%= @user.email %></p>
 		<div id="profits-container">
-			<p>Total Profit: $<%= @user.total_profit %></p>
+			<p>Total Profit: $<%= '%.2f' % @user.total_profit %></p>
 			<!-- <p>Liquid Profit: $<%= @user.liquid_profit %></p> -->
-			<p>Inventory Value: $<%= @user.inventory_value %></p>
+			<p>Inventory Value: $<%= '%.2f' % @user.inventory_value %></p>
 		</div>
 	</div>
 </div>
