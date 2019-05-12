@@ -13,6 +13,7 @@ RSpec.describe Transaction, type: :model do
 		expect(Transaction.new).to respond_to(:order_number)
 		expect(Transaction.new).to respond_to(:transaction_source_id)
 		expect(Transaction.new).to respond_to(:date)
+		expect(Transaction.new).to respond_to(:notes)
 	end
 
 	it "is valid with all attributes present" do
