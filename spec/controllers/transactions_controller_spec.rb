@@ -96,6 +96,46 @@ RSpec.describe TransactionsController, type: :controller do
     end
   end
 
+  describe "GET #show" do
+    context "logged in user" do
+      context "with own user_id" do
+        it "renders show page" do
+          get :show, params: {id: purchase.id, user_id: user.id}, session: logged_in_session
+          expect(response).to render_template(:show)
+        end
+      end
+
+      context "with other user's id" do
+        context "admin" do
+          it "renders show page" do
+            get :show, params: {id: purchase.id, user_id: user.id}, session: admin_session
+            expect(response).to render_template(:show)
+          end
+        end
+        context "non-admin" do
+          it "redirects to user's show page" do
+            get :show, params: {id: purchase.id, user_id: admin.id}, session: logged_in_session
+            expect(response).to redirect_to(user)
+          end
+        end
+      end
+
+      context "without user_id" do
+        it "redirects to user's show page" do
+          get :show, params: {id: purchase.id}, session: admin_session
+          expect(response).to redirect_to(admin)
+        end
+      end
+    end
+
+    context "logged out user" do
+      it "redirects to home page" do
+        get :show, params: {id: purchase.id, user_id: user.id}, session: logged_out_session
+        expect(response).to redirect_to(root_path)
+      end
+    end
+  end
+
   describe "GET #edit" do
     context "admin" do
       context "with valid transaction id" do

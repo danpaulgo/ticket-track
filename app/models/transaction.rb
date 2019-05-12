@@ -12,6 +12,10 @@ class Transaction < ApplicationRecord
 
 	before_validation :capitalize_direction 
 
+	def price
+		"$#{'%.2f' % amount}"
+	end
+
 	private
 
 	def capitalize_direction

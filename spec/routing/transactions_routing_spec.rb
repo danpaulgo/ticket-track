@@ -16,6 +16,11 @@ RSpec.describe TransactionsController, type: :routing do
       expect(:get => "users/1/transactions/1/edit").to route_to("transactions#edit", :id => "1", user_id: "1")
     end
 
+    it "routes to #show" do
+      expect(:get => "/transactions/1/show").to route_to("transactions#show", :id => "1")
+      expect(:get => "users/1/transactions/1/show").to route_to("transactions#show", :id => "1", user_id: "1")
+    end
+
 
     it "routes to #create" do
       expect(:post => "users/1/transactions").to route_to("transactions#create", user_id: "1")

@@ -49,6 +49,10 @@
  	// padding: 0 5px;
  }
 
+ .clearfix {
+  overflow: auto;
+}
+
 // HEADER
 
 header{
@@ -341,20 +345,7 @@ div#user-lists{
   	margin-left:2%;
   }
   div.wrapper{
-  	width:48%;
-  	min-width: 300px;
-  	font-family: $font_d;
-  	a{
-			color: $color_c_dark;
-		}
-		a:hover{
-			color: $color_d;
-			font-style: italic;
-			li{
-				border: 1px dashed black;
-				border-radius: 10px;
-			}
-		}
+  	
 	@media screen and (max-width: 775px) {
 	    float: none;
 	    margin: auto;
@@ -367,48 +358,88 @@ div#user-lists{
   div#transactions-wrapper{
   	float:right;
   }
-	div{
-		text-align:center;
-		ol{
-			list-style: none;
-			padding: 16px;
-			li{
-				margin-bottom: 10px;
-				padding: 4px;
-				// border: 1px solid grey;
-			}
-			
-			div.listing-left{
-				width:39%;
-				float: left;
-				
-				div#event-artist{
-					margin:auto;
-					width: 100%;
-					font-size: 16px;
-				}
-				div#order-number{
-					font-size: 14px;
-				}
-			}
-			div.listing-right{
-				width:59%;
-				float:right;
-				font-size: 14px;
-				div{
-					width: 100%;
-				}
-				div#event-venue{
-					padding-bottom:4px;
-				}
-			}	
-			
+	
+}
+div.wrapper{
+	text-align:center;
+	width:48%;
+	min-width: 300px;
+	font-family: $font_d;
+	a{
+		color: $color_c_dark;
+	}
+	a:hover{
+		color: $color_d;
+		font-style: italic;
+		li{
+			border: 1px dashed black;
+			border-radius: 10px;
 		}
+	}
+	ol{
+		list-style: none;
+		padding: 16px;
+		li{
+			margin-bottom: 10px;
+			padding: 4px;
+			// border: 1px solid grey;
+		}
+		
+		div.listing-left{
+			width:39%;
+			float: left;
+			
+			div#event-artist{
+				margin:auto;
+				width: 100%;
+				font-size: 16px;
+			}
+			div#order-number{
+				font-size: 14px;
+				font-weight:bold;
+			}
+			div#date{
+				font-size: 14px;
+			}
+		}
+		div.listing-right{
+			width:59%;
+			float:right;
+			font-size: 14px;
+			div{
+				width: 100%;
+			}
+			div#event-venue{
+				padding-bottom:4px;
+			}
+		}	
+		
 	}
 }
 
-.clearfix {
-  overflow: auto;
+// INDEX PAGES
+
+div.index-container{
+	text-align: center;
+	margin-top: 50px;
+	margin-bottom: 50px;
+	div#transactions-wrapper{
+		margin:auto;
+		width: 80%;
+		h2{
+			margin-bottom: 20px;
+		}
+	}
+	p.new-transaction-link{
+		font-family: $font_d;
+		a{
+			color: $color_c_dark;
+		}
+		a:hover{
+			font-style: italic;
+			color: $color_d;
+		}
+	}
 }
 
 // FLASH MESSAGES

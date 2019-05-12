@@ -1,7 +1,7 @@
 class TransactionsController < ApplicationController
   
   before_action :authorized_user
-  before_action :matching_user, only: [:edit, :update, :destroy]
+  before_action :matching_user, only: [:show, :edit, :update, :destroy]
   
 
   # GET /transactions
@@ -17,6 +17,10 @@ class TransactionsController < ApplicationController
   # GET /transactions/new
   def new
     @transaction = Transaction.new
+  end
+
+  def show
+
   end
 
   # GET /transactions/1/edit

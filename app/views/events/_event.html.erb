@@ -4,6 +4,6 @@
 	</div>
 	<div class="listing-right">
 		<div id="event-venue"><%= event.venue.name %></div>
-		<div id="event-date"><%= event.date.strftime("%B %-d, %Y") %></div>
+		<div id="event-date"><%= event.formatted_date(:long) %></div>
 	</div>
 </li>

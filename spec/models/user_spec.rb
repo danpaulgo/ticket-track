@@ -96,15 +96,21 @@ RSpec.describe User, :type => :model do
       end
     end
 
-    describe "total_profit" do
+    describe "liquid_profit" do
       it "returns user's total purchases minus total sales" do
-        expect(admin.total_profit).to eq(-18.74)
+        expect(admin.liquid_profit).to eq(-18.74)
       end
     end
 
     describe "inventory_value" do
       it "returns the value of all tickets user currently holds based on purchase price" do
         expect(admin.inventory_value).to eq(81.04)
+      end
+    end
+
+    describe "total_profit" do
+      it "returns liquid profits plus inventory value" do
+        expect(admin.total_profit).to eq(62.30)
       end
     end
 

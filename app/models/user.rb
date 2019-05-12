@@ -25,7 +25,7 @@ class User < ApplicationRecord
 		sum
 	end
 
-	def total_profit
+	def liquid_profit
 		(total_sale - total_purchase).round(2)
 	end
 
@@ -33,6 +33,10 @@ class User < ApplicationRecord
 		sum = 0
 		events.uniq.each{|e| sum += e.inventory_value(self)}
 		sum
+	end
+
+	def total_profit
+		(liquid_profit + inventory_value).round(2)
 	end
 
 end

@@ -1,25 +1,18 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Transactions</h1>
+<div class="index-container">
+  <div id="transactions-wrapper" class="wrapper clearfix">
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+      <h2>My Transactions</h3>
+      <ol>
+        <% @transactions.each do |transaction| %>
+          <%= link_to render(partial: 'transactions/transaction', locals: {transaction: transaction}), user_transaction_path(@user, transaction) %>
+        <% end %>
+      </ol>
 
-  <tbody>
-    <% @transactions.each do |transaction| %>
-      <tr>
-        <td><%= link_to 'Show', transaction %></td>
-        <td><%= link_to 'Edit', edit_transaction_path(transaction) %></td>
-        <td><%= link_to 'Destroy', transaction, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+  </div>
 
-<br>
+  <br>
 
-<%= link_to 'New Transaction', new_transaction_path %>
+  <p class="new-transaction-link"><%= link_to 'New Transaction', new_transaction_path %></p>
+</div>

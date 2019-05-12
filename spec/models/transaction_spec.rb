@@ -118,4 +118,10 @@ RSpec.describe Transaction, type: :model do
 		expect(purchase).not_to be_valid
 	end
 
+	describe "price" do
+		it "returns amount with dollar sign and 2 decimal places" do
+			expect(admin_purchase.price).to eq("$200.00")
+		end
+	end
+
 end

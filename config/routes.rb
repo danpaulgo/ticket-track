@@ -6,13 +6,13 @@ Rails.application.routes.draw do
   get 'contact', to: 'application#contact'
 
   resources :users do
-  	resources :transactions, except: :show
+  	resources :transactions
     resources :events, only: [:index, :show]
   end
   resources :performers, except: [:new, :create]
   resources :venues
   resources :events
-  resources :transactions, except: :show
+  resources :transactions
   resources :transaction_sources, except: [:new, :create, :show]
 
   get 'login', to: 'sessions#new'

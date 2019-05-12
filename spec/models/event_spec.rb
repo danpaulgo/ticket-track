@@ -116,10 +116,17 @@ RSpec.describe Event, type: :model do
       end
     end
 
-    describe "current_profit" do
+    describe "liquid_profit" do
       it "returns value of a user's total sales minus total purchases" do
-        expect(event.current_profit(admin)).to eq(-68.74)
-        expect(event_2.current_profit(admin)).to eq(50)
+        expect(event.liquid_profit(admin)).to eq(-68.74)
+        expect(event_2.liquid_profit(admin)).to eq(50)
+      end
+    end
+
+    describe "total_profit" do
+      it "returns liquid profits plus inventory value" do
+        expect(event.total_profit(admin)).to eq(12.30)
+        expect(event_2.total_profit(admin)).to eq(50)
       end
     end
 

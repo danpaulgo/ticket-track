@@ -7,8 +7,7 @@ class Event < ApplicationRecord
 	validates :date, presence: true
 
 	def name
-		string_date = date.strftime("%m/%e/%Y")
-		"#{performer.name} @ #{venue.name} (#{string_date})"
+		"#{performer.name} @ #{venue.name} (#{formatted_date})"
 	end
 
 	def sales(user)
@@ -56,11 +55,15 @@ class Event < ApplicationRecord
 	end
 
 	def inventory_value(user)
-		average_purchase_price(user) * tickets_remaining(user)
+		(average_purchase_price(user) * tickets_remaining(user)).round(2)
 	end
 
-	def current_profit(user)
-		total_sale(user) - total_purchase(user)
+	def liquid_profit(user)
+		(total_sale(user) - total_purchase(user)).round(2)
+	end
+
+	def total_profit(user)
+		(liquid_profit(user) + inventory_value(user)).round(2)
 	end
 
 end

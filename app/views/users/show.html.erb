@@ -5,6 +5,7 @@
 		<p><%= @user.email %></p>
 		<div id="profits-container">
 			<p>Total Profit: $<%= @user.total_profit %></p>
+			<!-- <p>Liquid Profit: $<%= @user.liquid_profit %></p> -->
 			<p>Inventory Value: $<%= @user.inventory_value %></p>
 		</div>
 	</div>
@@ -22,19 +23,17 @@
 				<% end %>
 			</ol>
 		</div>
-		<div id="all-events-link"><%= link_to "All Events", user_events_path(@user) %></div>
+		<div id="all-events-link"><%= link_to "All My Events", user_events_path(@user) %></div>
 	</div>
 	<div id="transactions-wrapper" class="wrapper clearfix">
 		<div id="recent-transactions" class="show-container">
 			<h3>Recent Transactions</h3>
 			<ol>
 				<% @recent_transactions.each do |transaction| %>
-					<li id="transaction-listing" class="clearfix">
-						<%= render(partial: 'transactions/transaction', locals: {transaction: transaction}) %>
-					</li>	
+					<%= link_to render(partial: 'transactions/transaction', locals: {transaction: transaction}), user_transaction_path(@user, transaction) %>
 				<% end %>
 			</ol>
 		</div>
-		<div id="all-transactions-link"><%= link_to "All Transactions ", user_transactions_path(@user) %></div>
+		<div id="all-transactions-link"><%= link_to "All My Transactions ", user_transactions_path(@user) %></div>
 	</div>
 </div>
