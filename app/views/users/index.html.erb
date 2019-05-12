@@ -1,25 +1,18 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Users</h1>
+<div class="index-container">
+  <div id="index-wrapper" class="wrapper clearfix">
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+      <h2>Users</h2>
+      <ol>
+        <% @users.each do |user| %>
+          <%= link_to render(partial: 'users/user', locals: {user: user}), user %>
+        <% end %>
+      </ol>
 
-  <tbody>
-    <% @users.each do |user| %>
-      <tr>
-        <td><%= link_to 'Show', user %></td>
-        <td><%= link_to 'Edit', edit_user_path(user) %></td>
-        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+  </div>
 
-<br>
+  <br>
 
-<%= link_to 'New User', new_user_path %>
+  <p class="create-new-link"><%= link_to 'Back To Home', root_path %></p>
+</div>

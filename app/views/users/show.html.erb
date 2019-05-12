@@ -3,6 +3,9 @@
 		<h2 id="welcome-message">Welcome back, <%= @user.first_name %>!</h2>
 		<p><%= @user.name %></p>
 		<p><%= @user.email %></p>
+		<% if current_user.admin? %>
+			<p id="user-ud-links"><%= link_to "edit", edit_user_path(@user) %> | <%= link_to 'delete', @user, method: :delete, data: { confirm: 'Are you sure?' } %> </p>
+		<% end %>
 		<div id="profits-container">
 			<p>Total Profit: $<%= '%.2f' % @user.total_profit %></p>
 			<!-- <p>Liquid Profit: $<%= @user.liquid_profit %></p> -->

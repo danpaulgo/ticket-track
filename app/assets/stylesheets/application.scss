@@ -319,6 +319,17 @@ div#user-info-container{
 	h2#welcome-message{
 		font-style: normal;
 	}
+	p#user-ud-links{
+		font-size: 14px;
+		font-style: normal;
+		color: $color_c_dark;
+		a{
+			color: $color_c_dark;
+		}
+		a:hover{
+			color: $color_d;
+		}
+	}
 	div#profits-container{
 		font-style: normal;
 		font-weight: bold;
@@ -431,6 +442,18 @@ div.index-container{
 		}
 		li.performer-name{
 			font-size: 20px;
+		}
+		li{
+			div{
+				display: inline-block;
+			}
+			div#source-name{
+				font-size: 20px;
+				margin-right: 12px;
+			}
+			div.edit-link{
+				margin-right: 8px;
+			}
 		}
 	}
 	div#venue-left{

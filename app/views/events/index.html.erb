@@ -2,18 +2,16 @@
 
 <div class="index-container">
   <div id="index-wrapper" class="wrapper clearfix">
-
-      <h2><%= @title %></h2>
-      <ol>
-        <% @events.each do |event| %>
-          <% if @user %>
-            <%= link_to render(partial: 'events/event', locals: {event: event}), user_event_path(@user, event) %>
-          <% else %>
-            <%= render(partial: 'events/event', locals: {event: event}) %>
-          <% end %>
+    <h2><%= @title %></h2>
+    <ol>
+      <% @events.each do |event| %>
+        <% if @user %>
+          <%= link_to render(partial: 'events/event', locals: {event: event}), user_event_path(@user, event) %>
+        <% else %>
+          <%= render(partial: 'events/event', locals: {event: event}) %>
         <% end %>
-      </ol>
-
+      <% end %>
+    </ol>
   </div>
 
   <br>
