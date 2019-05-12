@@ -160,7 +160,8 @@ RSpec.shared_context "fixtures", :shared_context => :metadata do
       quantity: 2,
       order_number: "1234567",
       transaction_source_id: ticketmaster.id,
-      date: "21-04-2019".to_date
+      date: "21-04-2019".to_date,
+      notes: "Section 220, Row A"
     )
   }
   let(:sale){
