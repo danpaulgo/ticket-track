@@ -1,8 +1,3 @@
-
-
-        
-
-
 <p id="notice"><%= notice %></p>
 
 <div class="index-container">
@@ -10,10 +5,12 @@
     <h2>Transaction Sources</h2>
     <ol>
       <% @transaction_sources.each do |source| %>
-        <li>
+        <li class="clearfix">
           <div id="source-name"><%= source.name %></div>
-          <div class="edit-link"><%= link_to 'edit', edit_transaction_source_path(source) %></div>
-          <div class="delete-link"><%= link_to 'delete', source, method: :delete, data: { confirm: 'Are you sure?' } %></div>
+          <div id="source-ud-links">
+            <div class="edit-link"><%= link_to 'edit', edit_transaction_source_path(source) %></div>
+            <div class="delete-link"><%= link_to 'delete', source, method: :delete, data: { confirm: 'Are you sure?' } %></div>
+          </div>
         </li>
       <% end %>
     </ol>

@@ -124,6 +124,7 @@ header{
 		  	font-family: $font_a;
 		  	text-align: center;
 		  	color: $color_d;
+		  	min-width: 140px;
 		  	// right: 0;
 		  }
 		}
@@ -397,7 +398,7 @@ div.wrapper{
 		}
 		
 		div.listing-left{
-			width:39%;
+			width:40%;
 			float: left;
 			
 			div#event-artist{
@@ -414,7 +415,7 @@ div.wrapper{
 			}
 		}
 		div.listing-right{
-			width:59%;
+			width:60%;
 			float:right;
 			font-size: 14px;
 			div{
@@ -424,7 +425,6 @@ div.wrapper{
 				padding-bottom:4px;
 			}
 		}	
-		
 	}
 }
 
@@ -447,12 +447,19 @@ div.index-container{
 			div{
 				display: inline-block;
 			}
+			div.edit-link{
+					margin-right: 8px;
+				}
 			div#source-name{
 				font-size: 20px;
-				margin-right: 12px;
+				// margin-right: 12px;
+				width: 48%;
+				float:left;
 			}
-			div.edit-link{
-				margin-right: 8px;
+			div#source-ud-links{
+				float: right;
+				width: 48%;
+				
 			}
 		}
 	}
@@ -474,6 +481,17 @@ div.index-container{
 			color: $color_d;
 		}
 	}
+}
+div#admin-event-left{
+	width: 30%;
+}
+div#admin-event-right{
+	width: 40%;
+	float: none;
+}
+div#index-ud-links{
+	width: 30%;
+	float: right;
 }
 
 // FLASH MESSAGES

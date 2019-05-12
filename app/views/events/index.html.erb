@@ -8,7 +8,7 @@
         <% if @user %>
           <%= link_to render(partial: 'events/event', locals: {event: event}), user_event_path(@user, event) %>
         <% else %>
-          <%= render(partial: 'events/event', locals: {event: event}) %>
+          <%= render(partial: 'events/admin_event', locals: {event: event}) %>
         <% end %>
       <% end %>
     </ol>

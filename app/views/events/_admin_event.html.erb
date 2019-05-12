@@ -1,0 +1,13 @@
+<li id="event-listing" class="clearfix">
+	<div class="listing-left" id="admin-event-left">
+		<div id="event-artist"><%= event.performer.name %></div>
+	</div>
+	<div class="listing-right" id="admin-event-right">
+		<div id="event-venue"><%= event.venue.name %></div>
+		<div id="event-date"><%= event.formatted_date(:long) %></div>
+	</div>
+	<div id="index-ud-links">
+		<div id="event-edit" class="edit-link"><%= link_to 'edit', edit_event_path(event) %></div>
+		<div id="event-delete" class="delete-link"><%= link_to 'delete', event, method: :delete, data: { confirm: 'Are you sure?' } %></div>
+	</div>
+</li>
