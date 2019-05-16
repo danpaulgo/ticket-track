@@ -55,6 +55,12 @@ RSpec.describe Event, type: :model do
     end 
   end
 
+  describe "location" do
+    it "returns string with the city and state of the event's venue" do
+      expect(event.location).to eq("New York, NY")
+    end
+  end
+
   context "caluclation actions" do
     before(:each) do 
       admin_purchase

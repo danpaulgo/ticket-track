@@ -10,6 +10,10 @@ class Event < ApplicationRecord
 		"#{performer.name} @ #{venue.name} (#{formatted_date})"
 	end
 
+	def location
+		venue.location
+	end
+
 	def sales(user)
 		user.transactions.where(["event_id = ? and direction = ?", self.id, "Sale"])
 	end

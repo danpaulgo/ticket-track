@@ -440,16 +440,17 @@ div.resource-show-container{
 	p{
 		display: inline-block;
 		font-size: 18px;
-		margin-bottom: 12px;
+		margin-bottom: 16px;
 	}
 	p.title{
+		float:left;
 		text-align: left;
-		width:20%;
+		width:30%;
 		padding-left: 9%;
 	}
 	p.attribute{
 		float: right;
-		width:69%;
+		width:60%;
 	}
 }
 
@@ -461,6 +462,12 @@ div#transaction-show-container{
 		font-style: italic;
 		margin-bottom: 36px;
 		font-size: 17px;
+	}
+}
+
+div#event-show-container{
+	h2{
+		margin-bottom: 36px;
 	}
 }
 

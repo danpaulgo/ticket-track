@@ -1,0 +1,21 @@
+<div class="show-container resource-show-container" id="event-show-container">
+	<h2>Event Details</h2>
+	<div class="resource-details" id="event-details">
+		<div class="clearfix" id="event-performer">
+			<p class="title">Performer: </p>
+			<p class="attribute"><%= link_to @event.performer.name, @event.performer %></p>
+		</div>
+		<div class="clearfix" id="event-venue">
+			<p class="title">Venue: </p>
+			<p class="attribute"><%= link_to @event.venue.name, @event.venue %></p>
+		</div>
+		<div class="clearfix" id="event-location">
+			<p class="title">Location: </p>
+			<p class="attribute"><%= @event.location %></p>
+		</div>
+		<div class="clearfix" id="event-date">
+			<p class="title">Date: </p>
+			<p class="attribute"><%= @event.formatted_date(:long) %></p>
+		</div>
+	</div>
+</div>

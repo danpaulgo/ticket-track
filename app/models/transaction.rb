@@ -9,7 +9,7 @@ class Transaction < ApplicationRecord
 	validates :quantity, numericality: { greater_than_or_equal_to: 1}
 	validates :amount, numericality: { greater_than: 0}
 	validates :order_number, uniqueness: { scope: :transaction_source_id }
-	validate :date_cannot_be_after_event_date
+	validate :date_cannot_be_after_event_date, :date_cannot_be_in_future
 
 	before_validation :capitalize_direction 
 
