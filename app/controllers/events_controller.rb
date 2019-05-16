@@ -12,7 +12,7 @@ class EventsController < ApplicationController
       @events = Event.all
       @title = "Events"
     else
-      @events = @user.events
+      @events = @user.events.uniq
       @title = "My Events"
     end
   end

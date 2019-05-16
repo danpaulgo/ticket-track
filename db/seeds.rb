@@ -61,6 +61,7 @@ def random_date(year)
 	"#{day}-#{month}-#{year}".to_date
 end
 
+
 Performer.all.each do |p|
 	Venue.all.each do |v|
 		Event.create(
@@ -156,32 +157,3 @@ Transaction.create(
 	transaction_source: stubhub,
 	date: sale_date
 	)
-
-
-
-
-# event = Event.create(
-# 		      performer_id: performer.id,
-# 		      venue_id: venue.id,
-# 		      date: Date.today + 1.year
-# 		    )
-
-# purchase = Transaction.create(
-# 				      event_id: event.id,
-# 				      user_id: user.id,
-# 				      direction: "purchase",
-# 				      amount: 99.99,
-# 				      quantity: 2,
-# 				      order_number: "1234567",
-# 				      transaction_source: TransactionSource.create(name: "Ticketmaster")
-# 				    )
-
-# sale = Transaction.create(
-# 	      event_id: event.id,
-# 	      user_id: user.id,
-# 	      direction: "sale",
-# 	      amount: 69.99,
-# 	      quantity: 1,
-# 	      order_number: "1234567",
-# 	      transaction_source: TransactionSource.create(name: "Stubhub")
-# 	    )
