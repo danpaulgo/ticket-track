@@ -103,6 +103,20 @@ Event.all.each do |e|
 		)
 end
 
+12.times do |n|
+	Transaction.create(
+		event: Event.last,
+		user: user,
+		direction: "Purchase",
+		quantity: 1,
+		amount: 50,
+		order_number: (0...10).map { ('A'..'Z').to_a[rand(26)] }.join,
+		transaction_source: stubhub,
+		date: random_date(2018),
+		notes: "This is a note for this transaction"
+		)
+end
+
 Transaction.create(
 	event: Event.first,
 	user: admin,

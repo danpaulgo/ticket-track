@@ -20,9 +20,7 @@
 			<h3>Upcoming Events</h3>
 			<ol>
 				<% @upcoming_events.each do |event| %>
-					
-						<%= link_to render(partial: 'events/event', locals: {event: event}), user_event_path(@user, event) %>
-
+					<%= link_to render(partial: 'events/event', locals: {event: event}), user_event_path(@user, event) %>
 				<% end %>
 			</ol>
 		</div>

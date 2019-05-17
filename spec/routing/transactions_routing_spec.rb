@@ -5,6 +5,7 @@ RSpec.describe TransactionsController, type: :routing do
     it "routes to #index" do
       expect(:get => "/transactions").to route_to("transactions#index")
       expect(:get => "users/1/transactions").to route_to("transactions#index", user_id: "1")
+      expect(:get => "users/1/events/1/transactions").to route_to("transactions#index", user_id: "1", event_id: "1")
     end
 
     it "routes to #new" do

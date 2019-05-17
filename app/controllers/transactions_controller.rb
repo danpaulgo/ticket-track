@@ -8,7 +8,14 @@ class TransactionsController < ApplicationController
   # GET /transactions.json
   def index
     if params[:user_id]
-      @transactions = User.find_by(id: params[:user_id]).transactions
+      set_user
+      if params[:event_id]
+        set_event
+        @transactions = @user.transactions.where(event: @event)
+        @subtitle = @event.name
+      else
+        @transactions = User.find_by(id: params[:user_id]).transactions
+      end
     else
       redirect_to current_user
     end
@@ -61,6 +68,10 @@ class TransactionsController < ApplicationController
     def matching_user
       set_object
       redirect_to current_user if @transaction && (@transaction.user != @user)
+    end
+
+    def set_event
+      @event = Event.find_by(id: params[:event_id]) if params[:event_id]
     end
 
     def authorized_user

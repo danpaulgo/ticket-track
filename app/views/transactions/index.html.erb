@@ -2,14 +2,15 @@
 
 <div class="index-container">
   <div id="index-wrapper" class="wrapper clearfix">
-
+    <div id="transaction-index-title">
       <h2>My Transactions</h2>
-      <ol>
-        <% @transactions.each do |transaction| %>
-          <%= link_to render(partial: 'transactions/transaction', locals: {transaction: transaction}), user_transaction_path(@user, transaction) %>
-        <% end %>
-      </ol>
-
+      <p><%= @subtitle if @subtitle %></p>
+    </div>
+    <ol>
+      <% @transactions.each do |transaction| %>
+        <%= link_to render(partial: 'transactions/transaction', locals: {transaction: transaction}), user_transaction_path(@user, transaction) %>
+      <% end %>
+    </ol>
   </div>
 
   <br>

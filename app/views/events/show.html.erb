@@ -1,21 +1,20 @@
 <div class="show-container resource-show-container" id="event-show-container">
 	<h2>Event Details</h2>
 	<div class="resource-details" id="event-details">
-		<div class="clearfix" id="event-performer">
-			<p class="title">Performer: </p>
-			<p class="attribute"><%= link_to @event.performer.name, @event.performer %></p>
+		<p id="event-performer">Performer: <%= link_to @event.performer.name, @event.performer %></p>
+		<p id="event-venue">Venue: <%= link_to @event.venue.name, @event.venue %></p>
+		<p id="event-location">Location: <%= @event.location %></p>
+		<p id="event-date">Date: <%= @event.formatted_date(:long) %></p>
+	</div>
+	<div id="transactions-wrapper" class="wrapper clearfix">
+		<div id="recent-transactions" class="show-container">
+			<h3>Recent Transactions</h3>
+			<ol>
+				<% @recent_transactions.each do |transaction| %>
+					<%= link_to render(partial: 'transactions/transaction', locals: {transaction: transaction}), user_transaction_path(@user, transaction) %>
+				<% end %>
+			</ol>
 		</div>
-		<div class="clearfix" id="event-venue">
-			<p class="title">Venue: </p>
-			<p class="attribute"><%= link_to @event.venue.name, @event.venue %></p>
-		</div>
-		<div class="clearfix" id="event-location">
-			<p class="title">Location: </p>
-			<p class="attribute"><%= @event.location %></p>
-		</div>
-		<div class="clearfix" id="event-date">
-			<p class="title">Date: </p>
-			<p class="attribute"><%= @event.formatted_date(:long) %></p>
-		</div>
+		<div id="all-transactions-link"><%= link_to "All Event Transactions ", user_event_transactions_path(@user, @event) %></div>
 	</div>
 </div>

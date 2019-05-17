@@ -7,13 +7,20 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.json
   def index
-    if @user.nil?
-      # valid_admin
-      @events = Event.all
-      @title = "Events"
-    else
+    set_venue
+    set_performer
+    if !@user.nil?
       @events = @user.events.uniq
       @title = "My Events"
+    elsif !@performer.nil?
+      @events = @performer.events
+      @title = "#{@performer.name} Events"
+    elsif !@venue.nil?
+      @events = @venue.events
+      @title = "#{@venue.name} Events"
+    else
+      @events = Event.all
+      @title = "All Events"
     end
   end
 
@@ -24,6 +31,7 @@ class EventsController < ApplicationController
 
   def show
     redirect_to current_user if @user.nil?
+    @recent_transactions = @event.transactions.where(user: @user).order(date: :desc).limit(10)
   end
 
   # GET /events/1/edit
@@ -63,6 +71,14 @@ class EventsController < ApplicationController
     def matching_user
       set_user
       redirect_to current_user if !@user.nil? && @user != current_user && !current_user.admin?
+    end
+
+    def set_venue
+      @venue = Venue.find_by(id: params[:venue_id]) if params[:venue_id]
+    end
+
+    def set_performer
+      @performer = Performer.find_by(id: params[:performer_id]) if params[:performer_id]
     end
 
 end

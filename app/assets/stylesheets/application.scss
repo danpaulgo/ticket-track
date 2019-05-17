@@ -56,6 +56,9 @@
 h2, h3{
 	font-family: $font_d;
 }
+h3{
+	font-size: 20px;
+}
 
 // HEADER
 
@@ -466,8 +469,21 @@ div#transaction-show-container{
 }
 
 div#event-show-container{
+	text-align: left;
+	width: 80%;
 	h2{
-		margin-bottom: 36px;
+		margin-bottom: 18px;
+	}
+	p{
+		padding-left: 0;
+		margin-bottom: 6px;
+		display:block;
+	}
+	div#transactions-wrapper{
+		padding-top: 50px;
+		margin: auto;
+		width: 80%;
+		margin-bottom: 80px;
 	}
 }
 
@@ -476,12 +492,22 @@ div#event-show-container{
 
 div.index-container{
 	text-align: center;
-	margin-top: 50px;
+	margin-top: 72px;
 	margin-bottom: 50px;
 	font-family: $font_a;
 	div#index-wrapper{
 		margin:auto;
 		width: 80%;
+		div#transaction-index-title{
+			margin-bottom: 12px;
+			h2{
+				margin-bottom: 10px;
+			}
+			p{
+				font-size: 14px;
+				font-style: italic;
+			}
+		}
 		h2{
 			margin-bottom: 20px;
 		}
