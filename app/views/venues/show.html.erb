@@ -1,0 +1,15 @@
+<div class="show-container resource-show-container" id="venue-show-container">
+	<h2><%= @venue.name %></h2>
+	<p id="venue-location"><%= @venue.location %></p>
+	<div id="upcoming-events-wrapper" class="wrapper clearfix">
+		<div id="recent-events" class="show-container">
+			<h3>Upcoming Events</h3>
+			<ol>
+				<% @upcoming_events.each do |event| %>
+					<%= render event %>
+				<% end %>
+			</ol>
+		</div>
+		<div id="all-transactions-link"><%= link_to "All Events", venue_events_path(@venue) %></div>
+	</div>
+</div>

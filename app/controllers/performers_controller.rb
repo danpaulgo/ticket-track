@@ -9,6 +9,7 @@ class PerformersController < ApplicationController
  end
 
  def show
+ 	@upcoming_events = @performer.events.where("date >= ?", Date.today).order(date: :asc).limit(10)
  end
 
  def edit

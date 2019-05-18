@@ -1,0 +1,15 @@
+<div class="show-container resource-show-container" id="performer-show-container">
+	<h2><%= @performer.name %></h2>
+	
+	<div id="upcoming-events-wrapper" class="wrapper clearfix">
+		<div id="recent-events" class="show-container">
+			<h3>Upcoming Events</h3>
+			<ol>
+				<% @upcoming_events.each do |event| %>
+					<%= render event %>
+				<% end %>
+			</ol>
+		</div>
+		<div id="all-transactions-link"><%= link_to "All Events", performer_events_path(@performer) %></div>
+	</div>
+</div>

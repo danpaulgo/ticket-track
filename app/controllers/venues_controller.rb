@@ -13,6 +13,7 @@ class VenuesController < ApplicationController
   # GET /venues/1
   # GET /venues/1.json
   def show
+    @upcoming_events = @venue.events.where("date >= ?", Date.today).order(date: :asc).limit(10)
   end
 
   # GET /venues/new

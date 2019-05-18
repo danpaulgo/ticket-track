@@ -487,6 +487,37 @@ div#event-show-container{
 	}
 }
 
+div#performer-show-container, div#venue-show-container{
+	width: 80%;
+	margin: auto;
+	margin-bottom: 80px;
+	
+	div#upcoming-events-wrapper{
+		width: 100%;
+		div#recent-events{
+			div.listing-left{
+				width: 45%;
+			}
+			div.listing-right{
+				width: 50%;
+			}
+		}	
+	}
+}
+div#performer-show-container{
+	h2{
+		margin-bottom: 40px;
+		font-size: 36px;
+	}
+}
+
+div#venue-show-container{
+	p{
+		font-size: 16px;
+		margin-bottom: 36px;
+	}
+}
+
 
 // INDEX PAGES
 
