@@ -253,6 +253,9 @@ div.form-container{
 		text-align: center;
 		margin-bottom: 15px;
 	}
+	h2#login-title{
+		margin-bottom: 36px;
+	}
 	div.form-section{
 		font-family: $font_a;
 		padding: 20px 0;
@@ -288,6 +291,10 @@ div.form-container{
 		input:hover{
 			color:$color_a_dark;
 		}
+	}
+	div#login-submit{
+		margin-bottom: 24px;
+		margin-top: 48px;
 	}
 }
 

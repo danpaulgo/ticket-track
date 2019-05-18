@@ -1,7 +1,7 @@
 <div class="form-container">
 	<%= render "partials/flash_messages" %>
 	<%= form_tag login_path do %>
-    <h2 class="form-title" >Log In</h2>
+    <h2 class="form-title" id="login-title">Log In</h2>
 
     <div class="form-section">
       <%= label_tag :email %>
@@ -11,7 +11,7 @@
       <%= label_tag :password %>
       <%= password_field_tag :password, @password %>
     </div>
-    <div class="submit">
+    <div class="submit" id="login-submit">
       <%= submit_tag "Submit" %>
     </div>
   <% end %>
