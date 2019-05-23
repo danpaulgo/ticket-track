@@ -5,7 +5,7 @@
 		<p><%= @user.name %></p>
 		<p><%= @user.email %></p>
 		<% if current_user.admin? %>
-			<p id="user-ud-links"><%= link_to "edit", edit_user_path(@user) %> | <%= link_to 'delete', @user, method: :delete, data: { confirm: 'Are you sure?' } %> </p>
+			<div class="ud-links" id="user-ud-links"><%= link_to "edit", edit_user_path(@user) %> | <%= link_to 'delete', @user, method: :delete, data: { confirm: 'Are you sure?' } %> </div>
 		<% end %>
 		<div id="profits-container">
 			<p>Total Profit: $<%= '%.2f' % @user.liquid_profit %></p>

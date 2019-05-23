@@ -1,6 +1,10 @@
 <div class="show-container resource-show-container" id="performer-show-container">
-	<h2><%= @performer.name %></h2>
-	
+	<div class="resource-header">
+		<h2><%= @performer.name %></h2>
+		<% if current_user.admin? %>
+			<div class="ud-links" id="performer-ud-links"><%= link_to "edit", edit_performer_path(@performer) %> | <%= link_to 'delete', @performer, method: :delete, data: { confirm: 'Are you sure?' } %> </div>
+		<% end %>
+	</div>
 	<div id="upcoming-events-wrapper" class="wrapper clearfix">
 		<div id="recent-events" class="show-container">
 			<h3>Upcoming Events</h3>

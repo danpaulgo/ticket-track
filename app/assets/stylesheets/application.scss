@@ -342,17 +342,6 @@ div#user-info-container{
 		padding-top: 16px;
 		font-size: 20px;
 	}
-	p#user-ud-links{
-		font-size: 14px;
-		font-style: normal;
-		color: $color_c_dark;
-		a{
-			color: $color_c_dark;
-		}
-		a:hover{
-			color: $color_d;
-		}
-	}
 	div#profits-container{
 		font-style: normal;
 		font-weight: bold;
@@ -518,10 +507,14 @@ div#performer-show-container, div#venue-show-container{
 	margin: auto;
 	margin-bottom: 80px;
 	h2{
-		margin-bottom: 6px;
+		margin-bottom: 4px;
 	}
 	div.resource-header{
 		margin-bottom:36px;
+		p#venue-location{
+			margin-bottom: 3px;
+		}
+		
 	}
 	div#upcoming-events-wrapper{
 		width: 100%;
@@ -534,6 +527,7 @@ div#performer-show-container, div#venue-show-container{
 			}
 		}	
 	}
+
 }
 div#performer-show-container{
 	h2{
@@ -548,6 +542,20 @@ div#venue-show-container{
 		margin-bottom: 0px;
 	}
 }
+
+div.ud-links{
+	font-size: 14px;
+	font-style: normal;
+	color: $color_c_dark;
+	a{
+		color: $color_c_dark;
+	}
+	a:hover{
+		color: $color_d;
+	}
+}
+
+
 
 
 // INDEX PAGES
@@ -634,6 +642,7 @@ div#flash-container{
 	font-family: $message_font;
 	margin-bottom: 30px;
 	font-style: normal;
+	text-align: left;
 	p#flash-title{
 		margin-bottom: 12px;
 	}

@@ -1,8 +1,13 @@
 <div class="show-container resource-show-container" id="venue-show-container">
+	<%= render "partials/flash_messages" %>
 	<div class="resource-header">
 		<h2><%= @venue.name %></h2>
 		<p id="venue-location"><%= @venue.location %></p>
+		<% if current_user.admin? %>
+			<div class="ud-links" id="venue-ud-links"><%= link_to "edit", edit_venue_path(@venue) %> | <%= link_to 'delete', @venue, method: :delete, data: { confirm: 'Are you sure?' } %> </div>
+		<% end %>
 	</div>
+	
 	<div id="upcoming-events-wrapper" class="wrapper clearfix">
 		<div id="recent-events" class="show-container">
 			<h3>Upcoming Events</h3>

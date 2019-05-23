@@ -53,6 +53,7 @@ module VenuesHelper
 	    ['WI', 'WI'],
 	    ['WV', 'WV'],
 	    ['WY', 'WY'],
+	    ['D.C.', 'D.C.'],
 	    ['Outside U.S.', 'Outside U.S.']
 	  ]
 	end

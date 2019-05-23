@@ -25,7 +25,7 @@
 
     <div class="form-section">
       <%= f.label :state %>
-      <%= f.select :state, options_for_select(us_states) %>
+      <%= f.select :state, options_for_select(us_states, @venue.state) %>
     </div>
 
     <div class="submit" id="venue-form-submit">
