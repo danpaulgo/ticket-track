@@ -11,5 +11,21 @@
       </div>
     <% end %>
 
+    <h2 class="form-title" ><%= form_name %></h2>
+
+    <div class="form-section">
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </div>
+
+    <div class="form-section">
+      <%= f.label :location %>
+      <%= f.text_field :City %>
+    </div>
+
+    <div class="submit">
+      <%= f.submit button_text %>
+    </div>
+
   <% end %> 
 </div>

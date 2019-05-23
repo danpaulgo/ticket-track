@@ -38,7 +38,7 @@ RSpec.describe Performer, type: :model do
     expect(Transaction.all).not_to include(purchase, sale)
   end
 
-  it "titleizes name before validating" do
+  it "titleizes name before saving" do
     performer.name = "alison wonderland"
     performer.save
     expect(performer.name).to eq("Alison Wonderland")

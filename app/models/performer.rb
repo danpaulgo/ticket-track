@@ -6,6 +6,4 @@ class Performer < ApplicationRecord
 	validates :name, presence: true
 	validates :name, uniqueness: true
 
-	before_validation :titleize_name
-
 end

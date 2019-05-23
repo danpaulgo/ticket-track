@@ -56,7 +56,12 @@ RSpec.describe Venue, type: :model do
     venue.destroy
     expect(Event.all).not_to include(event)
     expect(Transaction.all).not_to include(purchase, sale)
+  end
 
+  it "titleizes name before saving" do
+    venue.name = "madison square garden"
+    venue.save
+    expect(venue.name).to eq("Madison Square Garden")
   end
 
 end

@@ -7,7 +7,11 @@ class Venue < ApplicationRecord
 	validates :name, uniqueness: { scope: [:city, :state] }
 
 	def location
-		"#{city}, #{state}"
+		if state != "Outside U.S."
+			"#{city}, #{state}"
+		else
+			city
+		end
 	end
 
 end
