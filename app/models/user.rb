@@ -7,7 +7,6 @@ class User < ApplicationRecord
 
 	validates :name, :email, :birthdate, presence: true
 	validates :email, uniqueness: true
-	# validates :password, length: { minimum: 6 }, :if => lambda {|attr| attr.present?}
 	validate :password_min_length_if_present
 
 	def first_name
