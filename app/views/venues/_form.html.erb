@@ -23,6 +23,11 @@
       <%= f.text_field :city %>
     </div>
 
+    <div class="form-section">
+      <%= f.label :state %>
+      <%= f.select :state, options_for_select(us_states) %>
+    </div>
+
     <div class="submit" id="venue-form-submit">
       <%= f.submit button_text %>
     </div>
