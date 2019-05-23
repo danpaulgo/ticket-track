@@ -7,7 +7,8 @@ class User < ApplicationRecord
 
 	validates :name, :email, :birthdate, presence: true
 	validates :email, uniqueness: true
-	validates :password, length: { minimum: 6 }
+	# validates :password, length: { minimum: 6 }, :if => lambda {|attr| attr.present?}
+	validate :password_min_length_if_present
 
 	def first_name
 		name.split(" ").first
@@ -37,6 +38,14 @@ class User < ApplicationRecord
 
 	def total_profit
 		(liquid_profit + inventory_value).round(2)
+	end
+
+	private
+
+	def password_min_length_if_present
+		if !password.nil? && password.length < 6
+			errors.add(:date, "Password is too short (minimum is 6 characters)")
+		end
 	end
 
 end

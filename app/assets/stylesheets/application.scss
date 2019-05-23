@@ -14,7 +14,7 @@
  *= require_self
  */
 
- @import url('https://fonts.googleapis.com/css?family=Montserrat|Hammersmith+One|Proza+Libre|Bai+Jamjuree');
+ @import url('https://fonts.googleapis.com/css?family=Montserrat|Hammersmith+One|Proza+Libre|Lato|Bai+Jamjuree');
 
  $color_a: rgba(82,206,255,1); //light blue
  $color_a_light: rgba(158, 228, 255, 1);
@@ -30,6 +30,7 @@
  $font_b: "Hammersmith One";
  $font_c: "Proza Libre";
  $font_d: "Bai Jamjuree";
+ $message_font: "Lato", sans-serif;
 
  // UNIVERSAL
 
@@ -45,7 +46,7 @@
  }
 
  div#main{
- 	min-height: 500px;
+ 	min-height: 525px;
  	// padding: 0 5px;
  }
 
@@ -238,7 +239,7 @@ footer{
 div.form-container{
 	width: 330px;
 	margin: auto;
-	margin-top: 80px;
+	margin-top: 100px;
 	margin-bottom: 80px;
 	padding: 40px 29px;
 	border: 1px solid $color_d;
@@ -246,9 +247,7 @@ div.form-container{
 	box-shadow: 3px 3px 5px $color_c;
 	background-color: white;
 	// text-align: center;
-	div#error_explanation{
-		margin-bottom: 24px;
-	}
+	
 	h2.form-title{
 		text-align: center;
 		margin-bottom: 15px;
@@ -462,6 +461,13 @@ div.resource-show-container{
 		float: right;
 		width:60%;
 	}
+	a{
+		color: $color_c_dark;
+	}
+	a:hover{
+		color: $color_d;
+		font-style: italic;
+	}
 }
 
 div#transaction-show-container{
@@ -498,7 +504,12 @@ div#performer-show-container, div#venue-show-container{
 	width: 80%;
 	margin: auto;
 	margin-bottom: 80px;
-	
+	h2{
+		margin-bottom: 6px;
+	}
+	div.resource-header{
+		margin-bottom:36px;
+	}
 	div#upcoming-events-wrapper{
 		width: 100%;
 		div#recent-events{
@@ -513,7 +524,7 @@ div#performer-show-container, div#venue-show-container{
 }
 div#performer-show-container{
 	h2{
-		margin-bottom: 40px;
+		// margin-bottom: 40px;
 		font-size: 36px;
 	}
 }
@@ -521,7 +532,7 @@ div#performer-show-container{
 div#venue-show-container{
 	p{
 		font-size: 16px;
-		margin-bottom: 36px;
+		margin-bottom: 0px;
 	}
 }
 
@@ -604,10 +615,12 @@ div#index-ud-links{
 	float: right;
 }
 
-// FLASH MESSAGES
+// FLASH/ERROR MESSAGES
 
 div#flash-container{
+	font-family: $message_font;
 	margin-bottom: 30px;
+	font-style: normal;
 	p#flash-title{
 		margin-bottom: 12px;
 	}
@@ -615,5 +628,19 @@ div#flash-container{
 		margin-left: 20px;
 	}
 }
+
+div#error_explanation{
+	font-family: $message_font;
+		margin-bottom: 24px;
+		h3{
+			font-family: $message_font;
+			font-size: 16px;
+			margin-bottom: 12px;
+			font-weight: normal;
+		}
+		ul{
+			margin-left: 20px;
+		}
+	}
 
 

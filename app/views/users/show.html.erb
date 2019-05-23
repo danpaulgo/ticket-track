@@ -1,4 +1,5 @@
 <div class="show-container" id="user-info-container">
+	<%= render "partials/flash_messages" %>
 	<div id="user-info">
 		<h2 id="welcome-message">Welcome back, <%= @user.first_name %>!</h2>
 		<p><%= @user.name %></p>

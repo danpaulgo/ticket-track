@@ -39,7 +39,13 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1
   def update
-    if @user.update(object_params)
+    params_hash = object_params.to_h
+    if params_hash[:password].blank? && params_hash[:password_confirmation].blank?
+      params_hash.except!(:password)
+      params_hash.except!(:password_confirmation)
+    end
+    # binding.pry
+    if @user.update(params_hash)
       redirect_to @user, notice: 'User was successfully updated.'
     else
       render :edit
