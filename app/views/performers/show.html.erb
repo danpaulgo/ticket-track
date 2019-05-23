@@ -1,4 +1,5 @@
 <div class="show-container resource-show-container" id="performer-show-container">
+	<%= render "partials/flash_messages" %>
 	<div class="resource-header">
 		<h2><%= @performer.name %></h2>
 		<% if current_user.admin? %>

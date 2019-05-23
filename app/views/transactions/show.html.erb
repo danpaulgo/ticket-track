@@ -1,4 +1,5 @@
 <div class="show-container resource-show-container" id="transaction-show-container">
+	<%= render "partials/flash_messages" %>
 	<h2>Transaction <%= @transaction.order_number %></h2>
 	<div id="transaction-direction"><%= @transaction.direction %></div>
 	<div class="resource-details" id="transaction-details">
