@@ -27,6 +27,8 @@ class EventsController < ApplicationController
   # GET /events/new
   def new
     @event = Event.new
+    set_performers
+    set_venues
   end
 
   def show
@@ -36,15 +38,25 @@ class EventsController < ApplicationController
 
   # GET /events/1/edit
   def edit
+    @performer_id = @event.performer.id
+    @venue_id = @event.venue.id
+    set_performers
+    set_venues
   end
 
   # POST /events
   # POST /events.json
   def create
-    @event = Event.new(object_params)
+    @event = Event.new(params_hash)
     if @event.save
-      redirect_to @event, notice: 'Event was successfully created.'
+      flash[:success] = "Event successfully created"
+      redirect_to events_path
     else
+      Performer.last.delete if Performer.last.events.empty?
+      @performer_id = @event.performer.id if @event.performer
+      @venue_id = @event.venue.id if @event.venue
+      set_performers
+      set_venues
       render :new
     end
   end
@@ -52,9 +64,15 @@ class EventsController < ApplicationController
   # PATCH/PUT /events/1
   # PATCH/PUT /events/1.json
   def update
-    if @event.update(object_params)
-      redirect_to events_path, notice: 'Event was successfully updated.'
+    if @event.update(params_hash)
+      flash[:success] = "Event successfully updated"
+      redirect_to events_path
     else
+      Performer.last.delete if Performer.last.events.empty?
+      @performer_id = @event.performer.id if @event.performer
+      @venue_id = @event.venue.id if @event.venue
+      set_performers
+      set_venues
       render :edit
     end
   end
@@ -63,7 +81,8 @@ class EventsController < ApplicationController
   # DELETE /events/1.json
   def destroy
     @event.destroy if @event
-    redirect_to events_url, notice: 'Event was successfully destroyed.'
+    flash[:notice] = 'Event was successfully destroyed'
+    redirect_to events_url
   end
 
   private
@@ -79,6 +98,25 @@ class EventsController < ApplicationController
 
     def set_performer
       @performer = Performer.find_by(id: params[:performer_id]) if params[:performer_id]
+    end
+
+    def params_hash
+      params_hash = object_params.to_h
+      if params_hash[:performer_id] == "0"
+        if !params[:new_performer].blank?
+          new_performer = Performer.find_or_create(params[:new_performer])
+          params_hash[:performer_id] = new_performer.id
+        end
+      end
+      params_hash
+    end
+
+    def set_venues
+      @venues = Venue.all.map{|v| [v.extended_name, v.id]}
+    end
+
+    def set_performers
+      @performers = Performer.all.map{|p| [p.name, p.id]}.unshift ["Add Performer", 0]
     end
 
 end

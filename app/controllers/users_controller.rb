@@ -30,7 +30,7 @@ class UsersController < ApplicationController
       @user = User.new(object_params)
       if @user.save
         login(@user)
-        redirect_to @user, notice: 'User was successfully created.'
+        redirect_to @user, notice: 'User was successfully created'
       else
         render :new
       end
@@ -46,7 +46,7 @@ class UsersController < ApplicationController
     end
     # binding.pry
     if @user.update(params_hash)
-      redirect_to @user, notice: 'User was successfully updated.'
+      redirect_to @user, notice: 'User was successfully updated'
     else
       render :edit
     end
@@ -55,7 +55,7 @@ class UsersController < ApplicationController
   # DELETE /users/1
   def destroy
     @user.destroy
-    notice = 'User was successfully destroyed.'
+    notice = 'User was successfully deleted'
     if @user == current_user
       logout
       redirect_to root_path, notice: notice

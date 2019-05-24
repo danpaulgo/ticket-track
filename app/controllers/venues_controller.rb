@@ -30,7 +30,8 @@ class VenuesController < ApplicationController
   def create
     @venue = Venue.new(object_params)
     if @venue.save
-      redirect_to @venue, notice: 'Venue was successfully created.'
+      flash[:notice] = 'Venue was successfully created'
+      redirect_to @venue
     else
       render :new
     end
@@ -40,7 +41,8 @@ class VenuesController < ApplicationController
   # PATCH/PUT /venues/1.json
   def update
       if @venue.update(object_params)
-        redirect_to @venue, notice: 'Venue was successfully updated.'
+        flash[:notice] = 'Venue was successfully updated'
+        redirect_to @venue
       else
         render :edit
       end
@@ -50,7 +52,8 @@ class VenuesController < ApplicationController
   # DELETE /venues/1.json
   def destroy
     @venue.destroy if @venue
-    redirect_to venues_url, notice: 'Venue was successfully destroyed.'
+    flash[:notice] = 'Venue was successfully deleted'
+    redirect_to venues_url
   end
 
 end

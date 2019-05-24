@@ -301,10 +301,17 @@ div.form-container{
 	div#venue-form-submit{
 		margin-bottom: 24px;
 	}
-	select#venue_state{
+	select{
 		float: right;
 		width: 162px;
 		height: 22px;
+	}
+	div#add-venue-link{
+		margin-top: 8px;
+		// padding-right: 32px;
+		text-align: right;
+		font-family: $font_a;
+		font-size: 12px;
 	}
 }
 

@@ -14,4 +14,8 @@ class Venue < ApplicationRecord
 		end
 	end
 
+	def extended_name
+		"#{name} (#{location})"
+	end
+
 end
