@@ -18,7 +18,8 @@ class TransactionSourcesController < ApplicationController
   # PATCH/PUT /transaction_sources/1.json
   def update
     if @transaction_source.update(object_params)
-      redirect_to transaction_sources_path, notice: 'Transaction source was successfully updated.'
+      flash[:notice] = "Transaction source was successfully updated"
+      redirect_to transaction_sources_path
     else
       render :edit
     end
@@ -28,7 +29,8 @@ class TransactionSourcesController < ApplicationController
   # DELETE /transaction_sources/1.json
   def destroy
     @transaction_source.destroy
-    redirect_to transaction_sources_url, notice: 'Transaction source was successfully destroyed.'
+    flash[:notice] = "Transaction source was successfully deleted"
+    redirect_to transaction_sources_url
   end
 
   private

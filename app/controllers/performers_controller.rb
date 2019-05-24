@@ -17,7 +17,8 @@ class PerformersController < ApplicationController
 
  def update
  	if @performer.update(performer_params)
-      redirect_to @performer, notice: 'Performer was successfully updated.'
+ 			flash[:notice] = 'Performer was successfully updated'
+      redirect_to @performer
     else
       render :edit
     end

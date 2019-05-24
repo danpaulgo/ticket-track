@@ -8,7 +8,7 @@ RSpec.describe EventsController, type: :controller do
   }
 
   let(:invalid_attributes) {
-    {venue_id: 0, performer: 99, date: "today"}
+    {venue_id: 0, performer_id: "0", date: "today"}
   }
 
   describe "GET #index" do
@@ -147,9 +147,9 @@ RSpec.describe EventsController, type: :controller do
           expect(Event.last.performer).to eq(performer_2)
         end
 
-        it "redirects to created event" do
+        it "redirects to events index" do
           post :create, params: {event: valid_attributes}, session: logged_in_session
-          expect(response).to redirect_to(Event.last)
+          expect(response).to redirect_to(events_path)
         end
 
       end

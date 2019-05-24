@@ -1,6 +1,26 @@
-<h1>Editing Transaction Source</h1>
+<div class="form-container">
+  <%= form_for @transaction_source do |f| %>
+    <% if @transaction_source.errors.any? %>
+      <div id="error_explanation">
+        <h3><%= pluralize(@transaction_source.errors.count, "error") %> prohibited this transaction source from being saved:</h3>
+        <ul>
+        <% @transaction_source.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
 
-<%= render 'form', transaction_source: @transaction_source %>
+    <h2 class="form-title" id="edit-ts-title">Edit Transaction Source</h2>
 
-<%= link_to 'Show', @transaction_source %> |
-<%= link_to 'Back', transaction_sources_path %>
+    <div class="form-section">
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </div>
+
+    <div class="submit" id="ts-submit">
+      <%= f.submit "Save" %>
+    </div>
+
+  <% end %>
+</div>

@@ -52,7 +52,7 @@ class EventsController < ApplicationController
       flash[:success] = "Event successfully created"
       redirect_to events_path
     else
-      Performer.last.delete if Performer.last.events.empty?
+      delete_created_performer
       @performer_id = @event.performer.id if @event.performer
       @venue_id = @event.venue.id if @event.venue
       set_performers
@@ -68,7 +68,7 @@ class EventsController < ApplicationController
       flash[:success] = "Event successfully updated"
       redirect_to events_path
     else
-      Performer.last.delete if Performer.last.events.empty?
+      delete_created_performer
       @performer_id = @event.performer.id if @event.performer
       @venue_id = @event.venue.id if @event.venue
       set_performers
@@ -112,11 +112,17 @@ class EventsController < ApplicationController
     end
 
     def set_venues
-      @venues = Venue.all.map{|v| [v.extended_name, v.id]}
+      @venues = Venue.order(name: :asc).map{|v| [v.extended_name, v.id]}
     end
 
     def set_performers
-      @performers = Performer.all.map{|p| [p.name, p.id]}.unshift ["Add Performer", 0]
+      @performers = Performer.order(name: :asc).map{|p| [p.name, p.id]}.unshift ["Add Performer", 0]
+    end
+
+    def delete_created_performer
+      if !Performer.last.nil?
+        Performer.last.delete if Performer.last.events.empty?
+      end
     end
 
 end
