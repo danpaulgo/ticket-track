@@ -11,7 +11,7 @@ class Transaction < ApplicationRecord
 	validates :order_number, uniqueness: { scope: :transaction_source_id }
 	validate :date_cannot_be_after_event_date, :date_cannot_be_in_future
 
-	before_validation :capitalize_direction 
+	before_validation :capitalize_direction
 
 	def price
 		"$#{'%.2f' % amount}"

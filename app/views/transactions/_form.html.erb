@@ -14,7 +14,7 @@
     <h2 class="form-title" id="event-form-title"><%= form_name %></h2>
 
     <!-- User (invisible) -->
-    <%= f.hidden_field :user_id, value: current_user.id %>
+    <%= hidden_field_tag :user_id, @user.id %>
 
     <!-- Event -->
     <div class="form-section">
@@ -64,6 +64,12 @@
     <div class="form-section">
       <%= f.label :order_number, "Order Number" %>
       <%= f.text_field :order_number %>
+    </div>
+
+    <!-- Date -->
+    <div class="form-section">
+      <%= f.label :date, "Order Date" %>
+      <%= f.date_field :date %>
     </div>
 
     <!-- Notes -->  

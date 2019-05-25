@@ -12,10 +12,6 @@
 			<p class="title">Event: </p>
 			<p class="attribute"><%= link_to @transaction.event.name, user_event_path(@user, @transaction.event) %></p>
 		</div>
-		<div class="clearfix" id="transaction-date">
-			<p class="title">Date: </p>
-			<p class="attribute"><%= @transaction.formatted_date(:long) %></p>
-		</div>
 		<div class="clearfix" id="transaction-price">
 			<p class="title">Price: </p>
 			<p class="attribute"><%= @transaction.price %></p>
@@ -28,9 +24,17 @@
 			<p class="title">Source: </p>
 			<p class="attribute"><%= @transaction.transaction_source.name %></p>
 		</div>
+		<div class="clearfix" id="transaction-date">
+			<p class="title">Order Date: </p>
+			<p class="attribute"><%= @transaction.formatted_date(:long) %></p>
+		</div>
+		<div class="clearfix" id="transaction-date">
+			<p class="title">Order Number: </p>
+			<p class="attribute"><%= @transaction.order_number %></p>
+		</div>
 		<div class="clearfix" id="transaction-notes">
 			<p class="title">Notes: </p>
-			<p class="attribute"><%= @transaction.notes || "N/a" %></p>
+			<p class="attribute"><%= @notes %></p>
 		</div>
 	</div>
 </div>

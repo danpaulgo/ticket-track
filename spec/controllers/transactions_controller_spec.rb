@@ -212,9 +212,9 @@ RSpec.describe TransactionsController, type: :controller do
             expect(Transaction.last.order_number).to eq("testing123")
           end
 
-          it "redirects to user's transaction index" do
+          it "redirects to transactions show page" do
             post :create, params: {user_id: user.id, transaction: valid_attributes}, session: logged_in_session
-            expect(response).to redirect_to(user_transactions_path(user))
+            expect(response).to redirect_to(user_transaction_path(user, Transaction.last))
           end
         end
 
@@ -267,7 +267,7 @@ RSpec.describe TransactionsController, type: :controller do
           end
 
           it "redirects to transactions index" do
-            expect(response).to redirect_to(transactions_path)
+            expect(response).to redirect_to(user_transaction_path(user, purchase))
           end
         end
 
@@ -301,7 +301,7 @@ RSpec.describe TransactionsController, type: :controller do
         end
 
         it "redirects to user's transactions page" do
-          expect(response).to redirect_to(user_transactions_path(user))
+          expect(response).to redirect_to(user_transaction_path(user, purchase))
         end
 
         it "successfully updates transaction" do
@@ -354,7 +354,7 @@ RSpec.describe TransactionsController, type: :controller do
           end
 
           it "redirects to transactions index" do
-            expect(response).to redirect_to(transactions_path)
+            expect(response).to redirect_to(user_transactions_path(user))
           end
         end
         context "with non-matching user id" do
