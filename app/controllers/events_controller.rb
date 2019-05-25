@@ -102,11 +102,9 @@ class EventsController < ApplicationController
 
     def params_hash
       params_hash = object_params.to_h
-      if params_hash[:performer_id] == "0"
-        if !params[:new_performer].blank?
-          new_performer = Performer.find_or_create(params[:new_performer])
-          params_hash[:performer_id] = new_performer.id
-        end
+      if params_hash[:performer_id] == "0" && !params[:new_performer].blank?
+        new_performer = Performer.find_or_create(params[:new_performer])
+        params_hash[:performer_id] = new_performer.id
       end
       params_hash
     end

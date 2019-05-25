@@ -14,18 +14,63 @@
     <h2 class="form-title" id="event-form-title"><%= form_name %></h2>
 
     <!-- User (invisible) -->
-
-    <!-- Direction -->
+    <%= f.hidden_field :user_id, value: current_user.id %>
 
     <!-- Event -->
+    <div class="form-section">
+      <%= f.label :event_id, "Event" %>
+      <%= f.select :event_id, options_for_select(@events, @event_id), { include_blank: 'Select Event' } %>
+      <div class="not-listed-link">
+        <%= link_to "Event not listed", new_event_path %>
+      </div>
+    </div>
 
     <!-- Price -->
+    <div class="form-section">
+      <%= f.label :amount, 'Price (USD)' %>
+      <%= f.number_field :amount, step: '0.01', value: (f.object.amount.nil? ? nil : ('%.2f' % f.object.amount)) %>
+    </div>
+
+    <!-- Direction -->
+    <div class="form-section">
+      <div id="purchase-button-container">
+        <%= f.radio_button :direction, "Purchase", id: "purchase-button" %>
+        <%= f.label :direction, "Purchase", value: "Purchase", id: "purchase-label", for: "purchase-button" %>
+      </div>
+      <div id="sale-button-container">
+        <%= f.radio_button :direction, "Sale", id: "sale-button" %>
+        <%= f.label :direction, "Sale", value: "Sale", id: "sale-label", for: "sale-button" %>
+      </div>
+    </div>
 
     <!-- Quantity -->
+    <div class="form-section">
+      <%= f.label :quantity %>
+      <%= f.number_field :quantity %>
+    </div>
 
-    <!-- Source -->    
+    <!-- Source -->
+    <div class="form-section">
+      <%= f.label :transaction_source_id, "Source" %>
+      <%= f.select :transaction_source_id, options_for_select(@sources, @transaction.transaction_source_id) %>
+    </div>    
 
-    <!-- Notes -->   
+    <div class="form-section">
+      <%= label_tag :new_source, "or Add Source" %>
+      <%= text_field_tag :new_source %>
+    </div>
+
+    <!-- Order Number -->
+    <div class="form-section">
+      <%= f.label :order_number, "Order Number" %>
+      <%= f.text_field :order_number %>
+    </div>
+
+    <!-- Notes -->  
+    <div class="form-section">
+      <%= f.label :notes %>
+      <%= f.text_area :notes %>
+    </div> 
 
     <div class="submit" id="event-form-submit">
       <%= f.submit button_text %>

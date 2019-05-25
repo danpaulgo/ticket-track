@@ -44,4 +44,20 @@ RSpec.describe Performer, type: :model do
     expect(performer.name).to eq("Alison Wonderland")
   end
 
+  describe "find_or_create" do
+    it "returns performer if performer with name exists" do
+      performer
+      performer_2
+      expect{Performer.find_or_create("drake")}.not_to change(Performer, :count)
+      expect(Performer.find_or_create("drake")).to eq(performer)
+    end
+
+    it "creates performer if no performer exists with name" do
+      performer
+      performer_2
+      expect{Performer.find_or_create("rihanna")}.to change(Performer, :count).by(1)
+      expect(Performer.last.name).to eq("Rihanna")
+    end
+  end
+
 end

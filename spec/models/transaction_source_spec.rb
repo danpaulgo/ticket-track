@@ -35,4 +35,20 @@ RSpec.describe TransactionSource, type: :model do
 		expect(TransactionSource.last.name).to eq("Vivid Seats")
 	end
 
+  describe "find_or_create" do
+    it "returns transaction source if source with name exists" do
+      ticketmaster
+      stubhub
+      expect{TransactionSource.find_or_create("stubhub")}.not_to change(TransactionSource, :count)
+      expect(TransactionSource.find_or_create("stubhub")).to eq(stubhub)
+    end
+
+    it "creates performer if no performer exists with name" do
+      ticketmaster
+      stubhub
+      expect{TransactionSource.find_or_create("tickpick")}.to change(TransactionSource, :count).by(1)
+      expect(TransactionSource.last.name).to eq("Tickpick")
+    end
+  end
+
 end

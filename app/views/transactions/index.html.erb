@@ -1,7 +1,6 @@
-<p id="notice"><%= notice %></p>
-
 <div class="index-container">
   <div id="index-wrapper" class="wrapper clearfix">
+    <%= render "partials/flash_messages" %>
     <div id="transaction-index-title">
       <h2>My Transactions</h2>
       <p><%= @subtitle if @subtitle %></p>

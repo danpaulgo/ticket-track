@@ -26,10 +26,9 @@
     <div class="form-section">
       <%= f.label :venue_id, "Venue" %>
       <%= f.select :venue_id, options_for_select(@venues, @venue_id), { include_blank: 'Select Venue' } %>
-    </div>
-
-    <div id="add-venue-link">
-      <%= link_to "Venue not listed", new_venue_path %>
+      <div class="not-listed-link">
+        <%= link_to "Venue not listed", new_venue_path %>
+      </div>
     </div>
 
     <div class="form-section">

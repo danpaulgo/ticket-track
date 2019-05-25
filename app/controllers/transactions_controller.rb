@@ -23,6 +23,8 @@ class TransactionsController < ApplicationController
 
   # GET /transactions/new
   def new
+    set_events
+    set_sources
     @transaction = Transaction.new
   end
 
@@ -32,25 +34,22 @@ class TransactionsController < ApplicationController
 
   # GET /transactions/1/edit
   def edit
+    set_sources
+    set_events
+    @event_id = @transaction.event.id
   end
 
   # POST /transactions
   # POST /transactions.json
   def create
-    @transaction = Transaction.new(object_params)
-    @transaction.user_id = current_user.id
-    if @transaction.save
-      redirect_to user_transactions_path(current_user), notice: 'Transaction was successfully created.'
-    else
-      render :new
-    end
+
   end
 
   # PATCH/PUT /transactions/1
   # PATCH/PUT /transactions/1.json
   def update
     if @transaction.update(object_params)
-      index_redirect('Transaction was successfully updated.')
+      index_redirect('Transaction was successfully updated')
     else
       render :edit
     end
@@ -60,7 +59,7 @@ class TransactionsController < ApplicationController
   # DELETE /transactions/1.json
   def destroy
     @transaction.destroy
-    index_redirect('Transaction was successfully deleted.')
+    index_redirect('Transaction was successfully deleted')
   end
 
   private
@@ -84,11 +83,29 @@ class TransactionsController < ApplicationController
     end
 
     def index_redirect(notice)
+      flash[:notice] = notice
       if current_user.admin?
-        redirect_to transactions_path, notice: notice
+        redirect_to user_transactions_path(@user)
       else
-        redirect_to user_transactions_path(current_user), notice: notice
+        redirect_to user_transactions_path(current_user)
       end
+    end
+
+    def set_events
+      @events = Event.order(date: :asc).map{|e| [e.name, e.id]}
+    end
+
+    def set_sources
+      @sources = TransactionSource.order(name: :asc).map{|s| [s.name, s.id]}.unshift ["Add Source", 0]
+    end
+
+    def params_hash
+      params_hash = object_params.to_h
+      if params_hash[:transaction_source_id] == "0" && !params[:new_source].blank?
+        new_source = TransactionSource.find_or_create(params[:new_source])
+        params_hash[:transaction_source_id] = new_source.id
+      end
+      params_hash
     end
 
 end

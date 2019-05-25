@@ -1,7 +1,12 @@
 <div class="show-container resource-show-container" id="transaction-show-container">
 	<%= render "partials/flash_messages" %>
-	<h2>Transaction <%= @transaction.order_number %></h2>
-	<div id="transaction-direction"><%= @transaction.direction %></div>
+	<div id="transaction-show-header">
+		<h2>Transaction <%= @transaction.order_number %></h2>
+		<div id="transaction-direction"><%= @transaction.direction %></div>
+		<div class="ud-links" id="transaction-ud-links">
+			<%= link_to "edit", edit_user_transaction_path(@user, @transaction) %> | <%= link_to 'delete', user_transaction_path(@user, @transaction), method: :delete, data: { confirm: 'Are you sure?' } %>
+		</div>
+	</div>
 	<div class="resource-details" id="transaction-details">
 		<div class="clearfix" id="transaction-event">
 			<p class="title">Event: </p>
