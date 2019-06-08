@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
 	end
 
   def about
-    
+
   end
 
   def contact
@@ -22,6 +22,8 @@ class ApplicationController < ActionController::Base
 
 	def logout
 		session.clear
+    cookies.delete(:user_id)
+    cookies.delete(:remember_token)
 	end
 
 	protected
@@ -61,6 +63,11 @@ class ApplicationController < ActionController::Base
     	attributes.delete("admin")
     	attributes.push("password", "password_confirmation") if controller_name == "users"
     	params.require(:"#{object_type}").permit(attributes)
+    end
+
+    def remember_cookies(user, token)
+      cookies[:remember_token] = {value: token, expires: 1.month.from_now.utc}
+      cookies.signed[:user_id] = user.id
     end
 
 end

@@ -22,13 +22,19 @@ class SessionsController < ApplicationController
   			render :new, notice: "Invalid email and/or password"
   		else
   			login(@user)
+        if remember?
+          remember_user(@user)
+        end
   			redirect_to @user
   		end
   	end
   end
 
   def destroy
-  	logout
+    if logged_in?
+      current_user.forget
+  	  logout
+    end
   	redirect_to root_path
   end
 
@@ -42,5 +48,14 @@ class SessionsController < ApplicationController
 	  def set_password
 	  	@password = params[:password]
 	  end
+
+    def remember?
+      params[:remember_me] == "1" ? true : false
+    end
+
+    def remember_user(user)
+      @user.remember
+      remember_cookies(@user, user.remember_token)
+    end
 
 end

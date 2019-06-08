@@ -9,6 +9,25 @@ class User < ApplicationRecord
 	validates :email, uniqueness: true
 	validate :password_min_length_if_present
 
+	attr_accessor :remember_token
+
+	def self.new_token
+    SecureRandom.urlsafe_base64
+	end	
+
+	def remember
+		self.remember_token = User.new_token
+		update_attribute(:remember_digest, remember_token.digest)
+	end
+
+	def forget
+		update_attribute(:remember_digest, nil)
+	end
+
+	def authenticated?(remember_token)
+		BCrypt::Password.new(remember_digest).is_password?(remember_token)
+	end
+
 	def first_name
 		name.split(" ").first
 	end
@@ -46,5 +65,7 @@ class User < ApplicationRecord
 			errors.add(:date, "Password is too short (minimum is 6 characters)")
 		end
 	end
+
+
 
 end
