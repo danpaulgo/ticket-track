@@ -12,6 +12,7 @@ module ApplicationHelper
 	  	user = User.find_by(id: user_id)
 	  	remember_token = cookies[:remember_token]
 	  	if user && user.authenticated?(remember_token)
+	  		login(user)
 	  		@current_user = user
 	  	else
 	  		@current_user = nil
