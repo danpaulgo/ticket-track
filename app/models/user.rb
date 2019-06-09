@@ -9,7 +9,9 @@ class User < ApplicationRecord
 	validates :email, uniqueness: true
 	validate :password_min_length_if_present
 
-	attr_accessor :remember_token
+	before_create :create_activation_digest, :downcase_email
+
+	attr_accessor :remember_token, :activation_token
 
 	def self.new_token
     SecureRandom.urlsafe_base64
@@ -24,8 +26,21 @@ class User < ApplicationRecord
 		update_attribute(:remember_digest, nil)
 	end
 
-	def authenticated?(remember_token)
-		BCrypt::Password.new(remember_digest).is_password?(remember_token)
+	def authenticated?(attribute, token)
+		digest = self.send("#{attribute}_digest")
+		if digest.nil?
+			false
+		else
+			BCrypt::Password.new(digest).is_password?(token)
+		end
+	end
+
+	def send_activation_email
+		UserMailer.account_activation(self).deliver_now
+	end
+
+	def activate
+		self.update_attributes(activated: true, activated_at: Time.now)
 	end
 
 	def first_name
@@ -66,6 +81,13 @@ class User < ApplicationRecord
 		end
 	end
 
+	def create_activation_digest
+		self.activation_token = User.new_token
+		self.activation_digest = activation_token.digest
+	end
 
+	def downcase_email
+		email.downcase!
+	end
 
 end

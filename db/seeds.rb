@@ -11,7 +11,9 @@ user = User.create(
 	      email: "johndoe2000@gmail.com",
 	      password: "password",
 	      password_confirmation: "password",
-	      birthdate: "2000-12-31"
+	      birthdate: "2000-12-31",
+	      activated: true,
+	      activated_at: Time.now
 	     )
 
 admin = User.create(
@@ -19,7 +21,9 @@ admin = User.create(
 		      email: "danpaulgo@aol.com",
 		      password: "password",
 		      birthdate: "1993-06-18",
-		      admin: true
+		      admin: true,
+		      activated: true,
+		      activated_at: Time.now
 				)
 
 performer = Performer.create(name: "Drake")

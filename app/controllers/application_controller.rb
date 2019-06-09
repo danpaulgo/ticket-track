@@ -3,8 +3,8 @@ class ApplicationController < ActionController::Base
   include ApplicationHelper
 
 	def home
-		if session[:user_id]
-			redirect_to User.find(session[:user_id])
+		if session[:user_id] 
+			redirect_to User.find(session[:user_id]) if current_user.activated?
 		end	
 	end
 
@@ -29,7 +29,10 @@ class ApplicationController < ActionController::Base
 	protected
 
 		def valid_user
-      redirect_to root_path if session[:user_id].nil?
+      if session[:user_id].nil? || (logged_in? && !current_user.activated?)
+        flash[:notice] = "Please activate your account" if logged_in?
+        redirect_to root_path
+      end
     end
 
     def valid_admin

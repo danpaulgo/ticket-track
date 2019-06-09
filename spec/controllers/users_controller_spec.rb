@@ -30,7 +30,7 @@ RSpec.describe UsersController, type: :controller do
   # adjust the attributes here as well.
   include_context "fixtures"
   let(:valid_attributes) {
-    {name: "Valid User", email: "valid@gmail.com", password: "password", password_confirmation: "password", birthdate: "1993-06-18"}
+    {name: "Valid User", email: "VALID@gmail.com", password: "password", password_confirmation: "password", birthdate: "1993-06-18"}
   }
 
   let(:invalid_attributes) {
@@ -191,9 +191,14 @@ RSpec.describe UsersController, type: :controller do
           expect(User.last.admin).to be(false)
         end
 
-        it "redirects to the created user" do
+        it "redirects to homepage" do
           post :create, params: {user: valid_attributes}, session: logged_out_session
-          expect(response).to redirect_to(User.last)
+          expect(response).to redirect_to(root_path)
+        end
+
+        it "lowercases email before saving" do
+          post :create, params: {user: valid_attributes}, session: logged_out_session
+          expect(User.last.email).to eq("valid@gmail.com")
         end
       end
 

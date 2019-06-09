@@ -103,7 +103,9 @@ RSpec.shared_context "fixtures", :shared_context => :metadata do
       email: "johndoe2000@gmail.com",
       password: "password",
       password_confirmation: "password",
-      birthdate: "2000-12-31"
+      birthdate: "2000-12-31",
+        activated: true,
+        activated_at: Time.now
     )
   }
   let(:admin) {
@@ -112,7 +114,9 @@ RSpec.shared_context "fixtures", :shared_context => :metadata do
       email: "danpaulgo@aol.com",
       password: "password",
       birthdate: "1993-06-18",
-      admin: true
+      admin: true,
+      activated: true,
+      activated_at: Time.now
     )
   }
   let(:performer){Performer.create(name: "Drake")}

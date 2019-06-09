@@ -29,8 +29,9 @@ class UsersController < ApplicationController
     if session[:user_id].nil?
       @user = User.new(object_params)
       if @user.save
-        login(@user)
-        redirect_to @user, notice: 'User was successfully created'
+        @user.send_activation_email
+        flash[:notice] = 'Please check email for account activation link'
+        redirect_to root_path
       else
         render :new
       end
