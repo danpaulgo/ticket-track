@@ -18,7 +18,7 @@ class User < ApplicationRecord
 	end	
 
 	def self.exists(id)
-		!self.find_by(id: id).nil?
+		self.find_by(id: id)
 	end
 
 	def remember
