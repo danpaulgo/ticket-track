@@ -6,7 +6,7 @@
 	    <%= link_to render(partial: 'partials/menu_item', locals: {text: "Events"}), events_path %>
 	    <%= link_to render(partial: 'partials/menu_item', locals: {text: "Performers"}), performers_path %>
 	    <%= link_to render(partial: 'partials/menu_item', locals: {text: "Venues"}), venues_path %>
-	    <% if current_user && current_user.admin? %>
+	    <% if current_user.admin? %>
 		    <%= link_to render(partial: 'partials/menu_item', locals: {text: "Transaction Sources"}), transaction_sources_path %>
 		    <%= link_to render(partial: 'partials/menu_item', locals: {text: "Users"}), users_path %>
 	    <% end %>

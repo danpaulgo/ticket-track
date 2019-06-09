@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
 
 		def valid_user
       unless inactive_user
-        unless User.exists(session[:user_id])
+        unless logged_in?
           logout
           redirect_to root_path
         end
@@ -38,7 +38,7 @@ class ApplicationController < ActionController::Base
     end
 
     def inactive_user
-      if current_user && !current_user.activated?
+      if logged_in? && !current_user.activated?
         flash[:notice] = "Please activate your account"
         logout
         redirect_to root_path
