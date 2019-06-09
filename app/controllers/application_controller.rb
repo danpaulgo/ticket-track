@@ -29,8 +29,17 @@ class ApplicationController < ActionController::Base
 	protected
 
 		def valid_user
-      if session[:user_id].nil? || (logged_in? && !current_user.activated?)
-        flash[:notice] = "Please activate your account" if logged_in?
+      unless inactive_user
+        if session[:user_id].nil? || User.nonexistent(session[:user_id])
+          logout
+          redirect_to root_path
+        end
+      end
+    end
+
+    def inactive_user
+      if current_user && !current_user.activated?
+        flash[:notice] = "Please activate your account"
         logout
         redirect_to root_path
       end

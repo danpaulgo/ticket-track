@@ -17,6 +17,10 @@ class User < ApplicationRecord
     SecureRandom.urlsafe_base64
 	end	
 
+	def self.nonexistent(id)
+		true if self.find(id).nil?
+	end
+
 	def remember
 		self.remember_token = User.new_token
 		update_attribute(:remember_digest, remember_token.digest)
