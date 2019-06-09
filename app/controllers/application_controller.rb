@@ -3,8 +3,8 @@ class ApplicationController < ActionController::Base
   include ApplicationHelper
 
 	def home
-		if session[:user_id] 
-			redirect_to User.find(session[:user_id]) if current_user.activated?
+    if user = User.exists(session[:user_id])
+			redirect_to user if user.activated?
 		end	
 	end
 
@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
 
 		def valid_user
       unless inactive_user
-        if session[:user_id].nil? || User.nonexistent(session[:user_id])
+        unless User.exists(session[:user_id])
           logout
           redirect_to root_path
         end

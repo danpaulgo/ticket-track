@@ -17,8 +17,8 @@ class User < ApplicationRecord
     SecureRandom.urlsafe_base64
 	end	
 
-	def self.nonexistent(id)
-		true if self.find(id).nil?
+	def self.exists(id)
+		!self.find_by(id: id).nil?
 	end
 
 	def remember
