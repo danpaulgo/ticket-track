@@ -316,7 +316,7 @@ RSpec.describe UsersController, type: :controller do
 
     context "logged in non-admin" do
       it "allows to delete themself" do
-        delete :destroy, params: {id: user.to_param}, session: logged_in_session
+        delete :destroy, params: {id: user.id}, session: logged_in_session
         expect(session[:user_id]).to be_nil
         expect(User.all).not_to include(user)
         expect(response).to redirect_to(root_path)

@@ -1,8 +1,8 @@
 class VenuesController < ApplicationController
   
-  before_action :set_object, only: [:show, :edit, :update, :destroy]
-  before_action :valid_admin, only: [:edit, :update, :destroy]
-  before_action :valid_user, only: [:index, :show, :new, :create]
+  before_action :logged_out_redirect, :inactive_redirect
+  before_action :non_admin_redirect, only: [:edit, :update, :destroy]
+  before_action :set_object, :nil_object_redirect, only: [:show, :edit, :update, :destroy]
 
   # GET /venues
   # GET /venues.json

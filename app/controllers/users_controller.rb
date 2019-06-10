@@ -1,8 +1,9 @@
 class UsersController < ApplicationController
   
-  before_action :valid_admin, only: [:index]
-  before_action :valid_new_user, only: [:new, :create]
-  before_action :set_object, :matching_user, only: [:show, :edit, :update, :destroy]
+  before_action :logged_out_redirect, :inactive_redirect, except: [:new, :create]
+  before_action :non_admin_redirect, only: [:index]
+  before_action :existing_user_redirect, only: [:new, :create]
+  before_action :set_object, :nil_object_redirect, :mismatching_redirect, only: [:show, :edit, :update, :destroy]
 
   # GET /users
   def index
@@ -47,7 +48,8 @@ class UsersController < ApplicationController
     end
     # binding.pry
     if @user.update(params_hash)
-      redirect_to @user, notice: 'User was successfully updated'
+      flash[:notice] = "User was successfully updated"
+      redirect_to @user
     else
       render :edit
     end
@@ -55,25 +57,30 @@ class UsersController < ApplicationController
 
   # DELETE /users/1
   def destroy
-    @user.destroy
-    notice = 'User was successfully deleted'
+    flash[:notice] = 'User was successfully deleted'
     if @user == current_user
+      @user.destroy
       logout
-      redirect_to root_path, notice: notice
+      redirect_to root_path
     else
-      redirect_to users_url, notice: notice
+      @user.destroy
+      redirect_to users_url
     end
   end
 
   private
 
-    def matching_user 
-      unless valid_user
-        redirect_to current_user unless @user == current_user || current_user.admin?
+    def mismatching_redirect
+      if @user != current_user && !current_user.admin?
+        redirect_to current_user and return
       end
     end
 
-    def valid_new_user
-      redirect_to User.find_by(id: session[:user_id]) unless session[:user_id].nil?
+    def existing_user_redirect
+      if logged_in?
+        redirect_to current_user and return
+      end
     end
+
+
 end

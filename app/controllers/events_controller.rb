@@ -1,8 +1,9 @@
 class EventsController < ApplicationController
-  before_action :set_object, only: [:show, :edit, :update, :destroy]
-  before_action :valid_admin, only: [:edit, :update, :destroy]
-  before_action :valid_user, only:[:index, :show, :new, :create]
+  
+  before_action :logged_out_redirect, :inactive_redirect
+  before_action :non_admin_redirect, only: [:edit, :update, :destroy]
   before_action :matching_user, only: [:index, :show]
+  before_action :set_object, :nil_object_redirect, only: [:show, :edit, :update, :destroy]
 
   # GET /events
   # GET /events.json
@@ -89,7 +90,9 @@ class EventsController < ApplicationController
 
     def matching_user
       set_user
-      redirect_to current_user if !@user.nil? && @user != current_user && !current_user.admin?
+      if !@user.nil? && (@user != current_user && !current_user.admin?)
+        redirect_to current_user and return
+      end
     end
 
     def set_venue

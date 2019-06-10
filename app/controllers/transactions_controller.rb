@@ -1,7 +1,7 @@
 class TransactionsController < ApplicationController
   
-  before_action :authorized_user
-  before_action :matching_user, only: [:show, :edit, :update, :destroy]
+  before_action :logged_out_redirect, :inactive_redirect, :unauthorized_redirect
+  before_action :set_object, :mismatch_redirect, only: [:show, :edit, :update, :destroy]
   
 
   # GET /transactions
@@ -79,23 +79,26 @@ class TransactionsController < ApplicationController
     redirect_to user_transactions_path(@user)
   end
 
-  private
-
-    def matching_user
-      set_object
-      redirect_to current_user if @transaction && (@transaction.user != @user)
-    end
+  private 
 
     def set_event
       @event = Event.find_by(id: params[:event_id]) if params[:event_id]
     end
 
     def authorized_user
-      if current_user.nil?
-        redirect_to root_path
-      else
-        set_user
-        redirect_to current_user unless (@user == current_user) || current_user.admin?
+      set_user
+      (@user == current_user) || current_user.admin? 
+    end
+
+    def unauthorized_redirect
+      if !authorized_user
+        redirect_to current_user
+      end
+    end
+
+    def mismatch_redirect
+      if @transaction.nil? || @user.nil? || (@transaction.user != @user)
+        redirect_to current_user and return
       end
     end
 

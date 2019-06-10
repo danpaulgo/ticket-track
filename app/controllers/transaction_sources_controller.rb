@@ -1,7 +1,7 @@
 class TransactionSourcesController < ApplicationController
   
-  before_action :valid_admin
-  before_action :set_object, only: [:edit, :update, :destroy]
+  before_action :logged_out_redirect, :inactive_redirect, :non_admin_redirect
+  before_action :set_object, :nil_object_redirect, only: [:edit, :update, :destroy]
 
   # GET /transaction_sources
   # GET /transaction_sources.json

@@ -104,8 +104,8 @@ RSpec.shared_context "fixtures", :shared_context => :metadata do
       password: "password",
       password_confirmation: "password",
       birthdate: "2000-12-31",
-        activated: true,
-        activated_at: Time.now
+      activated: true,
+      activated_at: Time.now
     )
   }
   let(:admin) {

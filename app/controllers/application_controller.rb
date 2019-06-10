@@ -28,28 +28,61 @@ class ApplicationController < ActionController::Base
 
 	protected
 
-		def valid_user
-      unless inactive_user
-        unless logged_in?
-          logout
-          redirect_to root_path
-        end
+		# def valid_user
+  #     unless inactive_user
+  #       unless logged_in?
+  #         logout
+  #         redirect_to root_path
+  #       end
+  #     end
+  #   end
+
+    # def valid_user
+    #   !!User.exists(session[:user_id])
+    # end
+
+    def active_user?
+      logged_in? && current_user.activated?
+    end
+
+    def valid_admin?
+      active_user? && current_user.admin?
+    end
+
+    def logged_out_redirect
+      if !logged_in?
+        flash[:error] = "Please log in"
+        redirect_to root_path and return
       end
     end
 
-    def inactive_user
-      if logged_in? && !current_user.activated?
-        flash[:notice] = "Please activate your account"
-        logout
-        redirect_to root_path
+    def inactive_redirect
+      if !active_user?
+        flash[:error] = "Please activate your account"
+        redirect_to root_path and return
       end
     end
 
-    def valid_admin
-      unless valid_user
-        redirect_to current_user unless current_user.admin?
+    def non_admin_redirect
+      if !valid_admin?
+        flash[:error] = "Unauthorized request"
+        redirect_to current_user and return
       end
     end
+
+    # def inactive_user
+    #   if logged_in? && !current_user.activated?
+    #     flash[:notice] = "Please activate your account"
+    #     logout
+    #     redirect_to root_path
+    #   end
+    # end
+
+    # def valid_admin
+    #   unless valid_user
+    #     redirect_to current_user unless current_user.admin?
+    #   end
+    # end
 
     def object_type
     	controller_name.singularize
@@ -61,7 +94,13 @@ class ApplicationController < ActionController::Base
 
     def set_object
     	obj = instance_variable_set(:"@#{object_type}", object_type.spaceless_title.constantize.find_by(id: params[:id]))
-    	redirect_to current_user if obj.nil?
+    	# redirect_to current_user and return if obj.nil?
+    end
+
+    def nil_object_redirect
+      if instance_variable_get(:"@#{object_type}").nil?
+        redirect_to current_user and return
+      end
     end
 
     def set_user
