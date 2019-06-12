@@ -28,19 +28,6 @@ class ApplicationController < ActionController::Base
 
 	protected
 
-		# def valid_user
-  #     unless inactive_user
-  #       unless logged_in?
-  #         logout
-  #         redirect_to root_path
-  #       end
-  #     end
-  #   end
-
-    # def valid_user
-    #   !!User.exists(session[:user_id])
-    # end
-
     def active_user?
       logged_in? && current_user.activated?
     end
@@ -69,20 +56,6 @@ class ApplicationController < ActionController::Base
         redirect_to current_user and return
       end
     end
-
-    # def inactive_user
-    #   if logged_in? && !current_user.activated?
-    #     flash[:notice] = "Please activate your account"
-    #     logout
-    #     redirect_to root_path
-    #   end
-    # end
-
-    # def valid_admin
-    #   unless valid_user
-    #     redirect_to current_user unless current_user.admin?
-    #   end
-    # end
 
     def object_type
     	controller_name.singularize
