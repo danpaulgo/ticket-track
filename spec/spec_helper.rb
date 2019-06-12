@@ -119,6 +119,18 @@ RSpec.shared_context "fixtures", :shared_context => :metadata do
       activated_at: Time.now
     )
   }
+  let(:inactive_user){
+    User.create(
+      name: "Raggedy Dan",
+      email: "danpaulgo@gmail.com",
+      password: "password",
+      birthdate: "1993-06-18",
+      admin: true,
+      activated: false,
+      activated_at: nil,
+      activation_digest: "$2a$10$OpjEv6jd8cnq7ZNE7g1kvOcjJex4LvYlmVTMBEvrqTYpCZPJPcFKO"
+    )
+  }
   let(:performer){Performer.create(name: "Drake")}
   let(:performer_2){Performer.create(name: "Eminem")}
   let(:venue){
@@ -244,6 +256,7 @@ RSpec.shared_context "fixtures", :shared_context => :metadata do
   let(:logged_out_session) { {user_id: nil} }
   let(:logged_in_session) { {user_id: user.id} }
   let(:admin_session) { {user_id: admin.id}}
+  let(:inactive_session) { {user_id: inactive_user.id}}
 end
 
 # RSpec.configure do |rspec|
