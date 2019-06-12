@@ -1,0 +1,15 @@
+<div class="form-container">
+	<%= render "partials/flash_messages" %>
+	<%= form_for(:password_reset, url: password_resets_path) do |f| %>
+    <h2 class="form-title" id="login-title">Reset Password</h2>
+
+    <div class="form-section">
+      <%= label_tag :email %>
+      <%= text_field_tag :email, @email %>
+    </div>
+    
+    <div class="submit" id="login-submit">
+      <%= submit_tag "Submit" %>
+    </div>
+  <% end %>
+</div>

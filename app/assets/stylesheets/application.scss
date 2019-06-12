@@ -265,7 +265,7 @@ div.form-container{
 	border-radius: 10px;
 	box-shadow: 3px 3px 5px $color_c;
 	background-color: white;
-	
+	font-family: $font_a;
 	h2.form-title{
 		text-align: center;
 		margin-bottom: 24px;
@@ -274,7 +274,7 @@ div.form-container{
 		margin-bottom: 36px;
 	}
 	div.form-section{
-		font-family: $font_a;
+		// font-family: $font_a;
 		padding: 10px 0;
 		label{
 			float: left;
@@ -285,7 +285,7 @@ div.form-container{
 			height:20px;
 			border-radius: 5px;
 			font-size: 14px;
-			font-family: $font_a;
+			// font-family: $font_a;
 		}
 	}
 	div.submit{
@@ -301,7 +301,7 @@ div.form-container{
 		  display: inline-block;
 		  font-size: 16px;
 		  border-radius: 8px;
-		  font-family: $font_a;
+		  // font-family: $font_a;
 		  margin: 4px 2px;
 	  	cursor: pointer;
 		}
@@ -353,7 +353,9 @@ div.form-container{
 		height: 50px;
 	}
 	div#remember-me{
-		text-align: right;
+		width:100%;
+		margin-top: 28px;
+		text-align: center;
 		font-size: 14px;
 		padding-top: 3px;
 		label#remember-me-label{
@@ -364,6 +366,13 @@ div.form-container{
 			width: 20px;
 			float: right;
 		}
+	}
+	div#forgot-password{
+		font-size: 12px;
+		float: right;
+	}
+	div#login-password{
+		padding-bottom:4px;
 	}
 }
 

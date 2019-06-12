@@ -25,7 +25,7 @@ Rails.application.routes.draw do
   resources :transactions
   resources :transaction_sources, except: [:new, :create, :show]
   resources :account_activations, only: [:edit]
-  
+  resources :password_resets, only:[:new, :create, :edit, :update]
 
 
 end

@@ -7,15 +7,18 @@
       <%= label_tag :email %>
       <%= text_field_tag :email, @email %>
     </div>
-    <div class="form-section">
+    <div class="form-section" id="login-password">
       <%= label_tag :password %>
       <%= password_field_tag :password, @password %>
+    </div>
+    <div class="clearfix" id="forgot-password">
+      <%= link_to "Forgot password?", new_password_reset_path %>
     </div>
     <div class="form-section" id="remember-me">
       <%= check_box_tag :remember_me %>
       <%= label_tag :remember_me, "Remember Me", id: "remember-me-label" %> 
-      
     </div>
+    
     <div class="submit" id="login-submit">
       <%= submit_tag "Submit" %>
     </div>

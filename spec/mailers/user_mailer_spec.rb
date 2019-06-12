@@ -14,7 +14,7 @@ RSpec.describe UserMailer, type: :mailer do
 
     it "renders the body" do
       expect(mail.body.encoded).to match(user.first_name)
-      expect(mail.body.encoded).to match("Activate")
+      expect(mail.body.encoded).to match(user.activation_token)
       expect(mail.body.encoded).to match(CGI.escape(user.email))
     end
   end
