@@ -82,10 +82,19 @@ class ApplicationController < ActionController::Base
 
     def object_params
     	attributes = object_attributes
-    	attributes.delete("id")
-    	attributes.delete("created_at")
-    	attributes.delete("updated_at")
-    	attributes.delete("admin")
+      blacklist = [
+        "id", 
+        "created_at", 
+        "updated_at", 
+        "admin", 
+        "activated", 
+        "activated_at", 
+        "password_digest", 
+        "remember_digest",
+        "activation_digest",
+        "reset_digest",
+        "reset_sent_at"] # SHORTEN FOR BLOG POST
+      blacklist.each{|item| attributes.delete(item)}
     	attributes.push("password", "password_confirmation") if controller_name == "users"
     	params.require(:"#{object_type}").permit(attributes)
     end
