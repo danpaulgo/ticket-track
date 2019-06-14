@@ -3,7 +3,6 @@ class AccountActivationsController < ApplicationController
 	def edit
 		logout if logged_in?
 		user = User.find_by(email: params[:email])
-		# binding.pry
 		if user && user.authenticated?(:activation, params[:id])
 			user.activate
 			flash[:notice] = "Account successfully activated"

@@ -12,7 +12,7 @@ RSpec.describe PasswordResetsController, type: :controller do
 
     it "renders new password reset page if logged out" do
     	get :new, params: {}, session: logged_out_session
-    	expect(response).to render(new)
+    	expect(response).to render_template(:new)
     end
   end
 
