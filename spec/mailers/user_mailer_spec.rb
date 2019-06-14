@@ -21,7 +21,7 @@ RSpec.describe UserMailer, type: :mailer do
 
   describe "password_reset" do
     let(:mail) { UserMailer.password_reset(user) }
-
+    before(:each){ user.create_reset_digest }
     it "renders the headers" do
       expect(mail.subject).to eq("Ticket Track Password Reset Link")
       expect(mail.to).to eq([user.email])
@@ -29,7 +29,8 @@ RSpec.describe UserMailer, type: :mailer do
     end
 
     it "renders the body" do
-      # FILL ME IN
+      expect(mail.body.encoded).to match(user.reset_token)
+      expect(mail.body.encoded).to match(CGI.escape(user.email))
     end
   end
 

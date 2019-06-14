@@ -23,8 +23,19 @@ RSpec.describe PasswordResetsController, type: :controller do
   end
 
   describe "GET #create" do
-    it "does something" do
-    	
+  	it "redirects to user show page if logged in" do
+    	post :create, params: {email: user.email}, session: logged_in_session
+    	expect(response).to redirect_to(user)
+    end
+
+    it "redirects to root path with valid email" do
+    	post :create, params: {email: user.email}, session: logged_out_session
+    	expect(response).to redirect_to(root_path)
+    end
+
+    it "renders 'new' template with invalid email" do
+    	post :create, params: {email: "invalid"}, session: logged_out_session
+    	expect(response).to render_template(:new)
     end
   end
 
