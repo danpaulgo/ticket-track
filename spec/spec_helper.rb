@@ -128,7 +128,7 @@ RSpec.shared_context "fixtures", :shared_context => :metadata do
       admin: true,
       activated: false,
       activated_at: nil,
-      activation_digest: "$2a$10$OpjEv6jd8cnq7ZNE7g1kvOcjJex4LvYlmVTMBEvrqTYpCZPJPcFKO"
+      activation_digest: "$2a$10$q3wse4R9bXs3GLLdq63O7eIioRV.FIdEyeVOWUhaKGQdNqVcTyU0q" 
     )
   }
   let(:performer){Performer.create(name: "Drake")}

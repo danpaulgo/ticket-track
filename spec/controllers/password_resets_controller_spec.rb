@@ -5,8 +5,14 @@ RSpec.describe PasswordResetsController, type: :controller do
 	include_context "fixtures"
 
 	describe "GET #new" do
-    it "does something" do
-    	
+    it "redirects to user show page if logged in" do
+    	get :new, params: {}, session: logged_in_session
+    	expect(response).to redirect_to(user)
+    end
+
+    it "renders new password reset page if logged out" do
+    	get :new, params: {}, session: logged_out_session
+    	expect(response).to render(new)
     end
   end
 

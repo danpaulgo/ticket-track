@@ -1,7 +1,7 @@
 class PasswordResetsController < ApplicationController
 
 	def new
-
+		redirect_to current_user if logged_in?
 	end
 
 	def edit
@@ -9,8 +9,14 @@ class PasswordResetsController < ApplicationController
 	end
 
 	def create
+		@user = User.find_by(email: params[:password_reset][:email].downcase)
+		if @user
 
-	end
+		else
+			flash[:error] = "User does not exist"
+			render :new
+		end
+	end	
 
 	def update
 
