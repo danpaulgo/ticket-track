@@ -1,0 +1,31 @@
+<div class="form-container">
+
+  <%= form_for(@user, url: password_reset_path(params[:id])) do |f| %>
+    <% if @user.errors.any? %>
+      <div id="error_explanation">
+        <h3><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h3>
+        <ul>
+        <% @user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <h2 class="form-title" id="set-new-password-title" >Set New Password</h2>
+
+    <%= hidden_field_tag :email, @user.email %>
+
+    <div class="form-section">
+      <%= f.label :password %>
+      <%= f.password_field :password %>
+    </div>
+    <div class="form-section">
+      <%= f.label :password_confirmation, "Confirm Password" %>
+      <%= f.password_field :password_confirmation %>
+    </div>
+    <div class="submit">
+      <%= f.submit "Submit" %>
+    </div>
+  <% end %>
+</div>

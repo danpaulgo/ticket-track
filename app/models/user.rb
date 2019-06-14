@@ -92,7 +92,7 @@ class User < ApplicationRecord
 
 	def password_min_length_if_present
 		if !password.nil? && password.length < 6
-			errors.add(:date, "Password is too short (minimum is 6 characters)")
+			errors.add(:password, "is too short (minimum is 6 characters)")
 		end
 	end
 

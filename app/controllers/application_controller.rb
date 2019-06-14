@@ -57,12 +57,12 @@ class ApplicationController < ActionController::Base
       end
     end
 
-    def object_type
-    	controller_name.singularize
+    def object_type(controller_type = controller_name)
+    	controller_type.singularize
     end
 
-    def object_attributes
-    	object_type.spaceless_title.constantize.new.attributes.keys
+    def object_attributes(controller_type = controller_name)
+    	object_type(controller_type).spaceless_title.constantize.new.attributes.keys
     end
 
     def set_object
@@ -80,8 +80,8 @@ class ApplicationController < ActionController::Base
       @user ||= User.find_by(id: params[:user_id]) if params[:user_id]
     end
 
-    def object_params
-    	attributes = object_attributes
+    def object_params(controller_type = controller_name)
+    	attributes = object_attributes(controller_type)
       blacklist = [
         "id", 
         "created_at", 
@@ -95,8 +95,8 @@ class ApplicationController < ActionController::Base
         "reset_digest",
         "reset_sent_at"] # SHORTEN FOR BLOG POST
       blacklist.each{|item| attributes.delete(item)}
-    	attributes.push("password", "password_confirmation") if controller_name == "users"
-    	params.require(:"#{object_type}").permit(attributes)
+    	attributes.push("password", "password_confirmation") if controller_type == "users"
+    	params.require(:"#{object_type(controller_type)}").permit(attributes)
     end
 
     def remember_cookies(user, token)

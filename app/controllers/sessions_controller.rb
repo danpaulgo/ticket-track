@@ -19,8 +19,9 @@ class SessionsController < ApplicationController
   		elsif !@user.authenticate(@password)
         @password = nil
         flash[:error] = "Invalid email and/or password"
-  			render :new, notice: "Invalid email and/or password"
+  			render :new
   		else
+        flash.clear
   			login(@user)
         if remember?
           remember_user(@user)
