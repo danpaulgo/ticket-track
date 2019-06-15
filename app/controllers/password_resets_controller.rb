@@ -11,9 +11,7 @@ class PasswordResetsController < ApplicationController
 	end
 
 	def edit	
-		# set_user_by_email
-		invalid_email_redirect
-		invalid_token_redirect
+		
 	end
 
 	def create
