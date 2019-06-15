@@ -3,7 +3,6 @@ Rails.application.routes.draw do
 
   root 'application#home'
   get 'about', to: 'application#about'
-  get 'contact', to: 'application#contact'
 
   get 'login', to: 'sessions#new'
   post 'login', to: 'sessions#create'
@@ -15,6 +14,7 @@ Rails.application.routes.draw do
       resources :transactions, only: [:index]
     end
   end
+  resources :contacts, only: [:new, :create]
   resources :performers, except: [:new, :create] do
     resources :events, only: [:index]
   end

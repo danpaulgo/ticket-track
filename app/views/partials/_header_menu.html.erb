@@ -19,7 +19,7 @@
   	<button onclick="showDropdown()" class="dropbtn clearfix"><%= image_tag "new-menu-icon.png", id: "menu-image" %></button>
 	  <div id="myDropdown" class="dropdown-content">
 	  	<%= link_to render(partial: 'partials/menu_item', locals: {text: "About"}), about_path %>
-	    <%= link_to render(partial: 'partials/menu_item', locals: {text: "Contact"}), contact_path %>
+	    <%= link_to render(partial: 'partials/menu_item', locals: {text: "Contact"}), new_contact_path %>
 	    <%= link_to render(partial: 'partials/menu_item', locals: {text: "Log In"}), login_path %>
 	    <%= link_to render(partial: 'partials/menu_item', locals: {text: "Sign Up"}), new_user_path %>
 	  </div>
