@@ -9,7 +9,7 @@ RSpec.describe UserMailer, type: :mailer do
     it "renders the headers" do
       expect(mail.subject).to eq("Ticket Track Account Activation")
       expect(mail.to).to eq([user.email])
-      expect(mail.from).to eq(["noreply@example.com"])
+      expect(mail.from).to eq(["noreply@tickettrack.com"])
     end
 
     it "renders the body" do
@@ -25,7 +25,7 @@ RSpec.describe UserMailer, type: :mailer do
     it "renders the headers" do
       expect(mail.subject).to eq("Ticket Track Password Reset Link")
       expect(mail.to).to eq([user.email])
-      expect(mail.from).to eq(["noreply@example.com"])
+      expect(mail.from).to eq(["noreply@tickettrack.com"])
     end
 
     it "renders the body" do

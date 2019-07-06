@@ -11,7 +11,7 @@ RSpec.describe UsersController, type: :routing do
     end
 
     it "routes to contact" do
-      expect(:get => "/contact").to route_to("application#contact")
+      expect(:get => "/contact").to route_to("contacts#new")
     end
   end
 end
