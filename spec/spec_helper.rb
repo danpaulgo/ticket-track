@@ -257,6 +257,14 @@ RSpec.shared_context "fixtures", :shared_context => :metadata do
   let(:logged_in_session) { {user_id: user.id} }
   let(:admin_session) { {user_id: admin.id}}
   let(:inactive_session) { {user_id: inactive_user.id}}
+
+  let(:contact_message) {
+    Contact.new(
+      email: "danpaulgo@aol.com",
+      subject: "Testing",
+      message: "Hello World!"
+      )
+  }
 end
 
 # RSpec.configure do |rspec|

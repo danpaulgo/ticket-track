@@ -4,9 +4,9 @@ class Contact
   include ActiveModel::Conversion
   extend ActiveModel::Naming
 
-	ATTRIBUTES = [:email, :subject, :message]
+	CONTACT_ATTRIBUTES = [:email, :subject, :message]
 
-	ATTRIBUTES.each do |attr|
+	CONTACT_ATTRIBUTES.each do |attr|
 		attr_accessor attr
 	end
 
