@@ -14,15 +14,15 @@ class EventsController < ApplicationController
     set_order_var
     set_range_var
     if !@user.nil?
-      @events = @user.events.includes(:performer, :venue).order("#{@sort_var} #{@order_var}", date: @order_var)
+      @events = @user.events.includes(:performer, :venue).order("#{@sort_var} #{@order_var}", date: @order_var).where(@range_string, Date.today).uniq
       @title = "My Events"
       @current_path = user_events_path(@user)
     elsif !@performer.nil?
-      @events = @performer.events.includes(:performer, :venue).order("#{@sort_var} #{@order_var}", date: @order_var)
+      @events = @performer.events.includes(:performer, :venue).order("#{@sort_var} #{@order_var}", date: @order_var).where(@range_string, Date.today)
       @title = "#{@performer.name} Events"
       @current_path = performer_events_path(@performer)
     elsif !@venue.nil?
-      @events = @venue.events.includes(:performer, :venue).order("#{@sort_var} #{@order_var}", date: @order_var)
+      @events = @venue.events.includes(:performer, :venue).order("#{@sort_var} #{@order_var}", date: @order_var).where(@range_string, Date.today)
       @title = "#{@venue.name} Events"
       @current_path = venue_events_path(@venue)
     else
@@ -147,12 +147,10 @@ class EventsController < ApplicationController
     end
 
     def set_range_var
-      if params[:range].nil? || params[:range] == "All Events"
-        # @range_string = "created_at <= ?"
-      elsif params[:range] == "Past Events"
-        @range_string = "date < ?"
+      if params[:range] == "Past Events"
+        @range_string = "events.date < ?"
       elsif params[:range] == "Upcoming Events"
-        @range_string = "date > ?"
+        @range_string = "events.date >= ?"
       end
     end
 
