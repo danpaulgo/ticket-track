@@ -10,18 +10,25 @@ class EventsController < ApplicationController
   def index
     set_venue
     set_performer
+    set_sort_var
+    set_order_var
+    set_range_var
     if !@user.nil?
-      @events = @user.events.uniq
+      @events = @user.events.includes(:performer, :venue).order("#{@sort_var} #{@order_var}", date: @order_var)
       @title = "My Events"
+      @current_path = user_events_path(@user)
     elsif !@performer.nil?
-      @events = @performer.events
+      @events = @performer.events.includes(:performer, :venue).order("#{@sort_var} #{@order_var}", date: @order_var)
       @title = "#{@performer.name} Events"
+      @current_path = performer_events_path(@performer)
     elsif !@venue.nil?
-      @events = @venue.events
+      @events = @venue.events.includes(:performer, :venue).order("#{@sort_var} #{@order_var}", date: @order_var)
       @title = "#{@venue.name} Events"
+      @current_path = venue_events_path(@venue)
     else
-      @events = Event.all
+      @events = Event.includes(:performer, :venue).order("#{@sort_var} #{@order_var}", date: @order_var).where(@range_string, Date.today)
       @title = "All Events"
+      @current_path = events_path
     end
   end
 
@@ -118,6 +125,35 @@ class EventsController < ApplicationController
 
     def set_performers
       @performers = Performer.order(name: :asc).map{|p| [p.name, p.id]}.unshift ["Add Performer", 0]
+    end
+
+    def set_sort_var
+      case params[:sort_by]
+      when nil, "Date"
+        @sort_var = "date"
+      when "Performer Name"
+        @sort_var = "performers.name"
+      when "Venue Name"
+        @sort_var = "venues.name"
+      end
+    end
+
+    def set_order_var
+      if params[:order_by].nil?
+        @order_var = "asc"
+      else
+        @order_var = params[:order_by].downcase
+      end
+    end
+
+    def set_range_var
+      if params[:range].nil? || params[:range] == "All Events"
+        # @range_string = "created_at <= ?"
+      elsif params[:range] == "Past Events"
+        @range_string = "date < ?"
+      elsif params[:range] == "Upcoming Events"
+        @range_string = "date > ?"
+      end
     end
 
     def delete_created_performer

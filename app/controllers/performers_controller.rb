@@ -5,7 +5,7 @@ class PerformersController < ApplicationController
  before_action :set_object, :nil_object_redirect, only: [:show, :edit, :update, :destroy]
 
  def index
- 	@performers = Performer.all
+ 	@performers = Performer.all.order(name: :asc)
  end
 
  def show

@@ -7,7 +7,7 @@ class VenuesController < ApplicationController
   # GET /venues
   # GET /venues.json
   def index
-    @venues = Venue.all
+    @venues = Venue.all.order(name: :asc)
   end
 
   # GET /venues/1
