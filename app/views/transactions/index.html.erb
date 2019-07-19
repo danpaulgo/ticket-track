@@ -5,6 +5,13 @@
       <h2>My Transactions</h2>
       <p><%= @subtitle if @subtitle %></p>
     </div>
+    <div class="sort_selectors">
+      <%= form_tag(@current_path, method: :get) do %>
+        Sort: 
+        <%= select_tag(:order_by, options_for_select([["Newest First", "DESC"], ["Oldest First", "ASC"]], params[:order_by])) %>
+        <%= select_tag(:filter_by, options_for_select(["All Transactions", "Purchases", "Sales"], params[:filter_by])) %>
+        <%= submit_tag %>
+      <% end %>
     <ol>
       <% @transactions.each do |transaction| %>
         <%= link_to render(partial: 'transactions/transaction', locals: {transaction: transaction}), user_transaction_path(@user, transaction) %>

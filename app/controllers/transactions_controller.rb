@@ -7,14 +7,17 @@ class TransactionsController < ApplicationController
   # GET /transactions
   # GET /transactions.json
   def index
+    @order_var = "ASC"
+    set_order_var
+    set_filter_var
     if params[:user_id]
       set_user
       if params[:event_id]
         set_event
-        @transactions = @user.transactions.where(event: @event)
+        @transactions = @user.transactions.where(event: @event).where(@filter_string).order(date: @order_var)
         @subtitle = @event.name
       else
-        @transactions = User.find_by(id: params[:user_id]).transactions
+        @transactions = User.find_by(id: params[:user_id]).transactions.where(@filter_string).order(date: @order_var)
       end
     else
       redirect_to current_user
@@ -108,6 +111,22 @@ class TransactionsController < ApplicationController
 
     def set_sources
       @sources = TransactionSource.order(name: :asc).map{|s| [s.name, s.id]}.unshift ["Add Source", 0]
+    end
+
+    def set_order_var
+      if params[:order_by].nil?
+        @order_var = "desc"
+      else
+        @order_var = params[:order_by]
+      end
+    end
+
+    def set_filter_var
+      if params[:filter_by] == "Purchases"
+        @filter_string = "direction = 'Purchase'"
+      elsif params[:filter_by] == "Sales"
+        @filter_string = "direction = 'Sale'"
+      end
     end
 
     def params_hash
