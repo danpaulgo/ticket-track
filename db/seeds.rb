@@ -6,6 +6,10 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+def random_string(length)
+	(0...length).map { ('A'..'Z').to_a[rand(26)] }.join
+end
+
 user = User.create(
 	      name: "John Doe",
 	      email: "johndoe2000@gmail.com",
@@ -26,10 +30,24 @@ admin = User.create(
 		      activated_at: Time.now
 				)
 
+20.times do |n|
+	User.create(
+		name: "User #{n+3}",
+		email:"example#{n+3}",
+		password: "password",
+		birthdate: "1999-12-31",
+		admin: false,
+		activated: true,
+		activated_at: Time.now)
+end
+
 performer = Performer.create(name: "Drake")
 performer_2 = Performer.create(name: "Eminem")
 performer_3 = Performer.create(name:"Florence and the Machine")
 performer_4 = Performer.create(name: "Flume")
+20.times do 
+	Performer.create(name: random_string(8))
+end
 
 venue = Venue.create(
 		      name: "Madison Square Garden",
@@ -55,6 +73,13 @@ venue_4 = Venue.create(
 						state: "MA"
 					)
 
+20.times do
+	Venue.create(
+		name: random_string(8),
+		city: "New York",
+		state: "New York")
+end
+
 # def time_rand(from = 0.0, to = Time.now)
 #   Time.at(from + rand * (to - from))
 # end
@@ -78,6 +103,9 @@ end
 
 ticketmaster = TransactionSource.create(name: "Ticketmaster")
 stubhub = TransactionSource.create(name: "Stubhub")
+20.times do 
+	TransactionSource.create(name: random_string(6))
+end
 purchase_date = "21-04-2019".to_date
 sale_date = "01-05-2019".to_date
 
@@ -90,7 +118,7 @@ Event.all.each do |e|
 		direction: "purchase",
 		quantity: q, 
 		amount: q*pa,
-		order_number: (0...10).map { ('A'..'Z').to_a[rand(26)] }.join,
+		order_number: random_string(10),
 		transaction_source: ticketmaster,
 		date: random_date(2018)
 		)
@@ -101,7 +129,7 @@ Event.all.each do |e|
 		direction: "sale",
 		quantity: q, 
 		amount: q*sa,
-		order_number: (0...10).map { ('A'..'Z').to_a[rand(26)] }.join,
+		order_number: random_string(10),
 		transaction_source: stubhub,
 		date: random_date(2018)
 		)
@@ -114,7 +142,7 @@ end
 		direction: "Purchase",
 		quantity: 1,
 		amount: 50,
-		order_number: (0...10).map { ('A'..'Z').to_a[rand(26)] }.join,
+		order_number: random_string(10),
 		transaction_source: stubhub,
 		date: random_date(2018),
 		notes: "This is a note for this transaction"
@@ -127,7 +155,7 @@ Transaction.create(
 	direction: "purchase",
 	quantity: 4,
 	amount: 200,
-	order_number: "1a",
+	order_number: random_string(10),
 	transaction_source: ticketmaster,
 	date: purchase_date
 	)
@@ -138,7 +166,7 @@ Transaction.create(
 	direction: "sale",
 	quantity: 3,
 	amount: 210,
-	order_number: "1b",
+	order_number: random_string(10),
 	transaction_source: stubhub,
 	date: sale_date
 	)
@@ -149,7 +177,7 @@ Transaction.create(
 	direction: "sale",
 	quantity: 1,
 	amount: 40.0,
-	order_number: "1c",
+	order_number: random_string(10),
 	transaction_source: ticketmaster,
 	date: sale_date
 	)
@@ -160,7 +188,7 @@ Transaction.create(
 	direction: "Purchase",
 	quantity: 3,
 	amount: 121.55,
-	order_number: "2a",
+	order_number: random_string(10),
 	transaction_source: stubhub,
 	date: purchase_date
 	)
@@ -171,7 +199,7 @@ Transaction.create(
 	direction: "Sale",
 	quantity: 1,
 	amount: 52.81,
-	order_number: "2b",
+	order_number: random_string(10),
 	transaction_source: stubhub,
 	date: sale_date
 	)

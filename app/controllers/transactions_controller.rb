@@ -14,10 +14,17 @@ class TransactionsController < ApplicationController
       set_user
       if params[:event_id]
         set_event
-        @transactions = @user.transactions.where(event: @event).where(@filter_string).order(date: @order_var)
+        @transactions = @user
+        .transactions
+        .where(event: @event).where(@filter_string)
+        .order(date: @order_var)
+        .paginate(page: params[:page], per_page: 20)
         @subtitle = @event.name
       else
-        @transactions = User.find_by(id: params[:user_id]).transactions.where(@filter_string).order(date: @order_var)
+        @transactions = User.find_by(id: params[:user_id])
+        .transactions.where(@filter_string)
+        .order(date: @order_var)
+        .paginate(page: params[:page], per_page: 20)
       end
     else
       redirect_to current_user

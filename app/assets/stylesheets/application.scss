@@ -61,6 +61,18 @@ h3{
 	font-size: 20px;
 }
 
+div.pagination{
+	text-align: right;
+	font-size: 14px;
+	.current{
+		font-style: normal;
+	}
+	em, a, span{
+		padding: 0 2px;
+	}
+
+}
+
 // HEADER
 
 header{
@@ -706,6 +718,10 @@ div#admin-event-right{
 div#index-ud-links{
 	width: 30%;
 	float: right;
+}
+
+div.sort-selectors{
+	margin-bottom: 16px;
 }
 
 // FLASH/ERROR MESSAGES

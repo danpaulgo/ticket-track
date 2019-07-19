@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
 
   include ApplicationHelper
+  require 'will_paginate/array'
 
 	def home
     if user = User.exists(session[:user_id])

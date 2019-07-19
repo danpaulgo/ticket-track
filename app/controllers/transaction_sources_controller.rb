@@ -7,6 +7,8 @@ class TransactionSourcesController < ApplicationController
   # GET /transaction_sources.json
   def index
     @transaction_sources = TransactionSource.all
+    .order(name: :asc)
+    .paginate(page: params[:page], per_page: 20)
   end
 
   # GET /transaction_sources/1/edit

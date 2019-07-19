@@ -5,7 +5,9 @@ class PerformersController < ApplicationController
  before_action :set_object, :nil_object_redirect, only: [:show, :edit, :update, :destroy]
 
  def index
- 	@performers = Performer.all.order(name: :asc)
+ 	@performers = Performer.all
+ 	.order(name: :asc)
+ 	.paginate(page: params[:page], per_page: 20)
  end
 
  def show

@@ -14,19 +14,38 @@ class EventsController < ApplicationController
     set_order_var
     set_range_var
     if !@user.nil?
-      @events = @user.events.includes(:performer, :venue).order("#{@sort_var} #{@order_var}", date: @order_var).where(@range_string, Date.today).uniq
+      @events = @user
+      .events
+      .includes(:performer, :venue)
+      .order("#{@sort_var} #{@order_var}", date: @order_var)
+      .where(@range_string, Date.today)
+      .uniq
+      .paginate(page: params[:page], per_page: 20)
       @title = "My Events"
       @current_path = user_events_path(@user)
     elsif !@performer.nil?
-      @events = @performer.events.includes(:performer, :venue).order("#{@sort_var} #{@order_var}", date: @order_var).where(@range_string, Date.today)
+      @events = @performer
+      .events
+      .includes(:performer, :venue)
+      .order("#{@sort_var} #{@order_var}", date: @order_var)
+      .where(@range_string, Date.today)
+      .paginate(page: params[:page], per_page: 20)
       @title = "#{@performer.name} Events"
       @current_path = performer_events_path(@performer)
     elsif !@venue.nil?
-      @events = @venue.events.includes(:performer, :venue).order("#{@sort_var} #{@order_var}", date: @order_var).where(@range_string, Date.today)
+      @events = @venue
+      .events
+      .includes(:performer, :venue)
+      .order("#{@sort_var} #{@order_var}", date: @order_var)
+      .where(@range_string, Date.today)
+      .paginate(page: params[:page], per_page: 20)
       @title = "#{@venue.name} Events"
       @current_path = venue_events_path(@venue)
     else
-      @events = Event.includes(:performer, :venue).order("#{@sort_var} #{@order_var}", date: @order_var).where(@range_string, Date.today)
+      @events = Event.includes(:performer, :venue)
+      .order("#{@sort_var} #{@order_var}", date: @order_var)
+      .where(@range_string, Date.today)
+      .paginate(page: params[:page], per_page: 20)
       @title = "All Events"
       @current_path = events_path
     end
