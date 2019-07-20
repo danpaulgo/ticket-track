@@ -17,6 +17,10 @@ gem 'uglifier', '>= 1.3.0'
 # gem 'mini_racer', platforms: :ruby
 gem 'will_paginate', '~> 3.1.5'
 # gem 'bootstrap-will_paginate', '0.0.10'
+# Handle environment variables
+gem 'dotenv-rails'
+gem 'omniauth'
+gem 'omniauth-facebook'
  
  
 
