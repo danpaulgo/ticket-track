@@ -12,7 +12,7 @@ end
 
 user = User.create(
 	      name: "John Doe",
-	      email: "johndoe2000@gmail.com",
+	      email: "user@example.com",
 	      password: "password",
 	      password_confirmation: "password",
 	      birthdate: "2000-12-31",
@@ -22,7 +22,7 @@ user = User.create(
 
 admin = User.create(
 					name: "Daniel Goldberg",
-		      email: "danpaulgo@aol.com",
+		      email: "admin@example.com",
 		      password: "password",
 		      birthdate: "1993-06-18",
 		      admin: true,
