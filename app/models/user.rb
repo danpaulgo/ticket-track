@@ -1,13 +1,16 @@
 class User < ApplicationRecord
 
-	has_secure_password
+	has_secure_password(validations: false)
 
 	has_many :transactions, dependent: :destroy
 	has_many :events, through: :transactions
 
-	validates :name, :email, :birthdate, presence: true
+	validates :name, :email, presence: true
 	validates :email, uniqueness: true
 	validate :password_min_length_if_present
+	validates_confirmation_of :password, unless: :facebook_user?
+	validates_presence_of :password, on: :create, unless:
+:facebook_user?
 
 	before_create :create_activation_digest, :downcase_email
 
@@ -103,6 +106,10 @@ class User < ApplicationRecord
 
 	def downcase_email
 		email.downcase!
+	end
+
+	def facebook_user?
+		!self.facebook_id.nil?
 	end
 
 end

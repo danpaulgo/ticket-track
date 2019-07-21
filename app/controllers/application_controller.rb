@@ -9,13 +9,13 @@ class ApplicationController < ActionController::Base
 		end	
 	end
 
-  def about
+  # def about
 
-  end
+  # end
 
-  def contact
+  # def contact
 
-  end
+  # end
 
 	def login(user)
 		session[:user_id] = user.id

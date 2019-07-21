@@ -1,14 +1,17 @@
 class SessionsController < ApplicationController
+  
+  before_action :redirect_logged_in_user, only: [:new, :create, :fb_create]
+
   def new
     @email = nil
     @password = nil
-  	redirect_to current_user if logged_in?
+  	# redirect_to current_user if logged_in?
   end
 
   def create
-  	if logged_in?
-  		redirect_to current_user 
-  	else
+  	# if logged_in?
+  	# 	redirect_to current_user 
+  	# else
   		set_user
   		set_password
   		if @user.nil?
@@ -28,7 +31,24 @@ class SessionsController < ApplicationController
         end
   			redirect_to @user
   		end
-  	end
+  	
+  end
+
+  def fb_create
+    if auth.nil?
+      flash[:error] = "Invalid credentials"
+      redirect_to root_path
+    else
+      user = User.find_by(email: auth[:info][:email])
+      if !user.nil?
+        login(user)
+        redirect_to user
+      else
+        user = User.create(name: auth[:info][:name], email: auth[:info][:email], facebook_id: auth[:uid], activated: true)
+        login(user)
+        redirect_to user
+      end
+    end
   end
 
   def destroy
@@ -57,6 +77,14 @@ class SessionsController < ApplicationController
     def remember_user(user)
       @user.remember
       remember_cookies(@user, user.remember_token)
+    end
+
+    def auth
+      request.env['omniauth.auth']
+    end
+
+    def redirect_logged_in_user
+      redirect_to current_user if logged_in?
     end
 
 end

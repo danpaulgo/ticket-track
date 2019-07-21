@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   get 'login', to: 'sessions#new'
   post 'login', to: 'sessions#create'
   delete 'logout', to: 'sessions#destroy'
-  get '/auth/facebook/callback' => 'sessions#fb_create'
+  get '/auth/facebook/callback', to: 'sessions#fb_create'
   
   get 'contact', to: 'contacts#new', as: 'contact_page'
 
