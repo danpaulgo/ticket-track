@@ -19,6 +19,8 @@ class SessionsController < ApplicationController
         @password = nil
         flash[:error] = "User does not exist"
   			render :new, notice: "User does not exist"
+      elsif @user.facebook_user?
+        redirect_to "/auth/facebook"
   		elsif !@user.authenticate(@password)
         @password = nil
         flash[:error] = "Invalid email and/or password"

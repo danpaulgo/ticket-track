@@ -91,6 +91,10 @@ class User < ApplicationRecord
 		(liquid_profit + inventory_value).round(2)
 	end
 
+	def facebook_user?
+		!self.facebook_id.nil?
+	end
+
 	private
 
 	def password_min_length_if_present
@@ -108,8 +112,6 @@ class User < ApplicationRecord
 		email.downcase!
 	end
 
-	def facebook_user?
-		!self.facebook_id.nil?
-	end
+
 
 end
