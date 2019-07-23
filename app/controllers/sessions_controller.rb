@@ -46,7 +46,7 @@ class SessionsController < ApplicationController
         login(user)
         redirect_to user
       else
-        user = User.create(name: auth[:info][:name], email: auth[:info][:email], facebook_id: auth[:uid], activated: true)
+        user = User.create(name: auth[:info][:name], email: auth[:info][:email], facebook_id: auth[:uid], activated: true, admin: false)
         login(user)
         redirect_to user
       end
