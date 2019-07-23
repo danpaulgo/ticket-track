@@ -386,6 +386,14 @@ div.form-container{
 	div#login-password{
 		padding-bottom:4px;
 	}
+	div.fb-login-button{
+		margin-top: 32px;
+		width: 100%;
+		text-align: center;
+		img{
+			width: 200px;
+		}
+}
 }
 
 

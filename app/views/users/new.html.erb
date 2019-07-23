@@ -1,1 +1,6 @@
-<%= render 'form', form_name: "Sign Up", button_text: "Submit" %>
+<div class="form-container">
+	<%= render 'form', form_name: "Sign Up", button_text: "Submit" %>
+	<div class="fb-login-button">
+    <%= link_to(image_tag("https://pngimage.net/wp-content/uploads/2018/06/login-with-facebook-button-png-transparent-2.png"), '/auth/facebook') %>
+  </div>
+</div>

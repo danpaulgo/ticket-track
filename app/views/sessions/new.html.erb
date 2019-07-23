@@ -22,7 +22,10 @@
     <div class="submit" id="login-submit">
       <%= submit_tag "Submit" %>
     </div>
-  <% end %>
 
-  <%= link_to('Log in with Facebook!', '/auth/facebook') %>
+    <div class="fb-login-button">
+      <%= link_to(image_tag("https://pngimage.net/wp-content/uploads/2018/06/login-with-facebook-button-png-transparent-2.png"), '/auth/facebook') %>
+    </div>
+
+  <% end %>
 </div>
