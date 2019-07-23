@@ -18,7 +18,7 @@ class SessionsController < ApplicationController
         @email = nil
         @password = nil
         flash[:error] = "User does not exist"
-  			render :new, notice: "User does not exist"
+  			render :new
       elsif @user.facebook_user?
         redirect_to "/auth/facebook"
   		elsif !@user.authenticate(@password)
