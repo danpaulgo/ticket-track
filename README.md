@@ -1,24 +1,22 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+To access this application online, visit the following URL:
 
-Things you may want to cover:
+https://ticket-track-heroku.herokuapp.com/
 
-* Ruby version
 
-* System dependencies
+To run this application locally:
 
-* Configuration
+1. Make sure both Ruby (~>2.5.0), Rails (~>5.2.2) and Github are installed on your system
 
-* Database creation
+2. Clone application:
 
-* Database initialization
+`git clone https://github.com/danpaulgo/ticket-track.git`
 
-* How to run the test suite
+3. Install dependencies:
 
-* Services (job queues, cache servers, search engines, etc.)
+bundle install
 
-* Deployment instructions
+4. Run `rails s` and access application on through localhost url
 
-* ...
+
