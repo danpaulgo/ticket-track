@@ -30,6 +30,7 @@ admin = User.create(
 		      activated_at: Time.now
 				)
 
+# Find gem for random names
 20.times do |n|
 	User.create(
 		name: "User #{n+3}",

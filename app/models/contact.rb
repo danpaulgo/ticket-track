@@ -2,15 +2,12 @@ class Contact
 
 	include ActiveModel::Validations
   include ActiveModel::Conversion
-  extend ActiveModel::Naming
 
 	CONTACT_ATTRIBUTES = [:email, :subject, :message]
 
 	CONTACT_ATTRIBUTES.each do |attr|
 		attr_accessor attr
 	end
-
-	# attr_accessor ATTRIBUTES
 
 	validates :email, :subject, :message, presence: true, allow_blank: false
 

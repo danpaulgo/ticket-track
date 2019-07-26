@@ -2,7 +2,7 @@ class ContactsController < ApplicationController
 
   def new
     @contact = Contact.new
-    @subject_options = ["General Inquiry", "Technical Support", "Account Problem", "Other"]
+    set_subject_options
   end
 
   def create
@@ -12,7 +12,7 @@ class ContactsController < ApplicationController
       flash[:notice] = "Message successfully sent"
       redirect_to root_path
     else
-      @subject_options = ["General Inquiry", "Technical Support", "Account Problem", "Other"]
+      set_subject_options
       render :new
     end
   end
@@ -21,6 +21,10 @@ class ContactsController < ApplicationController
 
   def contact_params
     params.require(:contact).permit(:email, :subject, :message)
+  end
+
+  def set_subject_options
+    @subject_options = ["General Inquiry", "Technical Support", "Account Problem", "Other"]
   end
   
 end
