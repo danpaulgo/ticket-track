@@ -9,7 +9,6 @@
 		</div>
 		<div id="profits-container">
 			<p>Total Profit: $<%= '%.2f' % @user.liquid_profit %></p>
-			<!-- <p>Liquid Profit: $<%= @user.liquid_profit %></p> -->
 			<p>Inventory Value: $<%= '%.2f' % @user.inventory_value %></p>
 		</div>
 	</div>
@@ -25,7 +24,10 @@
 				<% end %>
 			</ol>
 		</div>
-		<div id="all-events-link"><%= link_to "All My Events", user_events_path(@user) %></div>
+		<div class="user-list-links">
+			<div id="all-events-link"><%= link_to "All My Events", user_events_path(@user) %></div>
+			<div id="new-event-link"><%= link_to "New Event", new_event_path %></div>
+		</div>
 	</div>
 	<div id="transactions-wrapper" class="wrapper clearfix">
 		<div id="recent-transactions" class="show-container">
@@ -36,6 +38,9 @@
 				<% end %>
 			</ol>
 		</div>
-		<div id="all-transactions-link"><%= link_to "All My Transactions ", user_transactions_path(@user) %></div>
+		<div class="user-list-links">
+			<div id="all-transactions-link"><%= link_to "All My Transactions", user_transactions_path(@user) %></div>
+			<div id="new-transaction-link"><%= link_to "New Transaction", new_user_transaction_path(@user) %></div>
+		</div>
 	</div>
 </div>

@@ -469,7 +469,20 @@ div#user-lists{
   div#transactions-wrapper{
   	float:right;
   }
-	
+	div.user-list-links {
+		font-size: 14px;
+		div{
+			display: inline-block;
+			width: 49%;
+			text-decoration: underline;
+		}
+		// div#all-events-link, div#all-transactions-link{
+		// 	float:left;
+		// }
+		// div#new-event-link, div#new-transaction-link{
+		// 	float: right;
+		// }
+	}
 }
 div.wrapper{
 	text-align:center;

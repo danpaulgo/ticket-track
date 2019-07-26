@@ -17,6 +17,6 @@ To run this application locally:
 
 bundle install
 
-4. Run `rails s` and access application on through localhost url
+4. Run `rails s` and access application on through the provided localhost url
 
 

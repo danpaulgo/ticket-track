@@ -9,14 +9,6 @@ class ApplicationController < ActionController::Base
 		end	
 	end
 
-  # def about
-
-  # end
-
-  # def contact
-
-  # end
-
 	def login(user)
 		session[:user_id] = user.id
 	end
@@ -68,7 +60,6 @@ class ApplicationController < ActionController::Base
 
     def set_object
     	obj = instance_variable_set(:"@#{object_type}", object_type.spaceless_title.constantize.find_by(id: params[:id]))
-    	# redirect_to current_user and return if obj.nil?
     end
 
     def nil_object_redirect
@@ -94,7 +85,7 @@ class ApplicationController < ActionController::Base
         "remember_digest",
         "activation_digest",
         "reset_digest",
-        "reset_sent_at"] # SHORTEN FOR BLOG POST
+        "reset_sent_at"] 
       blacklist.each{|item| attributes.delete(item)}
     	attributes.push("password", "password_confirmation") if controller_type == "users"
     	params.require(:"#{object_type(controller_type)}").permit(attributes)
