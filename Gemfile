@@ -21,6 +21,7 @@ gem 'will_paginate', '~> 3.1.5'
 gem 'dotenv-rails'
 gem 'omniauth'
 gem 'omniauth-facebook'
+gem 'faker'
  
  
 
