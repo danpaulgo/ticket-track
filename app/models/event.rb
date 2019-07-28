@@ -35,7 +35,7 @@ class Event < ApplicationRecord
 	end
 
 	def average_purchase_price(user)
-		tickets_sold(user) == 0 ? 0 : (total_purchase(user)/tickets_purchased(user)).round(2) || 0
+		tickets_purchased(user) == 0 ? 0 : (total_purchase(user)/tickets_purchased(user)).round(2)
 	end
 
 	def average_sale_price(user)
