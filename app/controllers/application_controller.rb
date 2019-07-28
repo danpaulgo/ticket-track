@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
 	end
 
 	def login(user)
+		flash.clear
 		session[:user_id] = user.id
 	end
 
