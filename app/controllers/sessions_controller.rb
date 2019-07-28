@@ -5,28 +5,24 @@ class SessionsController < ApplicationController
   def new
     @email = nil
     @password = nil
-  	# redirect_to current_user if logged_in?
   end
 
   def create
-  	# if logged_in?
-  	# 	redirect_to current_user 
-  	# else
   		set_user
   		set_password
   		if @user.nil?
         @email = nil
         @password = nil
-        flash[:error] = "User does not exist"
+        flash.discard[:error] = "User does not exist"
   			render :new
       elsif @user.facebook_user?
         redirect_to "/auth/facebook"
   		elsif !@user.authenticate(@password)
         @password = nil
-        flash[:error] = "Invalid email and/or password"
+        flash.discard[:error] = "Invalid email and/or password"
   			render :new
   		else
-        flash.clear
+        flash.discard.clear
   			login(@user)
         if remember?
           remember_user(@user)
@@ -38,7 +34,7 @@ class SessionsController < ApplicationController
 
   def fb_create
     if auth.nil?
-      flash[:error] = "Invalid credentials"
+      flash.discard[:error] = "Invalid credentials"
       redirect_to root_path
     else
       user = User.find_by(email: auth[:info][:email])
