@@ -31,6 +31,7 @@ class UsersController < ApplicationController
   def create
     if session[:user_id].nil?
       @user = User.new(object_params)
+      @user.admin = false
       if @user.save
         @user.send_activation_email
         flash[:notice] = 'Please check email for account activation link'
