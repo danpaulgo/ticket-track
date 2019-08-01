@@ -13,6 +13,9 @@ class Transaction < ApplicationRecord
 
 	before_validation :capitalize_direction
 
+	scope :purchases, -> { where(direction: 'Purchase') }
+	scope :sales, -> { where(direction: 'Sale') }
+
 	def price
 		"$#{'%.2f' % amount}"
 	end

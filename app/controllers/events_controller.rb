@@ -14,38 +14,19 @@ class EventsController < ApplicationController
     set_order_var
     set_range_var
     if !@user.nil?
-      @events = @user
-      .events
-      .includes(:performer, :venue)
-      .order("#{@sort_var} #{@order_var}", date: @order_var)
-      .where(@range_string, Date.today)
-      .uniq
-      .paginate(page: params[:page], per_page: 20)
+      @events = filter_events(@user.events)
       @title = "My Events"
       @current_path = user_events_path(@user)
     elsif !@performer.nil?
-      @events = @performer
-      .events
-      .includes(:performer, :venue)
-      .order("#{@sort_var} #{@order_var}", date: @order_var)
-      .where(@range_string, Date.today)
-      .paginate(page: params[:page], per_page: 20)
+      @events = filter_events(@performer.events)
       @title = "#{@performer.name} Events"
       @current_path = performer_events_path(@performer)
     elsif !@venue.nil?
-      @events = @venue
-      .events
-      .includes(:performer, :venue)
-      .order("#{@sort_var} #{@order_var}", date: @order_var)
-      .where(@range_string, Date.today)
-      .paginate(page: params[:page], per_page: 20)
+      @events = filter_events(@venue.events)
       @title = "#{@venue.name} Events"
       @current_path = venue_events_path(@venue)
     else
-      @events = Event.includes(:performer, :venue)
-      .order("#{@sort_var} #{@order_var}", date: @order_var)
-      .where(@range_string, Date.today)
-      .paginate(page: params[:page], per_page: 20)
+      @events = filter_events(Event.all)
       @title = "All Events"
       @current_path = events_path
     end
@@ -171,6 +152,15 @@ class EventsController < ApplicationController
       elsif params[:range] == "Upcoming Events"
         @range_string = "events.date >= ?"
       end
+    end
+
+    def filter_events(events)
+      events
+      .includes(:performer, :venue)
+      .order("#{@sort_var} #{@order_var}", date: @order_var)
+      .where(@range_string, Date.today)
+      .uniq
+      .paginate(page: params[:page], per_page: 20)
     end
 
     def delete_created_performer

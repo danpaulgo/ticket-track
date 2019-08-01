@@ -8,7 +8,7 @@ RSpec.describe ContactMailer, type: :mailer do
 
     it "renders the headers" do
       expect(mail.subject).to eq("Testing")
-      expect(mail.to).to eq(["danpaulgo@aol.com"])
+      expect(mail.to).to eq(["danpaulgo@gmail.com"])
       expect(mail.from).to eq(["noreply@tickettrack.com"])
     end
 

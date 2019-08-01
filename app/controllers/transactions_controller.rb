@@ -9,22 +9,15 @@ class TransactionsController < ApplicationController
   def index
     @order_var = "ASC"
     set_order_var
-    set_filter_var
+    # set_filter_var
     if params[:user_id]
       set_user
       if params[:event_id]
         set_event
-        @transactions = @user
-        .transactions
-        .where(event: @event).where(@filter_string)
-        .order(date: @order_var)
-        .paginate(page: params[:page], per_page: 20)
+        @transactions = filter_transactions(@user, @event)
         @subtitle = @event.name
       else
-        @transactions = User.find_by(id: params[:user_id])
-        .transactions.where(@filter_string)
-        .order(date: @order_var)
-        .paginate(page: params[:page], per_page: 20)
+        @transactions = filter_transactions(@user)
       end
     else
       redirect_to current_user
@@ -128,13 +121,31 @@ class TransactionsController < ApplicationController
       end
     end
 
-    def set_filter_var
+    def filter_statement
       if params[:filter_by] == "Purchases"
-        @filter_string = "direction = 'Purchase'"
+        direction_string = "direction = 'Purchase'"
       elsif params[:filter_by] == "Sales"
-        @filter_string = "direction = 'Sale'"
+        direction_string = "direction = 'Sale'"
+      end
+      if @event
+        event_string = "event_id = ?"
+      end
+      if direction_string && event_string
+        "#{direction_string} AND #{event_string}"
+      else
+        direction_string || event_string
       end
     end
+
+
+    def filter_transactions(user, event = nil)
+      user
+      .transactions
+      .where(filter_statement, event)
+      .order(date: @order_var)
+      .paginate(page: params[:page], per_page: 20)
+    end
+
 
     def params_hash
       params_hash = object_params.to_h

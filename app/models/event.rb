@@ -6,6 +6,9 @@ class Event < ApplicationRecord
 
 	validates :date, presence: true
 
+	scope :upcoming, -> { where("date >= ?", Date.today) }
+	scope :past, -> { where("date < ?", Date.today) }
+
 	def name
 		"#{performer.name} @ #{venue.name} (#{formatted_date})"
 	end

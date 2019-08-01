@@ -42,6 +42,14 @@ class User < ApplicationRecord
 		end
 	end
 
+	def purchases
+		
+	end
+
+	def sales
+
+	end
+
 	def send_activation_email
 		UserMailer.account_activation(self).deliver_now
 	end
