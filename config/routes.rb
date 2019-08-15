@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get 'contact', to: 'contacts#new', as: 'contact_page'
 
   resources :users do
+    get :admins, on: :collection
   	resources :transactions
     resources :events, only: [:index, :show] do
       resources :transactions, only: [:index]

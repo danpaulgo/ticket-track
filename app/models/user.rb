@@ -12,7 +12,10 @@ class User < ApplicationRecord
 	validates_presence_of :password, on: :create, unless:
 :facebook_user?
 
+
 	before_create :create_activation_digest, :downcase_email
+
+	scope :admins, -> { where(admin: true) }
 
 	attr_accessor :remember_token, :activation_token, :reset_token
 

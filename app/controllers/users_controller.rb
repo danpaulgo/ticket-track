@@ -12,6 +12,13 @@ class UsersController < ApplicationController
     .paginate(page: params[:page], per_page: 20)
   end
 
+  def admins
+    @users = User.admins
+    .order(name: :asc)
+    .paginate(page: params[:page], per_page: 20)
+    render :index
+  end
+
   # GET /users/1
   def show
     @upcoming_events = @user.events.where(['events.date >= ?', Date.today]).order(:date).uniq[0..9]
