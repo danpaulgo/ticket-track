@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   
   before_action :logged_out_redirect, :inactive_redirect, except: [:new, :create]
-  before_action :non_admin_redirect, only: [:index]
+  before_action :non_admin_redirect, only: [:index, :admins]
   before_action :existing_user_redirect, only: [:new, :create]
   before_action :set_object, :nil_object_redirect, :mismatching_redirect, only: [:show, :edit, :update, :destroy]
 
