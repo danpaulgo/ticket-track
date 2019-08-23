@@ -7,22 +7,24 @@ class UsersController < ApplicationController
 
   # GET /users
   def index
-    @users = User.all
-    .order(name: :asc)
-    .paginate(page: params[:page], per_page: 20)
+    @users = order_paginate(User.all)
   end
 
   def admins
-    @users = User.admins
-    .order(name: :asc)
-    .paginate(page: params[:page], per_page: 20)
+    @users = order_paginate(User.admins)
     render :index
   end
+  # how would I incorporate this into index 
+  # method instead of creating two actions?
 
   # GET /users/1
   def show
     @upcoming_events = @user.events.where(['events.date >= ?', Date.today]).order(:date).uniq[0..9]
     @recent_transactions = @user.transactions.order(date: :desc).limit(10)
+  end
+
+  def most_active_user
+    @user = User.most_active_user
   end
 
   # GET /users/new
@@ -92,5 +94,8 @@ class UsersController < ApplicationController
       end
     end
 
+    def order_paginate(collection)
+      collection.order(name: :asc).paginate(page: params[:page], per_page: 20)
+    end
 
 end

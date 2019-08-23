@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get '/auth/facebook/callback', to: 'sessions#fb_create'
   
   get 'contact', to: 'contacts#new', as: 'contact_page'
+  get 'most-active-user', to: 'users#most_active_user'
 
   resources :users do
     get :admins, on: :collection

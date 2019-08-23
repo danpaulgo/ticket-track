@@ -16,6 +16,7 @@ class User < ApplicationRecord
 	before_create :create_activation_digest, :downcase_email
 
 	scope :admins, -> { where(admin: true) }
+	scope :most_active_user, -> { joins(:transactions).group(:id).order('COUNT(transactions.id) DESC').first }
 
 	attr_accessor :remember_token, :activation_token, :reset_token
 
@@ -102,6 +103,12 @@ class User < ApplicationRecord
 		(liquid_profit + inventory_value).round(2)
 	end
 
+	def number_of_transactions
+		transactions.count
+	end
+
+
+
 	def facebook_user?
 		!self.facebook_id.nil?
 	end
@@ -122,7 +129,5 @@ class User < ApplicationRecord
 	def downcase_email
 		email.downcase!
 	end
-
-
 
 end
