@@ -1,6 +1,6 @@
 class String
   def spaceless_title
-    split(/\s|\_/).map(&:capitalize).join
+    downcase.split(/\s|\_/).map(&:capitalize).join
   end
 
   def digest

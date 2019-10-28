@@ -20,7 +20,7 @@ RSpec.describe TransactionSource, type: :model do
 
   it "is invalid with a name that has been taken" do
   	ticketmaster
-  	expect(TransactionSource.new(name:"Ticketmaster")).not_to be_valid
+  	expect(TransactionSource.new(name:"ticketmaster")).not_to be_valid
   end
 
   it "deletes all associated events transactions upon being deleted" do
@@ -32,7 +32,7 @@ RSpec.describe TransactionSource, type: :model do
 	it "titleizes source name before saving" do
 		vivid = TransactionSource.new(name: "vivid seats")
 		vivid.save
-		expect(TransactionSource.last.name).to eq("Vivid Seats")
+		expect(TransactionSource.last.name).to eq("Vividseats")
 	end
 
   describe "find_or_create" do
