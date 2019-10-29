@@ -607,6 +607,12 @@ div#event-show-container{
 	}
 }
 
+div#event-show-border{
+	border-top:1px solid black;
+	// height: 0;
+	margin: 32px 0;
+}
+
 div#performer-show-container, div#venue-show-container{
 	width: 80%;
 	margin: auto;

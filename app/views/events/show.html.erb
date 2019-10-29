@@ -1,11 +1,17 @@
-<div class="show-container resource-show-container" id="event-show-container">
+<div class="show-container resource-show-container clearfix" id="event-show-container">
 	<h2>Event Details</h2>
 	<div class="resource-details" id="event-details">
 		<p id="event-performer">Performer: <%= link_to @event.performer.name, @event.performer %></p>
 		<p id="event-venue">Venue: <%= link_to @event.venue.name, @event.venue %></p>
 		<p id="event-location">Location: <%= @event.location %></p>
 		<p id="event-date">Date: <%= @event.formatted_date(:long) %></p>
+		
+		<div id="event-show-border"></div>
+		
+		<p>Purchases: <%= "#{@event.tickets_purchased(@user)} tickets purchased for a total of #{@event.total_purchase(@user).price} (#{@event.average_purchase_price(@user).price} each)" %></p>
+		<p>Sales: <%= "#{@event.tickets_sold(@user)} tickets sold for a total of #{@event.total_sale(@user).price} (#{@event.average_sale_price(@user).price} each)" %></p>
 	</div>
+
 	<div id="transactions-wrapper" class="wrapper clearfix">
 		<div id="recent-transactions" class="show-container">
 			<h3>Recent Transactions</h3>
