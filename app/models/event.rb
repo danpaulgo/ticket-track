@@ -61,16 +61,29 @@ class Event < ApplicationRecord
 		tickets_purchased(user) - self.tickets_sold(user)
 	end
 
-	def inventory_value(user)
+	def actual_inventory_value(user)
 		(average_purchase_price(user) * tickets_remaining(user)).round(2)
+	end
+
+	def projected_inventory_value(user)
+		tickets_sold(user) > 0 ? (average_sale_price(user) * tickets_remaining(user)).round(2) : actual_inventory_value(user)
 	end
 
 	def liquid_profit(user)
 		(total_sale(user) - total_purchase(user)).round(2)
 	end
 
-	def total_profit(user)
-		(liquid_profit(user) + inventory_value(user)).round(2)
+	def projected_profit(user)
+		(liquid_profit(user) + projected_inventory_value(user)).round(2)
+	end
+
+	def complete?(user)
+		tickets_remaining(user) <= 0
+	end
+
+	def complete_string(user)
+		tickets_remaining = tickets_remaining(user)
+		complete?(user) ? "COMPLETE" : "INCOMPLETE (#{tickets_remaining} #{'ticket'.pluralize(tickets_remaining)} remaining)"
 	end
 
 end

@@ -7,9 +7,21 @@
 		<p id="event-date">Date: <%= @event.formatted_date(:long) %></p>
 		
 		<div id="event-show-border"></div>
-		
-		<p>Purchases: <%= "#{@event.tickets_purchased(@user)} tickets purchased for a total of #{@event.total_purchase(@user).price} (#{@event.average_purchase_price(@user).price} each)" %></p>
-		<p>Sales: <%= "#{@event.tickets_sold(@user)} tickets sold for a total of #{@event.total_sale(@user).price} (#{@event.average_sale_price(@user).price} each)" %></p>
+		<div id="event-ticket-info">
+			<p id="event-complete"><%= @event.complete_string(@user) %></p>
+			
+			<p>Purchases: <%= "#{@event.tickets_purchased(@user)} tickets purchased for a total of #{@event.total_purchase(@user).price} (#{@event.average_purchase_price(@user).price} each)" %></p>
+
+			<p>Sales: <%= "#{@event.tickets_sold(@user)} tickets sold for a total of #{@event.total_sale(@user).price} (#{@event.average_sale_price(@user).price} each)" %></p>
+
+			<% if @event.complete?(@user) %>
+				<p>Total Profit: <%= @event.liquid_profit(@user).price %></p>
+			<% else %>
+				<p>Inventory Value: <%= @event.actual_inventory_value(@user).price %> original | <%= @event.projected_inventory_value(@user).price %> projected</p>
+				<p>Projected Profit: <%= @event.projected_profit(@user).price %></p>
+			<% end %>
+			
+		</div>
 	</div>
 
 	<div id="transactions-wrapper" class="wrapper clearfix">

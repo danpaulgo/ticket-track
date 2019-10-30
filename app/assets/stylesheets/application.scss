@@ -604,13 +604,21 @@ div#event-show-container{
 		margin: auto;
 		width: 80%;
 		margin-bottom: 80px;
+		margin-top: 24px;
 	}
-}
-
-div#event-show-border{
-	border-top:1px solid black;
-	// height: 0;
-	margin: 32px 0;
+	div#event-show-border{
+		border-top:1px solid black;
+		// height: 0;
+		margin: 32px 0;
+	}
+	div#event-ticket-info{
+		p{
+			font-size:16px;
+		}
+		p#event-complete{
+			font-weight: bold;
+		}
+	}
 }
 
 div#performer-show-container, div#venue-show-container{

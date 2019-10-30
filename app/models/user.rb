@@ -95,7 +95,7 @@ class User < ApplicationRecord
 
 	def inventory_value
 		sum = 0
-		events.uniq.each{|e| sum += e.inventory_value(self)}
+		events.uniq.each{|e| sum += e.actual_inventory_value(self)}
 		sum
 	end
 

@@ -115,10 +115,17 @@ RSpec.describe Event, type: :model do
       end
     end
 
-    describe "inventory_value" do
+    describe "actual_inventory_value" do
       it "returns the total value of a user's remaining tickets based on average purchase price" do
-        expect(event.inventory_value(admin)).to eq(81.04)
-        expect(event_2.inventory_value(admin)).to eq(0)
+        expect(event.actual_inventory_value(admin)).to eq(81.04)
+        expect(event_2.actual_inventory_value(admin)).to eq(0)
+      end
+    end
+
+    describe "projected_inventory_value" do
+      it "returns the total value of a user's remaining tickets based on average sale price" do
+        expect(event.projected_inventory_value(admin)).to eq(105.62)
+        expect(event_2.projected_inventory_value(admin)).to eq(0)
       end
     end
 
@@ -129,10 +136,23 @@ RSpec.describe Event, type: :model do
       end
     end
 
-    describe "total_profit" do
-      it "returns liquid profits plus inventory value" do
-        expect(event.total_profit(admin)).to eq(12.30)
-        expect(event_2.total_profit(admin)).to eq(50)
+    # describe "total_profit" do
+    #   it "returns liquid profits plus inventory value" do
+    #     expect(event.total_profit(admin)).to eq(12.30)
+    #     expect(event_2.total_profit(admin)).to eq(50)
+    #   end
+    # end
+
+    describe "projected_profit" do
+      it "returns projected profit based on liquid profit and projected inventory value" do
+        expect(event.projected_profit(admin)).to eq(36.88)
+      end
+    end
+
+    describe "complete?" do
+      it "returns true if all purchased tickets are sold" do
+        expect(event.complete?(admin)).to eq(false)
+        expect(event_2.complete?(admin)).to eq(true)
       end
     end
 
