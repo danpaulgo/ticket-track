@@ -108,17 +108,31 @@ RSpec.describe User, :type => :model do
       end
     end
 
-    describe "inventory_value" do
+    describe "actual_inventory_value" do
       it "returns the value of all tickets user currently holds based on purchase price" do
-        expect(admin.inventory_value).to eq(81.04)
+        expect(admin.actual_inventory_value).to eq(81.04)
+        expect(user.actual_inventory_value).to eq(0)
       end
     end
 
-    describe "total_profit" do
-      it "returns liquid profits plus inventory value" do
-        expect(admin.total_profit).to eq(62.30)
+    describe "projected_inventory_value" do
+      it "returns the value of all tickets user currently holds based on purchase price" do
+        expect(admin.projected_inventory_value).to eq(105.62)
+        expect(user.projected_inventory_value).to eq(0)
       end
     end
+
+    describe "projected_profit" do 
+      it "returns the total projected profit based on existing sales" do
+        expect (admin.projected_profit).to eq(86.88)
+      end
+    end
+
+    # describe "total_profit" do
+    #   it "returns liquid profits plus inventory value" do
+    #     expect(admin.total_profit).to eq(62.30)
+    #   end
+    # end
 
   end
 

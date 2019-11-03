@@ -10,9 +10,9 @@
 		<div id="event-ticket-info">
 			<p id="event-complete"><%= @event.complete_string(@user) %></p>
 			
-			<p>Purchases: <%= "#{@event.tickets_purchased(@user)} tickets purchased for a total of #{@event.total_purchase(@user).price} (#{@event.average_purchase_price(@user).price} each)" %></p>
+			<p><%= "#{@event.tickets_purchased(@user)} tickets purchased for a total of #{@event.total_purchase(@user).price} (#{@event.average_purchase_price(@user).price} each)" %></p>
 
-			<p>Sales: <%= "#{@event.tickets_sold(@user)} tickets sold for a total of #{@event.total_sale(@user).price} (#{@event.average_sale_price(@user).price} each)" %></p>
+			<p><%= "#{@event.tickets_sold(@user)} tickets sold for a total of #{@event.total_sale(@user).price} (#{@event.average_sale_price(@user).price} each)" %></p>
 
 			<% if @event.complete?(@user) %>
 				<p>Total Profit: <%= @event.liquid_profit(@user).price %></p>

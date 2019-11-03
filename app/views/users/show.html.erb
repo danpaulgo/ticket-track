@@ -8,8 +8,11 @@
 			<%= link_to "edit", edit_user_path(@user) %> | <%= link_to 'delete', @user, method: :delete, data: { confirm: 'Are you sure?' } %> 
 		</div>
 		<div id="profits-container">
-			<p>Total Profit: $<%= '%.2f' % @user.liquid_profit %></p>
-			<p>Inventory Value: $<%= '%.2f' % @user.inventory_value %></p>
+			<p><%= @user.tickets_sold %> tickets sold for a total revenue of <%= @user.total_sale.price %></p>
+			<p><%= @user.tickets_purchased %> tickets purchased for a total of <%= @user.total_purchase.price %></p>
+			<p>Inventory Count: <%= @user.inventory_count %></p>
+			<p>Inventory Value: <%= @user.actual_inventory_value.price %> original | <%= @user.projected_inventory_value.price %> projected</p>
+			<p>Projected Profit: <%= @user.projected_profit %></p>
 		</div>
 	</div>
 </div>

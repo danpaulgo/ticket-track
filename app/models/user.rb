@@ -77,6 +77,18 @@ class User < ApplicationRecord
 		name.split(" ").first
 	end
 
+	def tickets_purchased
+		count = 0
+		events.uniq.each{|e| count += e.tickets_purchased(self)}
+		count
+	end
+
+	def tickets_sold
+		count = 0
+		events.uniq.each{|e| count += e.tickets_sold(self)}
+		count
+	end
+
 	def total_purchase
 		sum = 0
 		events.uniq.each{|e| sum += e.total_purchase(self)}
@@ -93,21 +105,31 @@ class User < ApplicationRecord
 		(total_sale - total_purchase).round(2)
 	end
 
-	def inventory_value
+	def actual_inventory_value
 		sum = 0
 		events.uniq.each{|e| sum += e.actual_inventory_value(self)}
 		sum
 	end
 
-	def total_profit
-		(liquid_profit + inventory_value).round(2)
+	def projected_inventory_value
+		sum = 0
+		events.uniq.each{|e| sum += e.projected_inventory_value(self)}
+		sum
+	end
+
+	def projected_profit
+		liquid_profit + projected_inventory_value
 	end
 
 	def number_of_transactions
 		transactions.count
 	end
 
-
+	def inventory_count
+		count = 0
+		events.uniq.each{|e| count += e.tickets_remaining(self)}
+		count
+	end
 
 	def facebook_user?
 		!self.facebook_id.nil?
