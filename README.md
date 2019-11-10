@@ -23,9 +23,13 @@ Run `rails s` and access application through the provided localhost url
 Explore the application as either a user or an admin using using accounts created with seed data:
 
 User 
-email: user@example.com 
+
+email: user@example.com
+
 password: password
 
 Admin 
-email: admin@example.com 
+
+email: admin@example.com
+ 
 password: password
