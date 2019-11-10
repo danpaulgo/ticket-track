@@ -15,8 +15,21 @@ To run this application locally:
 
 3. Install dependencies:
 
-bundle install
+`bundle install`
 
-4. Run `rails s` and access application on through the provided localhost url
+4. Reset database
+
+`rake db:reset`
+
+5. Run `rails s` and access application on through the provided localhost url
 
 
+Explore the application as either a user or an admin using using accounts created with seed data:
+
+User
+email: user@example.com
+password: password
+
+Admin
+email: admin@example.com
+password: password
