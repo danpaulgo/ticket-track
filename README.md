@@ -12,6 +12,7 @@ Clone application:
 
 git clone https://github.com/danpaulgo/ticket-track.git
 
+<<<<<<< HEAD
 Install dependencies:
 bundle install
 
@@ -28,4 +29,19 @@ password: password
 Admin 
 email: admin@example.com 
 password: password
+=======
 
+>>>>>>> 0244cd9036921d22136936e3e4c3d7018c173046
+
+5. Run `rails s` and access application on through the provided localhost url
+
+
+Explore the application as either a user or an admin using using accounts created with seed data:
+
+User
+email: user@example.com
+password: password
+
+Admin
+email: admin@example.com
+password: password
