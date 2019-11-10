@@ -10,15 +10,16 @@ Make sure both Ruby (>2.5.0), Rails (>5.2.2) and Github are installed on your sy
 
 Clone application:
 
-git clone https://github.com/danpaulgo/ticket-track.git
+`git clone https://github.com/danpaulgo/ticket-track.git`
 
 Install dependencies:
-bundle install
+`bundle install`
 
 Reset database
-rake db:reset
+`rake db:reset`
 
-Run rails s and access application on through the provided localhost url
+Run `rails s` and access application through the provided localhost url
+
 Explore the application as either a user or an admin using using accounts created with seed data:
 
 User 
