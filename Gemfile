@@ -22,6 +22,11 @@ gem 'dotenv-rails'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'faker'
+
+#Security Alerts
+gem "rubyzip", ">= 1.3.0"
+gem "loofah", ">= 2.3.1"
+gem "nokogiri", ">= 1.10.4"
  
  
 
