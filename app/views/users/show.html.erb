@@ -12,7 +12,7 @@
 			<p><%= @user.tickets_purchased %> tickets purchased for a total of <%= @user.total_purchase.price %></p>
 			<p>Inventory Count: <%= @user.inventory_count %></p>
 			<p>Inventory Value: <%= @user.actual_inventory_value.price %> original | <%= @user.projected_inventory_value.price %> projected</p>
-			<p>Projected Profit: <%= @user.projected_profit.price %></p>
+			<p><%= @user.inventory_count == 0 ? "Total" : "Pojected" %> Profit: <%= @user.projected_profit.price %></p>
 		</div>
 	</div>
 </div>
